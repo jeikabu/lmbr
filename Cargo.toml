@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "lmbr_sys",
+    "lmbr",
+]
+default-members = [
+    "lmbr_sys",
+    "lmbr",
+]
