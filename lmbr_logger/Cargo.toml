@@ -1,5 +1,5 @@
 [package]
-name = "lmbr_sys"
+name = "lmbr_logger"
 version = "0.1.0"
 authors = ["jeikabu <jeikabu@users.noreply.github.com>"]
 edition = "2018"
@@ -7,6 +7,5 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-
-[build-dependencies]
-bindgen = "0.51"
+lmbr_sys = { path = "../lmbr_sys" }
+log = "0.4"
