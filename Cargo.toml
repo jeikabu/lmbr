@@ -3,11 +3,9 @@ members = [
     "lmbr",
     "lmbr_logger",
     "lmbr_sys",
-    "example_static_lib",
 ]
 default-members = [
     "lmbr",
     "lmbr_logger",
     "lmbr_sys",
-    "example_static_lib",
 ]

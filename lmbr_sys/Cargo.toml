@@ -4,7 +4,11 @@ version = "0.1.0"
 authors = ["jeikabu <jeikabu@users.noreply.github.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "FFI bindings to Amazon Lumberyard (unofficial)"
+repository = "https://github.com/jeikabu/lmbr"
+keywords = ["lmbr", "lumberyard"]
+categories = ["game-engines", "external-ffi-bindings"]
+license = "MIT"
 
 [dependencies]
 
