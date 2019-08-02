@@ -1,11 +1,13 @@
 [workspace]
 members = [
     "lmbr",
+    "lmbr_editor",
     "lmbr_logger",
     "lmbr_sys",
 ]
 default-members = [
     "lmbr",
+    "lmbr_editor",
     "lmbr_logger",
     "lmbr_sys",
 ]
