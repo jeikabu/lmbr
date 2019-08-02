@@ -14,3 +14,8 @@ license = "MIT"
 
 [build-dependencies]
 bindgen = "0.51"
+
+[features]
+default = ["lmbr_fw_azcore"]
+lmbr_fw_azcore = []
+lmbr_editor = []
