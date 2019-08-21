@@ -14,8 +14,9 @@ license = "MIT"
 
 [build-dependencies]
 bindgen = "0.51"
+lmbr_build = {version = "0.1", path = "../lmbr_build"}
 
 [features]
-default = ["lmbr_fw_azcore"]
+default = [ "lmbr_editor", "lmbr_fw_azcore"]
 lmbr_fw_azcore = []
 lmbr_editor = []
