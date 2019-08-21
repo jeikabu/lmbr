@@ -3,3 +3,10 @@
 #![allow(non_snake_case)]
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+extern "C" {
+    pub fn ModuleInitISystem(
+        pSystem: *mut std::ffi::c_void,
+        moduleName: *const ::std::os::raw::c_char,
+    );
+}

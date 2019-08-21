@@ -1,0 +1,26 @@
+[package]
+name = "editor_plugin"
+version = "0.1.0"
+authors = ["jeikabu <jeikabu@users.noreply.github.com>"]
+edition = "2018"
+
+description = "Amazon Lumberyard (unofficial)"
+repository = "https://github.com/jeikabu/lmbr"
+keywords = ["lmbr", "lumberyard"]
+categories = ["game-engines"]
+license = "MIT"
+
+[features]
+default = ["lmbr_sys"]
+
+[build-dependencies]
+lmbr_build = {version = "0.1", path = "../lmbr_build"}
+
+[dependencies]
+lmbr_editor = { version = "0.1", path = "../lmbr_editor" }
+lmbr_logger = { version = "0.1", path = "../lmbr_logger" }
+lmbr_sys = { version = "0.1", optional = true, path = "../lmbr_sys" }
+log = "0.4"
+
+[lib]
+crate-type = ["cdylib"]
