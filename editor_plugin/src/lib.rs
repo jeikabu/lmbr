@@ -18,8 +18,3 @@ pub extern fn func(p_isystem: *mut c_void) {
     }
     error!("RUST PLUGIN END");
 }
-
-#[no_mangle]
-pub extern fn CreateRustPluginInstance() {
-
-}
