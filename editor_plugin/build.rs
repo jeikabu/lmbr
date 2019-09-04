@@ -27,11 +27,14 @@ fn main() {
     println!("cargo:rustc-link-search=native={}",
         bintemp.join("Code/CryEngine/CryCommon").display()
     );
+    println!("cargo:rustc-link-search=native={}",
+        bintemp.join("Code/Sandbox/Editor").display()
+    );
     
     println!("cargo:rustc-link-lib=static=AzCore");
     println!("cargo:rustc-link-lib=static=AzFramework");
     println!("cargo:rustc-link-lib=static=lua");
     println!("cargo:rustc-link-lib=static=zlib");
-    println!("cargo:rustc-link-lib=static=CryCommonLib");
+    println!("cargo:rustc-link-lib=static=EditorRustPlugin");
     println!("cargo:rustc-link-lib=static=user32");
 }
