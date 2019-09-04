@@ -1,20 +1,44 @@
 
-use log::{error};
-use std::{ffi::{c_void, CString}, os::raw::c_char};
+use log::info;
+use std::os::raw::{c_char, c_void};
+
+const MODULE_NAME: &[u8] = b"Rust Editor Plugin Example\0";
+const GUID: &[u8] = b"{98C1DC36-5D1E-4CF6-91CE-AFA1117CE81F}\0";
 
 #[no_mangle]
-pub extern fn func(p_isystem: *mut c_void) {
-    let window = CString::new("RUST").unwrap();
-    let window = window.as_bytes_with_nul().as_ptr() as *const c_char;
-    let message = CString::new("RUST PLUGIN!!!!").unwrap();
-    let message = message.as_bytes_with_nul().as_ptr() as *const c_char;
-    
+pub extern fn rust_editor_plugin_init(p_isystem: *mut c_void) {
     lmbr_logger::init().unwrap();
-    error!("RUST PLUGIN BEGIN");
-    
     unsafe {
-        lmbr_sys::ModuleInitISystem(p_isystem, message);
-        lmbr_sys::root::AZ::Debug::Trace::Output(window, message);
+        lmbr_sys::ModuleInitISystem(p_isystem, rust_editor_plugin_module_name());
     }
-    error!("RUST PLUGIN END");
+    info!("Initialized");
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_module_name() -> *const c_char {
+    MODULE_NAME.as_ptr() as *const _
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_guid() -> *const c_char {
+    GUID.as_ptr() as *const _
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_version() -> u32 {
+    1
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_name() -> *const c_char {
+    rust_editor_plugin_module_name() as *const _
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_can_exit_now() -> bool {
+    true
+}
+
+#[no_mangle]
+pub extern fn rust_editor_plugin_release() {
 }
