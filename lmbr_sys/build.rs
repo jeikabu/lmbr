@@ -21,6 +21,7 @@ fn main() {
     let ly_root = lmbr_build::lmbr_root();
     let ly_root = PathBuf::from(ly_root.expect("Set LMBR_ROOT environment variable to Lumberyard Code/ path"));
     let ly_code = ly_root.join("dev/Code/");
+    let az_core = ly_code.join("Framework/AzCore");
     let types = ["pub type f32 = crate::F32;", "pub type f64 = crate::F64;", "pub type u16 = crate::U16;", "pub type u32 = crate::U32;", "pub type u64 = crate::U64;"];
     let mut builder = bindgen::Builder::default()
         //.with_codegen_config(bindgen::CodegenConfig::empty())
@@ -36,7 +37,9 @@ fn main() {
         // .ignore_methods()
         // Generate `pub const NNG_UNIT_EVENTS` instead of `nng_unit_enum_NNG_UNIT_EVENTS`
         //.prepend_enum_name(false)
-        .clang_arg(String::from("-I") + ly_code.join("Framework/AzCore").to_str().unwrap())
+        //.clang_arg(String::from("-I") + ly_code.join("Framework/AzCore").to_str().unwrap())
+        .clang_arg(String::from("-I") + az_core.to_str().unwrap())
+        .clang_arg(String::from("-I") + az_core.join("Platform/Windows").to_str().unwrap())
         .clang_arg(String::from("-I") + ly_root.join("3rdParty/boost/1.61.0-az.2/").to_str().unwrap())
         .clang_arg(String::from("-I") + ly_code.join("CryEngine/CryCommon/").to_str().unwrap())
         .raw_line("type F32 = f32;")

@@ -2,14 +2,12 @@
 members = [
     "lmbr",
     "lmbr_build",
-    "lmbr_editor",
     "lmbr_logger",
     "lmbr_sys",
-    "editor_plugin",
+    "editor_plugin"
 ]
 default-members = [
     "lmbr",
-    "lmbr_editor",
     "lmbr_logger",
     "lmbr_sys",
 ]
