@@ -17,7 +17,6 @@ default = ["lmbr_sys"]
 lmbr_build = {version = "0.1", path = "../lmbr_build"}
 
 [dependencies]
-lmbr_editor = { version = "0.1", path = "../lmbr_editor" }
 lmbr_logger = { version = "0.1", path = "../lmbr_logger" }
 lmbr_sys = { version = "0.1", optional = true, path = "../lmbr_sys" }
 log = "0.4"
