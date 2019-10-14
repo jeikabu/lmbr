@@ -38,7 +38,7 @@ pub fn bin_dir() -> &'static str {
 pub fn lmbr_root() -> Result<String, std::env::VarError> {
     std::env::var("LMBR_ROOT").or_else(|_| {
             if cfg!(target_os = "windows") {
-                Ok(String::from(r"D:\projects\lumberyard"))
+                Ok(String::from(r"C:\Amazon\Lumberyard\1.21.0.0"))
             } else {
                 Err(std::env::VarError::NotPresent)
             }

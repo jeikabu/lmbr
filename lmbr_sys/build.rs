@@ -16,13 +16,18 @@ fn main() {
     // Tell rustc to use nng static library
     //println!("cargo:rustc-link-lib=static=nng");
 
-    // https://rust-lang-nursery.github.io/rust-bindgen
-    // https://docs.rs/bindgen
+    bindgen_generate();
+    
+}
+
+#[cfg(feature = "bindgen_generate")]
+fn bindgen_generate() {
     let ly_root = lmbr_build::lmbr_root();
     let ly_root = PathBuf::from(ly_root.expect("Set LMBR_ROOT environment variable to Lumberyard Code/ path"));
     let ly_code = ly_root.join("dev/Code/");
     let az_core = ly_code.join("Framework/AzCore");
-    let types = ["pub type f32 = crate::F32;", "pub type f64 = crate::F64;", "pub type u16 = crate::U16;", "pub type u32 = crate::U32;", "pub type u64 = crate::U64;"];
+    let az_framework = ly_code.join("FrameWork/AzFramework");
+    let types = ["pub type f32 = crate::F32;", "pub type f64 = crate::F64;", "pub type u8 = crate::U8;", "pub type u16 = crate::U16;", "pub type u32 = crate::U32;", "pub type u64 = crate::U64;"];
     let mut builder = bindgen::Builder::default()
         //.with_codegen_config(bindgen::CodegenConfig::empty())
         .clang_arg("-std=c++14")
@@ -37,17 +42,18 @@ fn main() {
         // .ignore_methods()
         // Generate `pub const NNG_UNIT_EVENTS` instead of `nng_unit_enum_NNG_UNIT_EVENTS`
         //.prepend_enum_name(false)
-        //.clang_arg(String::from("-I") + ly_code.join("Framework/AzCore").to_str().unwrap())
-        .clang_arg(String::from("-I") + az_core.to_str().unwrap())
-        .clang_arg(String::from("-I") + az_core.join("Platform/Windows").to_str().unwrap())
-        .clang_arg(String::from("-I") + ly_root.join("3rdParty/boost/1.61.0-az.2/").to_str().unwrap())
-        .clang_arg(String::from("-I") + ly_code.join("CryEngine/CryCommon/").to_str().unwrap())
+        .clang_arg(String::from("-I") + &az_core.to_string_lossy())
+        .clang_arg(String::from("-I") + &az_core.join("Platform/Windows").to_string_lossy())
+        .clang_arg(String::from("-I") + &az_framework.to_string_lossy())
+        .clang_arg(String::from("-I") + &ly_root.join("3rdParty/boost/1.61.0-az.2/").to_string_lossy())
+        .clang_arg(String::from("-I") + &ly_code.join("CryEngine/CryCommon/").to_string_lossy())
         .raw_line("type F32 = f32;")
         .raw_line("type F64 = f64;")
+        .raw_line("type U8 = u8;")
         .raw_line("type U16 = u16;")
         .raw_line("type U32 = u32;")
         .raw_line("type U64 = u64;")
-        .blacklist_type(r"AZ::u\d{2,3}") // e.g. u32 u128
+        .blacklist_type(r"AZ::u(8|16|32|64|128)") // e.g. u32 u128
         .blacklist_type(r"(f32|f64)")
         .module_raw_lines("root::AZ", types.iter().map(|s| *s))
         .module_raw_lines("root", types.iter().map(|s| *s))
@@ -69,20 +75,21 @@ fn main() {
         let winkit_includes = PathBuf::from(r"C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\");
         builder = builder
             .clang_arg(String::from("-I") + &visual_studio)
-            .clang_arg(String::from("-I") + winkit_includes.join(r"shared").to_str().unwrap())
-            .clang_arg(String::from("-I") + winkit_includes.join(r"ucrt").to_str().unwrap())
-            .clang_arg(String::from("-I") + winkit_includes.join(r"um").to_str().unwrap())
+            .clang_arg(String::from("-I") + &winkit_includes.join(r"shared").to_string_lossy())
+            .clang_arg(String::from("-I") + &winkit_includes.join(r"ucrt").to_string_lossy())
+            .clang_arg(String::from("-I") + &winkit_includes.join(r"um").to_string_lossy())
             ;
     }
     if cfg!(feature = "lmbr_fw_azcore") {
         builder = builder.header("wrapper_fw_azcore.hpp")
-            .whitelist_type("AZ::Debug::Trace")
-            //.whitelist_type("AZ::EBusRouterPolicy_Container")
-            // .blacklist_item("AZStd::.*")
-            // .blacklist_item("AZStd::list_(const_)?iterator.*")
-            // .blacklist_item("AZStd::list_(base_)?node(_ptr)?_type")
-            // .blacklist_item("AZStd::hash_table_.*_type")
-            // .blacklist_item("AZStd::unordered_map_.*_type")
+            //.whitelist_type("AZ::Debug::Trace")
+            .whitelist_type("AZ::.*")
+            .whitelist_type("AzFramework::.*")
+            // Avoid types bindgen can't handle
+            .opaque_type("AZ::EBusAggregateResults.*")
+            .opaque_type("AZ::EBusRouterPolicy.*") //https://github.com/rust-lang/rust-bindgen/issues/1609
+            .opaque_type("AZStd::Internal::.*")
+            .opaque_type("AZStd::hash_table.*")
             ;
     }
     // if cfg!(feature = "lmbr_editor") {
@@ -107,8 +114,13 @@ fn main() {
     // }
     //builder.dump_preprocessed_input().unwrap();
     let bindings = builder.generate().expect("Unable to generate bindings");
-    let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+    let out_path = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
     bindings
-        .write_to_file(out_path.join("bindings.rs"))
+        .write_to_file(out_path.join("src").join("bindings.rs"))
         .expect("Couldn't write bindings");
+}
+
+#[cfg(not(feature = "bindgen_generate"))]
+fn bindgen_generate() {
+
 }
