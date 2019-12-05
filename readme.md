@@ -1,5 +1,7 @@
 __Experimental__ Rust FFI bindings for [Amazon Lumberyard](https://aws.amazon.com/lumberyard/).
 
+Also requires [modified Lumberyard source](https://github.com/jeikabu/lumberyard/tree/lmbr).
+
 ## "Tutorials"
 
 - [Static libraries](https://rendered-obsolete.github.io/2019/09/30/lmbr_rust.html)

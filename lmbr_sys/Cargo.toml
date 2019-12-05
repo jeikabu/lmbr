@@ -13,11 +13,11 @@ license = "MIT"
 [dependencies]
 
 [build-dependencies]
-bindgen = {version = "0.51", optional = true}
+bindgen = {version = "0.52", optional = true}
 lmbr_build = {version = "0.1", path = "../lmbr_build"}
 
 [features]
-default = [ "lmbr_editor", "lmbr_fw_azcore"]
-lmbr_fw_azcore = []
-lmbr_editor = []
+default = [ "lmbr_editor", "lmbr_fw_azcore" ]
 bindgen_generate = ["bindgen"]
+lmbr_editor = []
+lmbr_fw_azcore = []

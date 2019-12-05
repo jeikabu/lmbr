@@ -32,7 +32,7 @@ fn bindgen_generate() {
         //.with_codegen_config(bindgen::CodegenConfig::empty())
         .clang_arg("-std=c++14")
         .enable_cxx_namespaces()
-        .generate_inline_functions(true)
+        .generate_inline_functions(false)
         .generate_comments(false)
         .layout_tests(false)
         //.blacklist_type(".*")
@@ -85,11 +85,16 @@ fn bindgen_generate() {
             //.whitelist_type("AZ::Debug::Trace")
             .whitelist_type("AZ::.*")
             .whitelist_type("AzFramework::.*")
+            .whitelist_type("AZStd::.*")
+            .whitelist_function("AZStd::.*")
+            .whitelist_function("AZ::.*")
             // Avoid types bindgen can't handle
             .opaque_type("AZ::EBusAggregateResults.*")
             .opaque_type("AZ::EBusRouterPolicy.*") //https://github.com/rust-lang/rust-bindgen/issues/1609
             .opaque_type("AZStd::Internal::.*")
             .opaque_type("AZStd::hash_table.*")
+            .opaque_type("AZStd::fixed_list.*")
+            .opaque_type("AZStd::intrusive_list.*")
             ;
     }
     // if cfg!(feature = "lmbr_editor") {

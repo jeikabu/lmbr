@@ -10,6 +10,12 @@ pub extern fn rust_editor_plugin_init(p_isystem: *mut c_void) {
     lmbr_logger::init().unwrap();
     unsafe {
         lmbr_sys::ModuleInitISystem(p_isystem, rust_editor_plugin_module_name());
+        let mut tick_delta_time = 0f32;
+        lmbr_sys::TickRequestBus_BroadcastResult_GetTickDeltaTime(&mut tick_delta_time);
+        info!("GetTickDeltaTime {}", tick_delta_time);
+        let mut current_time = lmbr_sys::root::AZ::ScriptTimePoint { m_timePoint: lmbr_sys::root::AZStd::chrono::system_clock::now() } ;
+        lmbr_sys::TickRequestBus_BroadcastResult_GetTimeAtCurrentTick(&mut current_time);
+        info!("GetTimeAtCurrentTick {:?}", current_time);
     }
     info!("Initialized");
 }

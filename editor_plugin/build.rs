@@ -30,6 +30,10 @@ fn main() {
     println!("cargo:rustc-link-search=native={}",
         ly_root.join("dev").join(bin_dir()).display()
     );
+    println!("cargo:rustc-link-search=native={}",
+        bintemp.join("Code/Framework/RustAz/RustAz").display()
+    );
+    println!("cargo:rustc-link-lib=static=RustAz");
     
     println!("cargo:rustc-link-lib=static=AzCore");
     println!("cargo:rustc-link-lib=static=AzFramework");

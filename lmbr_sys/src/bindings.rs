@@ -159,10 +159,6 @@ pub mod root {
                 pub _address: u8,
             }
             extern "C" {
-                #[link_name = "\u{1}?Instance@Trace@Debug@AZ@@SAAEAV123@XZ"]
-                pub fn Trace_Instance() -> *mut root::AZ::Debug::Trace;
-            }
-            extern "C" {
                 #[link_name = "\u{1}?GetDefaultSystemWindow@Trace@Debug@AZ@@SAPEBDXZ"]
                 pub fn Trace_GetDefaultSystemWindow() -> *const ::std::os::raw::c_char;
             }
@@ -242,10 +238,6 @@ pub mod root {
                 pub fn Trace_GetNativeExceptionInfo() -> *mut ::std::os::raw::c_void;
             }
             impl Trace {
-                #[inline]
-                pub unsafe fn Instance() -> *mut root::AZ::Debug::Trace {
-                    Trace_Instance()
-                }
                 #[inline]
                 pub unsafe fn GetDefaultSystemWindow() -> *const ::std::os::raw::c_char {
                     Trace_GetDefaultSystemWindow()
@@ -369,18 +361,6 @@ pub mod root {
                 pub fn Profiler_Destroy();
             }
             extern "C" {
-                #[link_name = "\u{1}?IsReady@Profiler@Debug@AZ@@SA_NXZ"]
-                pub fn Profiler_IsReady() -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?Instance@Profiler@Debug@AZ@@SAAEAV123@XZ"]
-                pub fn Profiler_Instance() -> *mut root::AZ::Debug::Profiler;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetId@Profiler@Debug@AZ@@SA_KXZ"]
-                pub fn Profiler_GetId() -> root::AZ::u64;
-            }
-            extern "C" {
                 #[link_name = "\u{1}?AddReference@Profiler@Debug@AZ@@SAXXZ"]
                 pub fn Profiler_AddReference();
             }
@@ -468,18 +448,6 @@ pub mod root {
                 #[inline]
                 pub unsafe fn Destroy() {
                     Profiler_Destroy()
-                }
-                #[inline]
-                pub unsafe fn IsReady() -> bool {
-                    Profiler_IsReady()
-                }
-                #[inline]
-                pub unsafe fn Instance() -> *mut root::AZ::Debug::Profiler {
-                    Profiler_Instance()
-                }
-                #[inline]
-                pub unsafe fn GetId() -> root::AZ::u64 {
-                    Profiler_GetId()
                 }
                 #[inline]
                 pub unsafe fn AddReference() {
@@ -710,12 +678,6 @@ pub mod root {
                     v5: *const root::AZ::s64,
                 );
             }
-            extern "C" {
-                #[link_name = "\u{1}??0ProfilerRegister@Debug@AZ@@QEAA@XZ"]
-                pub fn ProfilerRegister_ProfilerRegister(
-                    this: *mut root::AZ::Debug::ProfilerRegister,
-                );
-            }
             impl ProfilerRegister {
                 #[inline]
                 pub fn m_type(&self) -> ::std::os::raw::c_uchar {
@@ -866,12 +828,6 @@ pub mod root {
                 ) {
                     ProfilerRegister_ValueAdd4(self, v1, v2, v3, v4, v5)
                 }
-                #[inline]
-                pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    ProfilerRegister_ProfilerRegister(&mut __bindgen_tmp);
-                    __bindgen_tmp
-                }
             }
             #[repr(C)]
             pub struct ProfilerSection {
@@ -880,36 +836,6 @@ pub mod root {
                 pub m_start: root::AZStd::chrono::system_clock_time_point,
                 pub m_childTime: root::AZStd::chrono::microseconds,
                 pub m_childCalls: ::std::os::raw::c_int,
-            }
-            extern "C" {
-                #[link_name = "\u{1}?Stop@ProfilerSection@Debug@AZ@@QEAAXXZ"]
-                pub fn ProfilerSection_Stop(this: *mut root::AZ::Debug::ProfilerSection);
-            }
-            extern "C" {
-                #[link_name = "\u{1}??0ProfilerSection@Debug@AZ@@QEAA@XZ"]
-                pub fn ProfilerSection_ProfilerSection(this: *mut root::AZ::Debug::ProfilerSection);
-            }
-            extern "C" {
-                #[link_name = "\u{1}??_DProfilerSection@Debug@AZ@@QEAAXXZ"]
-                pub fn ProfilerSection_ProfilerSection_destructor(
-                    this: *mut root::AZ::Debug::ProfilerSection,
-                );
-            }
-            impl ProfilerSection {
-                #[inline]
-                pub unsafe fn Stop(&mut self) {
-                    ProfilerSection_Stop(self)
-                }
-                #[inline]
-                pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    ProfilerSection_ProfilerSection(&mut __bindgen_tmp);
-                    __bindgen_tmp
-                }
-                #[inline]
-                pub unsafe fn destruct(&mut self) {
-                    ProfilerSection_ProfilerSection_destructor(self)
-                }
             }
             #[repr(C)]
             #[derive(Debug, Copy, Clone)]
@@ -932,6 +858,11 @@ pub mod root {
         pub const PlatformID_PLATFORM_ANDROID_64: root::AZ::PlatformID = 7;
         pub const PlatformID_PLATFORM_MAX: root::AZ::PlatformID = 8;
         pub type PlatformID = i32;
+        extern "C" {
+            #[link_name = "\u{1}?GetPlatformName@AZ@@YAPEBDW4PlatformID@1@@Z"]
+            pub fn GetPlatformName(platform: root::AZ::PlatformID)
+                -> *const ::std::os::raw::c_char;
+        }
         pub type s8 = i8;
         pub type s16 = i16;
         pub type s32 = i32;
@@ -967,10 +898,6 @@ pub mod root {
         extern "C" {
             #[link_name = "\u{1}?CreateNull@Uuid@AZ@@SA?AU12@XZ"]
             pub fn Uuid_CreateNull() -> root::AZ::Uuid;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?Create@Uuid@AZ@@SA?AU12@XZ"]
-            pub fn Uuid_Create() -> root::AZ::Uuid;
         }
         extern "C" {
             #[link_name = "\u{1}?CreateString@Uuid@AZ@@SA?AU12@PEBD_K@Z"]
@@ -1017,49 +944,13 @@ pub mod root {
             ) -> ::std::os::raw::c_int;
         }
         extern "C" {
-            #[link_name = "\u{1}?begin@Uuid@AZ@@QEAAPEAEXZ"]
-            pub fn Uuid_begin(this: *mut root::AZ::Uuid) -> root::AZ::Uuid_iterator;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?end@Uuid@AZ@@QEAAPEAEXZ"]
-            pub fn Uuid_end(this: *mut root::AZ::Uuid) -> root::AZ::Uuid_iterator;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?begin@Uuid@AZ@@QEBAPEBEXZ"]
-            pub fn Uuid_begin1(this: *const root::AZ::Uuid) -> root::AZ::Uuid_const_iterator;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?end@Uuid@AZ@@QEBAPEBEXZ"]
-            pub fn Uuid_end1(this: *const root::AZ::Uuid) -> root::AZ::Uuid_const_iterator;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetHash@Uuid@AZ@@QEBA_KXZ"]
-            pub fn Uuid_GetHash(this: *const root::AZ::Uuid) -> usize;
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0Uuid@AZ@@QEAA@XZ"]
-            pub fn Uuid_Uuid(this: *mut root::AZ::Uuid);
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0Uuid@AZ@@QEAA@PEBD_K@Z"]
-            pub fn Uuid_Uuid1(
-                this: *mut root::AZ::Uuid,
-                string: *const ::std::os::raw::c_char,
-                stringLength: usize,
-            );
-        }
-        extern "C" {
             #[link_name = "\u{1}??0Uuid@AZ@@QEAA@AEBU_GUID@@@Z"]
-            pub fn Uuid_Uuid2(this: *mut root::AZ::Uuid, guid: *const root::GUID);
+            pub fn Uuid_Uuid(this: *mut root::AZ::Uuid, guid: *const root::GUID);
         }
         impl Uuid {
             #[inline]
             pub unsafe fn CreateNull() -> root::AZ::Uuid {
                 Uuid_CreateNull()
-            }
-            #[inline]
-            pub unsafe fn Create() -> root::AZ::Uuid {
-                Uuid_Create()
             }
             #[inline]
             pub unsafe fn CreateString(
@@ -1106,42 +997,10 @@ pub mod root {
                 Uuid_ToString(self, output, outputSize, isBrackets, isDashes)
             }
             #[inline]
-            pub unsafe fn begin(&mut self) -> root::AZ::Uuid_iterator {
-                Uuid_begin(self)
-            }
-            #[inline]
-            pub unsafe fn end(&mut self) -> root::AZ::Uuid_iterator {
-                Uuid_end(self)
-            }
-            #[inline]
-            pub unsafe fn begin1(&self) -> root::AZ::Uuid_const_iterator {
-                Uuid_begin1(self)
-            }
-            #[inline]
-            pub unsafe fn end1(&self) -> root::AZ::Uuid_const_iterator {
-                Uuid_end1(self)
-            }
-            #[inline]
-            pub unsafe fn GetHash(&self) -> usize {
-                Uuid_GetHash(self)
-            }
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Uuid_Uuid(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(string: *const ::std::os::raw::c_char, stringLength: usize) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Uuid_Uuid1(&mut __bindgen_tmp, string, stringLength);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new2(guid: *const root::GUID) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Uuid_Uuid2(&mut __bindgen_tmp, guid);
-                __bindgen_tmp
+            pub unsafe fn new(guid: *const root::GUID) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                Uuid_Uuid(__bindgen_tmp.as_mut_ptr(), guid);
+                __bindgen_tmp.assume_init()
             }
         }
         #[repr(C)]
@@ -1184,24 +1043,16 @@ pub mod root {
             pub fn Crc32_Combine(this: *mut root::AZ::Crc32, crc: root::AZ::u32, len: usize);
         }
         extern "C" {
-            #[link_name = "\u{1}??0Crc32@AZ@@QEAA@XZ"]
-            pub fn Crc32_Crc32(this: *mut root::AZ::Crc32);
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0Crc32@AZ@@QEAA@I@Z"]
-            pub fn Crc32_Crc321(this: *mut root::AZ::Crc32, value: root::AZ::u32);
-        }
-        extern "C" {
             #[link_name = "\u{1}??0Crc32@AZ@@QEAA@PEBD@Z"]
-            pub fn Crc32_Crc322(this: *mut root::AZ::Crc32, str: *const ::std::os::raw::c_char);
+            pub fn Crc32_Crc32(this: *mut root::AZ::Crc32, str: *const ::std::os::raw::c_char);
         }
         extern "C" {
             #[link_name = "\u{1}??0Crc32@AZ@@QEAA@V?$basic_string_view@DU?$char_traits@D@AZStd@@@AZStd@@@Z"]
-            pub fn Crc32_Crc323(this: *mut root::AZ::Crc32, view: root::AZStd::string_view);
+            pub fn Crc32_Crc321(this: *mut root::AZ::Crc32, view: root::AZStd::string_view);
         }
         extern "C" {
             #[link_name = "\u{1}??0Crc32@AZ@@QEAA@PEBX_K_N@Z"]
-            pub fn Crc32_Crc324(
+            pub fn Crc32_Crc322(
                 this: *mut root::AZ::Crc32,
                 data: *const ::std::os::raw::c_void,
                 size: usize,
@@ -1240,38 +1091,26 @@ pub mod root {
                 Crc32_Combine(self, crc, len)
             }
             #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Crc32_Crc32(&mut __bindgen_tmp);
-                __bindgen_tmp
+            pub unsafe fn new(str: *const ::std::os::raw::c_char) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                Crc32_Crc32(__bindgen_tmp.as_mut_ptr(), str);
+                __bindgen_tmp.assume_init()
             }
             #[inline]
-            pub unsafe fn new1(value: root::AZ::u32) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Crc32_Crc321(&mut __bindgen_tmp, value);
-                __bindgen_tmp
+            pub unsafe fn new1(view: root::AZStd::string_view) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                Crc32_Crc321(__bindgen_tmp.as_mut_ptr(), view);
+                __bindgen_tmp.assume_init()
             }
             #[inline]
-            pub unsafe fn new2(str: *const ::std::os::raw::c_char) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Crc32_Crc322(&mut __bindgen_tmp, str);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new3(view: root::AZStd::string_view) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Crc32_Crc323(&mut __bindgen_tmp, view);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new4(
+            pub unsafe fn new2(
                 data: *const ::std::os::raw::c_void,
                 size: usize,
                 forceLowerCase: bool,
             ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                Crc32_Crc324(&mut __bindgen_tmp, data, size, forceLowerCase);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                Crc32_Crc322(__bindgen_tmp.as_mut_ptr(), data, size, forceLowerCase);
+                __bindgen_tmp.assume_init()
             }
         }
         pub type TypeId = root::AZ::Uuid;
@@ -1375,12 +1214,6 @@ pub mod root {
                 pub static mut EnvironmentInterface_s_environment:
                     *mut root::AZ::Internal::EnvironmentInterface;
             }
-            extern "C" {
-                #[link_name = "\u{1}??_DEnvironmentInterface@Internal@AZ@@QEAAXXZ"]
-                pub fn EnvironmentInterface_EnvironmentInterface_destructor(
-                    this: *mut root::AZ::Internal::EnvironmentInterface,
-                );
-            }
             #[repr(C)]
             pub struct EnvironmentVariableHolderBase {
                 pub m_environmentOwner: *mut root::AZ::Internal::EnvironmentInterface,
@@ -1392,59 +1225,35 @@ pub mod root {
                 pub m_useCount: ::std::os::raw::c_int,
                 pub m_mutex: root::AZStd::spin_mutex,
             }
-            extern "C" {
-                #[link_name = "\u{1}?IsConstructed@EnvironmentVariableHolderBase@Internal@AZ@@QEBA_NXZ"]
-                pub fn EnvironmentVariableHolderBase_IsConstructed(
-                    this: *const root::AZ::Internal::EnvironmentVariableHolderBase,
-                ) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetId@EnvironmentVariableHolderBase@Internal@AZ@@QEBAIXZ"]
-                pub fn EnvironmentVariableHolderBase_GetId(
-                    this: *const root::AZ::Internal::EnvironmentVariableHolderBase,
-                ) -> root::AZ::u32;
-            }
-            extern "C" {
-                #[link_name = "\u{1}??0EnvironmentVariableHolderBase@Internal@AZ@@QEAA@IPEAVEnvironmentInterface@12@_NPEAVAllocatorInterface@Environment@2@@Z"]
-                pub fn EnvironmentVariableHolderBase_EnvironmentVariableHolderBase(
-                    this: *mut root::AZ::Internal::EnvironmentVariableHolderBase,
-                    guid: root::AZ::u32,
-                    environmentOwner: *mut root::AZ::Internal::EnvironmentInterface,
-                    canOwnershipTransfer: bool,
-                    allocator: *mut root::AZ::Environment::AllocatorInterface,
-                );
-            }
-            impl EnvironmentVariableHolderBase {
-                #[inline]
-                pub unsafe fn IsConstructed(&self) -> bool {
-                    EnvironmentVariableHolderBase_IsConstructed(self)
-                }
-                #[inline]
-                pub unsafe fn GetId(&self) -> root::AZ::u32 {
-                    EnvironmentVariableHolderBase_GetId(self)
-                }
-                #[inline]
-                pub unsafe fn new(
-                    guid: root::AZ::u32,
-                    environmentOwner: *mut root::AZ::Internal::EnvironmentInterface,
-                    canOwnershipTransfer: bool,
-                    allocator: *mut root::AZ::Environment::AllocatorInterface,
-                ) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    EnvironmentVariableHolderBase_EnvironmentVariableHolderBase(
-                        &mut __bindgen_tmp,
-                        guid,
-                        environmentOwner,
-                        canOwnershipTransfer,
-                        allocator,
-                    );
-                    __bindgen_tmp
-                }
-            }
             #[repr(C)]
             pub struct EnvironmentVariableHolder {
                 pub _base: root::AZ::Internal::EnvironmentVariableHolderBase,
                 pub m_value: u8,
+            }
+            extern "C" {
+                #[link_name = "\u{1}?AddAndAllocateVariable@Internal@AZ@@YA?AUEnvironmentVariableResult@12@I_K0PEAPEAVrecursive_mutex@AZStd@@@Z"]
+                pub fn AddAndAllocateVariable(
+                    guid: root::AZ::u32,
+                    byteSize: usize,
+                    alignment: usize,
+                    addedVariableLock: *mut *mut root::AZStd::recursive_mutex,
+                ) -> root::AZ::Internal::EnvironmentVariableResult;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?GetVariable@Internal@AZ@@YA?AUEnvironmentVariableResult@12@I@Z"]
+                pub fn GetVariable(
+                    guid: root::AZ::u32,
+                ) -> root::AZ::Internal::EnvironmentVariableResult;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?GetAllocator@Internal@AZ@@YAPEAVAllocatorInterface@Environment@2@XZ"]
+                pub fn GetAllocator() -> *mut root::AZ::Environment::AllocatorInterface;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?EnvironmentVariableNameToId@Internal@AZ@@YAIPEBD@Z"]
+                pub fn EnvironmentVariableNameToId(
+                    uniqueName: *const ::std::os::raw::c_char,
+                ) -> root::AZ::u32;
             }
             #[repr(C)]
             #[derive(Debug, Copy, Clone)]
@@ -1511,22 +1320,16 @@ pub mod root {
             impl ContextBase {
                 #[inline]
                 pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    ContextBase_ContextBase(&mut __bindgen_tmp);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    ContextBase_ContextBase(__bindgen_tmp.as_mut_ptr());
+                    __bindgen_tmp.assume_init()
                 }
                 #[inline]
                 pub unsafe fn new1(arg1: *mut root::AZ::EBusEnvironment) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    ContextBase_ContextBase1(&mut __bindgen_tmp, arg1);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    ContextBase_ContextBase1(__bindgen_tmp.as_mut_ptr(), arg1);
+                    __bindgen_tmp.assume_init()
                 }
-            }
-            extern "C" {
-                #[link_name = "\u{1}??_DContextBase@Internal@AZ@@QEAAXXZ"]
-                pub fn ContextBase_ContextBase_destructor(
-                    this: *mut root::AZ::Internal::ContextBase,
-                );
             }
             #[repr(C)]
             #[derive(Debug, Copy, Clone)]
@@ -1576,9 +1379,11 @@ pub mod root {
                 }
                 #[inline]
                 pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    EBusEnvironmentTLSAccessors_EBusEnvironmentTLSAccessors(&mut __bindgen_tmp);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    EBusEnvironmentTLSAccessors_EBusEnvironmentTLSAccessors(
+                        __bindgen_tmp.as_mut_ptr(),
+                    );
+                    __bindgen_tmp.assume_init()
                 }
             }
             #[repr(C)]
@@ -1601,14 +1406,6 @@ pub mod root {
                 ) -> root::AZ::Internal::EBusEnvironmentAllocator_pointer_type;
             }
             extern "C" {
-                #[link_name = "\u{1}?resize@EBusEnvironmentAllocator@Internal@AZ@@QEAA_KPEAX_K@Z"]
-                pub fn EBusEnvironmentAllocator_resize(
-                    this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
-                    arg1: root::AZ::Internal::EBusEnvironmentAllocator_pointer_type,
-                    arg2: root::AZ::Internal::EBusEnvironmentAllocator_size_type,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type;
-            }
-            extern "C" {
                 #[link_name = "\u{1}?deallocate@EBusEnvironmentAllocator@Internal@AZ@@QEAAXPEAX_K1@Z"]
                 pub fn EBusEnvironmentAllocator_deallocate(
                     this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
@@ -1616,49 +1413,6 @@ pub mod root {
                     byteSize: root::AZ::Internal::EBusEnvironmentAllocator_size_type,
                     alignment: root::AZ::Internal::EBusEnvironmentAllocator_size_type,
                 );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?get_name@EBusEnvironmentAllocator@Internal@AZ@@QEBAPEBDXZ"]
-                pub fn EBusEnvironmentAllocator_get_name(
-                    this: *const root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?set_name@EBusEnvironmentAllocator@Internal@AZ@@QEAAXPEBD@Z"]
-                pub fn EBusEnvironmentAllocator_set_name(
-                    this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
-                    name: *const ::std::os::raw::c_char,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?get_max_size@EBusEnvironmentAllocator@Internal@AZ@@QEBA_KXZ"]
-                pub fn EBusEnvironmentAllocator_get_max_size(
-                    this: *const root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?get_allocated_size@EBusEnvironmentAllocator@Internal@AZ@@QEBA_KXZ"]
-                pub fn EBusEnvironmentAllocator_get_allocated_size(
-                    this: *const root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?is_lock_free@EBusEnvironmentAllocator@Internal@AZ@@QEAA_NXZ"]
-                pub fn EBusEnvironmentAllocator_is_lock_free(
-                    this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?is_stale_read_allowed@EBusEnvironmentAllocator@Internal@AZ@@QEAA_NXZ"]
-                pub fn EBusEnvironmentAllocator_is_stale_read_allowed(
-                    this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?is_delayed_recycling@EBusEnvironmentAllocator@Internal@AZ@@QEAA_NXZ"]
-                pub fn EBusEnvironmentAllocator_is_delayed_recycling(
-                    this: *mut root::AZ::Internal::EBusEnvironmentAllocator,
-                ) -> bool;
             }
             extern "C" {
                 #[link_name = "\u{1}??0EBusEnvironmentAllocator@Internal@AZ@@QEAA@XZ"]
@@ -1684,14 +1438,6 @@ pub mod root {
                     EBusEnvironmentAllocator_allocate(self, byteSize, alignment, flags)
                 }
                 #[inline]
-                pub unsafe fn resize(
-                    &mut self,
-                    arg1: root::AZ::Internal::EBusEnvironmentAllocator_pointer_type,
-                    arg2: root::AZ::Internal::EBusEnvironmentAllocator_size_type,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type {
-                    EBusEnvironmentAllocator_resize(self, arg1, arg2)
-                }
-                #[inline]
                 pub unsafe fn deallocate(
                     &mut self,
                     ptr: root::AZ::Internal::EBusEnvironmentAllocator_pointer_type,
@@ -1701,50 +1447,21 @@ pub mod root {
                     EBusEnvironmentAllocator_deallocate(self, ptr, byteSize, alignment)
                 }
                 #[inline]
-                pub unsafe fn get_name(&self) -> *const ::std::os::raw::c_char {
-                    EBusEnvironmentAllocator_get_name(self)
-                }
-                #[inline]
-                pub unsafe fn set_name(&mut self, name: *const ::std::os::raw::c_char) {
-                    EBusEnvironmentAllocator_set_name(self, name)
-                }
-                #[inline]
-                pub unsafe fn get_max_size(
-                    &self,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type {
-                    EBusEnvironmentAllocator_get_max_size(self)
-                }
-                #[inline]
-                pub unsafe fn get_allocated_size(
-                    &self,
-                ) -> root::AZ::Internal::EBusEnvironmentAllocator_size_type {
-                    EBusEnvironmentAllocator_get_allocated_size(self)
-                }
-                #[inline]
-                pub unsafe fn is_lock_free(&mut self) -> bool {
-                    EBusEnvironmentAllocator_is_lock_free(self)
-                }
-                #[inline]
-                pub unsafe fn is_stale_read_allowed(&mut self) -> bool {
-                    EBusEnvironmentAllocator_is_stale_read_allowed(self)
-                }
-                #[inline]
-                pub unsafe fn is_delayed_recycling(&mut self) -> bool {
-                    EBusEnvironmentAllocator_is_delayed_recycling(self)
-                }
-                #[inline]
                 pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    EBusEnvironmentAllocator_EBusEnvironmentAllocator(&mut __bindgen_tmp);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    EBusEnvironmentAllocator_EBusEnvironmentAllocator(__bindgen_tmp.as_mut_ptr());
+                    __bindgen_tmp.assume_init()
                 }
                 #[inline]
                 pub unsafe fn new1(
                     rhs: *const root::AZ::Internal::EBusEnvironmentAllocator,
                 ) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    EBusEnvironmentAllocator_EBusEnvironmentAllocator1(&mut __bindgen_tmp, rhs);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    EBusEnvironmentAllocator_EBusEnvironmentAllocator1(
+                        __bindgen_tmp.as_mut_ptr(),
+                        rhs,
+                    );
+                    __bindgen_tmp.assume_init()
                 }
             }
             #[repr(C)]
@@ -1792,7 +1509,7 @@ pub mod root {
             pub type MultiHandler_IdType = [u8; 0usize];
             pub type MultiHandler_HandlerNode = [u8; 0usize];
             pub type MultiHandler_BusType = root::AZ::EBus;
-            pub mod _bindgen_mod_id_100979 {
+            pub mod _bindgen_mod_id_96599 {
                 #[allow(unused_imports)]
                 use self::super::super::super::super::root;
                 #[repr(C)]
@@ -1873,6 +1590,37 @@ pub mod root {
             pub struct AllocatorInterface {
                 pub vtable_: *const AllocatorInterface__bindgen_vtable,
             }
+            extern "C" {
+                #[link_name = "\u{1}?GetInstance@Environment@AZ@@YAPEAVEnvironmentInterface@Internal@2@XZ"]
+                pub fn GetInstance() -> root::AZ::EnvironmentInstance;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?GetModuleId@Environment@AZ@@YAPEAXXZ"]
+                pub fn GetModuleId() -> *mut ::std::os::raw::c_void;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?Create@Environment@AZ@@YA_NPEAVAllocatorInterface@12@@Z"]
+                pub fn Create(allocator: *mut root::AZ::Environment::AllocatorInterface) -> bool;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?Destroy@Environment@AZ@@YAXXZ"]
+                pub fn Destroy();
+            }
+            extern "C" {
+                #[link_name = "\u{1}?Attach@Environment@AZ@@YAXPEAVEnvironmentInterface@Internal@2@_N@Z"]
+                pub fn Attach(
+                    sourceEnvironment: root::AZ::EnvironmentInstance,
+                    useAsGetFallback: bool,
+                );
+            }
+            extern "C" {
+                #[link_name = "\u{1}?Detach@Environment@AZ@@YAXXZ"]
+                pub fn Detach();
+            }
+            extern "C" {
+                #[link_name = "\u{1}?IsReady@Environment@AZ@@YA_NXZ"]
+                pub fn IsReady() -> bool;
+            }
         }
         #[repr(C)]
         #[derive(Debug)]
@@ -1892,45 +1640,12 @@ pub mod root {
         pub type IAllocatorAllocate_pointer_type = *mut ::std::os::raw::c_void;
         pub type IAllocatorAllocate_size_type = usize;
         pub type IAllocatorAllocate_difference_type = isize;
-        extern "C" {
-            #[link_name = "\u{1}??_DIAllocatorAllocate@AZ@@QEAAXXZ"]
-            pub fn IAllocatorAllocate_IAllocatorAllocate_destructor(
-                this: *mut root::AZ::IAllocatorAllocate,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GarbageCollect@IAllocatorAllocate@AZ@@UEAAXXZ"]
-            pub fn IAllocatorAllocate_GarbageCollect(this: *mut ::std::os::raw::c_void);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetMaxAllocationSize@IAllocatorAllocate@AZ@@UEBA_KXZ"]
-            pub fn IAllocatorAllocate_GetMaxAllocationSize(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetUnAllocatedMemory@IAllocatorAllocate@AZ@@UEBA_K_N@Z"]
-            pub fn IAllocatorAllocate_GetUnAllocatedMemory(
-                this: *mut ::std::os::raw::c_void,
-                isPrint: bool,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
         #[repr(C)]
         #[derive(Debug)]
         pub struct IAllocator {
             pub _base: root::AZ::IAllocatorAllocate,
             pub m_records: *mut root::AZ::Debug::AllocationRecords,
             pub m_isReady: bool,
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetRecords@IAllocator@AZ@@QEAAPEAVAllocationRecords@Debug@2@XZ"]
-            pub fn IAllocator_GetRecords(
-                this: *mut root::AZ::IAllocator,
-            ) -> *mut root::AZ::Debug::AllocationRecords;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?IsReady@IAllocator@AZ@@QEBA_NXZ"]
-            pub fn IAllocator_IsReady(this: *const root::AZ::IAllocator) -> bool;
         }
         extern "C" {
             #[link_name = "\u{1}?OnCreated@IAllocator@AZ@@IEAAXXZ"]
@@ -1958,14 +1673,6 @@ pub mod root {
         }
         impl IAllocator {
             #[inline]
-            pub unsafe fn GetRecords(&mut self) -> *mut root::AZ::Debug::AllocationRecords {
-                IAllocator_GetRecords(self)
-            }
-            #[inline]
-            pub unsafe fn IsReady(&self) -> bool {
-                IAllocator_IsReady(self)
-            }
-            #[inline]
             pub unsafe fn OnCreated(&mut self) {
                 IAllocator_OnCreated(self)
             }
@@ -1987,9 +1694,9 @@ pub mod root {
             }
             #[inline]
             pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                IAllocator_IAllocator(&mut __bindgen_tmp);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                IAllocator_IAllocator(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
             }
         }
         extern "C" {
@@ -2048,148 +1755,6 @@ pub mod root {
         pub type AZStdIAllocator_size_type = usize;
         pub type AZStdIAllocator_difference_type = isize;
         pub type AZStdIAllocator_allow_memory_leaks = root::std::false_type;
-        extern "C" {
-            #[link_name = "\u{1}?allocate@AZStdIAllocator@AZ@@QEAAPEAX_K0H@Z"]
-            pub fn AZStdIAllocator_allocate(
-                this: *mut root::AZ::AZStdIAllocator,
-                byteSize: usize,
-                alignment: usize,
-                flags: ::std::os::raw::c_int,
-            ) -> root::AZ::AZStdIAllocator_pointer_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?resize@AZStdIAllocator@AZ@@QEAA_KPEAX_K@Z"]
-            pub fn AZStdIAllocator_resize(
-                this: *mut root::AZ::AZStdIAllocator,
-                ptr: root::AZ::AZStdIAllocator_pointer_type,
-                newSize: usize,
-            ) -> root::AZ::AZStdIAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?deallocate@AZStdIAllocator@AZ@@QEAAXPEAX_K1@Z"]
-            pub fn AZStdIAllocator_deallocate(
-                this: *mut root::AZ::AZStdIAllocator,
-                ptr: root::AZ::AZStdIAllocator_pointer_type,
-                byteSize: usize,
-                alignment: usize,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_name@AZStdIAllocator@AZ@@QEBAPEBDXZ"]
-            pub fn AZStdIAllocator_get_name(
-                this: *const root::AZ::AZStdIAllocator,
-            ) -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?set_name@AZStdIAllocator@AZ@@QEAAXPEBD@Z"]
-            pub fn AZStdIAllocator_set_name(
-                this: *mut root::AZ::AZStdIAllocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_max_size@AZStdIAllocator@AZ@@QEBA_KXZ"]
-            pub fn AZStdIAllocator_get_max_size(
-                this: *const root::AZ::AZStdIAllocator,
-            ) -> root::AZ::AZStdIAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_allocated_size@AZStdIAllocator@AZ@@QEBA_KXZ"]
-            pub fn AZStdIAllocator_get_allocated_size(
-                this: *const root::AZ::AZStdIAllocator,
-            ) -> root::AZ::AZStdIAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdIAllocator@AZ@@QEAA@PEAVIAllocatorAllocate@1@PEBD@Z"]
-            pub fn AZStdIAllocator_AZStdIAllocator(
-                this: *mut root::AZ::AZStdIAllocator,
-                allocator: *mut root::AZ::IAllocatorAllocate,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdIAllocator@AZ@@QEAA@AEBV01@@Z"]
-            pub fn AZStdIAllocator_AZStdIAllocator1(
-                this: *mut root::AZ::AZStdIAllocator,
-                rhs: *const root::AZ::AZStdIAllocator,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdIAllocator@AZ@@QEAA@AEBV01@PEBD@Z"]
-            pub fn AZStdIAllocator_AZStdIAllocator2(
-                this: *mut root::AZ::AZStdIAllocator,
-                rhs: *const root::AZ::AZStdIAllocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        impl AZStdIAllocator {
-            #[inline]
-            pub unsafe fn allocate(
-                &mut self,
-                byteSize: usize,
-                alignment: usize,
-                flags: ::std::os::raw::c_int,
-            ) -> root::AZ::AZStdIAllocator_pointer_type {
-                AZStdIAllocator_allocate(self, byteSize, alignment, flags)
-            }
-            #[inline]
-            pub unsafe fn resize(
-                &mut self,
-                ptr: root::AZ::AZStdIAllocator_pointer_type,
-                newSize: usize,
-            ) -> root::AZ::AZStdIAllocator_size_type {
-                AZStdIAllocator_resize(self, ptr, newSize)
-            }
-            #[inline]
-            pub unsafe fn deallocate(
-                &mut self,
-                ptr: root::AZ::AZStdIAllocator_pointer_type,
-                byteSize: usize,
-                alignment: usize,
-            ) {
-                AZStdIAllocator_deallocate(self, ptr, byteSize, alignment)
-            }
-            #[inline]
-            pub unsafe fn get_name(&self) -> *const ::std::os::raw::c_char {
-                AZStdIAllocator_get_name(self)
-            }
-            #[inline]
-            pub unsafe fn set_name(&mut self, name: *const ::std::os::raw::c_char) {
-                AZStdIAllocator_set_name(self, name)
-            }
-            #[inline]
-            pub unsafe fn get_max_size(&self) -> root::AZ::AZStdIAllocator_size_type {
-                AZStdIAllocator_get_max_size(self)
-            }
-            #[inline]
-            pub unsafe fn get_allocated_size(&self) -> root::AZ::AZStdIAllocator_size_type {
-                AZStdIAllocator_get_allocated_size(self)
-            }
-            #[inline]
-            pub unsafe fn new(
-                allocator: *mut root::AZ::IAllocatorAllocate,
-                name: *const ::std::os::raw::c_char,
-            ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdIAllocator_AZStdIAllocator(&mut __bindgen_tmp, allocator, name);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(rhs: *const root::AZ::AZStdIAllocator) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdIAllocator_AZStdIAllocator1(&mut __bindgen_tmp, rhs);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new2(
-                rhs: *const root::AZ::AZStdIAllocator,
-                name: *const ::std::os::raw::c_char,
-            ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdIAllocator_AZStdIAllocator2(&mut __bindgen_tmp, rhs, name);
-                __bindgen_tmp
-            }
-        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct AZStdFunctorAllocator {
@@ -2202,152 +1767,6 @@ pub mod root {
         pub type AZStdFunctorAllocator_allow_memory_leaks = root::std::false_type;
         pub type AZStdFunctorAllocator_functor_type =
             ::std::option::Option<unsafe extern "C" fn() -> *mut root::AZ::IAllocatorAllocate>;
-        extern "C" {
-            #[link_name = "\u{1}?allocate@AZStdFunctorAllocator@AZ@@QEAAPEAX_K0H@Z"]
-            pub fn AZStdFunctorAllocator_allocate(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                byteSize: usize,
-                alignment: usize,
-                flags: ::std::os::raw::c_int,
-            ) -> root::AZ::AZStdFunctorAllocator_pointer_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?resize@AZStdFunctorAllocator@AZ@@QEAA_KPEAX_K@Z"]
-            pub fn AZStdFunctorAllocator_resize(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                ptr: root::AZ::AZStdFunctorAllocator_pointer_type,
-                newSize: usize,
-            ) -> root::AZ::AZStdFunctorAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?deallocate@AZStdFunctorAllocator@AZ@@QEAAXPEAX_K1@Z"]
-            pub fn AZStdFunctorAllocator_deallocate(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                ptr: root::AZ::AZStdFunctorAllocator_pointer_type,
-                byteSize: usize,
-                alignment: usize,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_name@AZStdFunctorAllocator@AZ@@QEBAPEBDXZ"]
-            pub fn AZStdFunctorAllocator_get_name(
-                this: *const root::AZ::AZStdFunctorAllocator,
-            ) -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?set_name@AZStdFunctorAllocator@AZ@@QEAAXPEBD@Z"]
-            pub fn AZStdFunctorAllocator_set_name(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_max_size@AZStdFunctorAllocator@AZ@@QEBA_KXZ"]
-            pub fn AZStdFunctorAllocator_get_max_size(
-                this: *const root::AZ::AZStdFunctorAllocator,
-            ) -> root::AZ::AZStdFunctorAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_allocated_size@AZStdFunctorAllocator@AZ@@QEBA_KXZ"]
-            pub fn AZStdFunctorAllocator_get_allocated_size(
-                this: *const root::AZ::AZStdFunctorAllocator,
-            ) -> root::AZ::AZStdFunctorAllocator_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdFunctorAllocator@AZ@@QEAA@P6AAEAVIAllocatorAllocate@1@XZPEBD@Z"]
-            pub fn AZStdFunctorAllocator_AZStdFunctorAllocator(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                allocatorFunctor: root::AZ::AZStdFunctorAllocator_functor_type,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdFunctorAllocator@AZ@@QEAA@AEBV01@PEBD@Z"]
-            pub fn AZStdFunctorAllocator_AZStdFunctorAllocator1(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                rhs: *const root::AZ::AZStdFunctorAllocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0AZStdFunctorAllocator@AZ@@QEAA@AEBV01@@Z"]
-            pub fn AZStdFunctorAllocator_AZStdFunctorAllocator2(
-                this: *mut root::AZ::AZStdFunctorAllocator,
-                rhs: *const root::AZ::AZStdFunctorAllocator,
-            );
-        }
-        impl AZStdFunctorAllocator {
-            #[inline]
-            pub unsafe fn allocate(
-                &mut self,
-                byteSize: usize,
-                alignment: usize,
-                flags: ::std::os::raw::c_int,
-            ) -> root::AZ::AZStdFunctorAllocator_pointer_type {
-                AZStdFunctorAllocator_allocate(self, byteSize, alignment, flags)
-            }
-            #[inline]
-            pub unsafe fn resize(
-                &mut self,
-                ptr: root::AZ::AZStdFunctorAllocator_pointer_type,
-                newSize: usize,
-            ) -> root::AZ::AZStdFunctorAllocator_size_type {
-                AZStdFunctorAllocator_resize(self, ptr, newSize)
-            }
-            #[inline]
-            pub unsafe fn deallocate(
-                &mut self,
-                ptr: root::AZ::AZStdFunctorAllocator_pointer_type,
-                byteSize: usize,
-                alignment: usize,
-            ) {
-                AZStdFunctorAllocator_deallocate(self, ptr, byteSize, alignment)
-            }
-            #[inline]
-            pub unsafe fn get_name(&self) -> *const ::std::os::raw::c_char {
-                AZStdFunctorAllocator_get_name(self)
-            }
-            #[inline]
-            pub unsafe fn set_name(&mut self, name: *const ::std::os::raw::c_char) {
-                AZStdFunctorAllocator_set_name(self, name)
-            }
-            #[inline]
-            pub unsafe fn get_max_size(&self) -> root::AZ::AZStdFunctorAllocator_size_type {
-                AZStdFunctorAllocator_get_max_size(self)
-            }
-            #[inline]
-            pub unsafe fn get_allocated_size(&self) -> root::AZ::AZStdFunctorAllocator_size_type {
-                AZStdFunctorAllocator_get_allocated_size(self)
-            }
-            #[inline]
-            pub unsafe fn new(
-                allocatorFunctor: root::AZ::AZStdFunctorAllocator_functor_type,
-                name: *const ::std::os::raw::c_char,
-            ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdFunctorAllocator_AZStdFunctorAllocator(
-                    &mut __bindgen_tmp,
-                    allocatorFunctor,
-                    name,
-                );
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(
-                rhs: *const root::AZ::AZStdFunctorAllocator,
-                name: *const ::std::os::raw::c_char,
-            ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdFunctorAllocator_AZStdFunctorAllocator1(&mut __bindgen_tmp, rhs, name);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new2(rhs: *const root::AZ::AZStdFunctorAllocator) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                AZStdFunctorAllocator_AZStdFunctorAllocator2(&mut __bindgen_tmp, rhs);
-                __bindgen_tmp
-            }
-        }
         pub type AZClassAllocatorResultType_type = root::std::true_type;
         pub type HasAZClassAllocator_Yes = ::std::os::raw::c_char;
         pub type HasAZClassAllocator_No = ::std::os::raw::c_long;
@@ -2358,6 +1777,40 @@ pub mod root {
         }
         pub type HasAZClassAllocator_Helper_mfp = ::std::option::Option<unsafe extern "C" fn()>;
         pub type HasAZClassAllocator_type = u8;
+        extern "C" {
+            #[link_name = "\u{1}?OperatorNew@AZ@@YAPEAX_KPEBDH1@Z"]
+            pub fn OperatorNew(
+                size: usize,
+                fileName: *const ::std::os::raw::c_char,
+                lineNum: ::std::os::raw::c_int,
+                name: *const ::std::os::raw::c_char,
+            ) -> *mut ::std::os::raw::c_void;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?OperatorNew@AZ@@YAPEAX_K@Z"]
+            pub fn OperatorNew1(byteSize: usize) -> *mut ::std::os::raw::c_void;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?OperatorDelete@AZ@@YAXPEAX@Z"]
+            pub fn OperatorDelete(ptr: *mut ::std::os::raw::c_void);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?OperatorNewArray@AZ@@YAPEAX_KPEBDH1@Z"]
+            pub fn OperatorNewArray(
+                size: usize,
+                fileName: *const ::std::os::raw::c_char,
+                lineNum: ::std::os::raw::c_int,
+                name: *const ::std::os::raw::c_char,
+            ) -> *mut ::std::os::raw::c_void;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?OperatorNewArray@AZ@@YAPEAX_K@Z"]
+            pub fn OperatorNewArray1(byteSize: usize) -> *mut ::std::os::raw::c_void;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?OperatorDeleteArray@AZ@@YAXPEAX@Z"]
+            pub fn OperatorDeleteArray(ptr: *mut ::std::os::raw::c_void);
+        }
         #[repr(C)]
         #[derive(Debug)]
         pub struct OSAllocator {
@@ -2371,28 +1824,8 @@ pub mod root {
             pub m_custom: *mut root::AZ::IAllocatorAllocate,
         }
         extern "C" {
-            #[link_name = "\u{1}??0Descriptor@OSAllocator@AZ@@QEAA@XZ"]
-            pub fn OSAllocator_Descriptor_Descriptor(this: *mut root::AZ::OSAllocator_Descriptor);
-        }
-        impl OSAllocator_Descriptor {
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                OSAllocator_Descriptor_Descriptor(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-        }
-        extern "C" {
             #[link_name = "\u{1}?TYPEINFO_Enable@OSAllocator@AZ@@QEAAXXZ"]
             pub fn OSAllocator_TYPEINFO_Enable(this: *mut root::AZ::OSAllocator);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Name@OSAllocator@AZ@@SAPEBDXZ"]
-            pub fn OSAllocator_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Uuid@OSAllocator@AZ@@SAAEBUUuid@2@XZ"]
-            pub fn OSAllocator_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
         }
         extern "C" {
             #[link_name = "\u{1}?Create@OSAllocator@AZ@@QEAA_NAEBUDescriptor@12@@Z"]
@@ -2422,14 +1855,6 @@ pub mod root {
                 OSAllocator_TYPEINFO_Enable(self)
             }
             #[inline]
-            pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                OSAllocator_TYPEINFO_Name()
-            }
-            #[inline]
-            pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                OSAllocator_TYPEINFO_Uuid()
-            }
-            #[inline]
             pub unsafe fn Create(&mut self, desc: *const root::AZ::OSAllocator_Descriptor) -> bool {
                 OSAllocator_Create(self, desc)
             }
@@ -2439,32 +1864,20 @@ pub mod root {
             }
             #[inline]
             pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                OSAllocator_OSAllocator(&mut __bindgen_tmp);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                OSAllocator_OSAllocator(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
             }
             #[inline]
             pub unsafe fn new1(arg1: *const root::AZ::OSAllocator) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                OSAllocator_OSAllocator1(&mut __bindgen_tmp, arg1);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                OSAllocator_OSAllocator1(__bindgen_tmp.as_mut_ptr(), arg1);
+                __bindgen_tmp.assume_init()
             }
         }
         extern "C" {
             #[link_name = "\u{1}??_DOSAllocator@AZ@@QEAAXXZ"]
             pub fn OSAllocator_OSAllocator_destructor(this: *mut root::AZ::OSAllocator);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetName@OSAllocator@AZ@@UEBAPEBDXZ"]
-            pub fn OSAllocator_GetName(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetDescription@OSAllocator@AZ@@UEBAPEBDXZ"]
-            pub fn OSAllocator_GetDescription(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *const ::std::os::raw::c_char;
         }
         extern "C" {
             #[link_name = "\u{1}?Allocate@OSAllocator@AZ@@UEAAPEAX_K0HPEBD1HI@Z"]
@@ -2487,54 +1900,6 @@ pub mod root {
                 byteSize: root::AZ::IAllocatorAllocate_size_type,
                 alignment: root::AZ::IAllocatorAllocate_size_type,
             );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?Resize@OSAllocator@AZ@@UEAA_KPEAX_K@Z"]
-            pub fn OSAllocator_Resize(
-                this: *mut ::std::os::raw::c_void,
-                ptr: root::AZ::IAllocatorAllocate_pointer_type,
-                newSize: root::AZ::IAllocatorAllocate_size_type,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?ReAllocate@OSAllocator@AZ@@UEAAPEAXPEAX_K1@Z"]
-            pub fn OSAllocator_ReAllocate(
-                this: *mut ::std::os::raw::c_void,
-                ptr: root::AZ::IAllocatorAllocate_pointer_type,
-                newSize: root::AZ::IAllocatorAllocate_size_type,
-                newAlignment: root::AZ::IAllocatorAllocate_size_type,
-            ) -> root::AZ::IAllocatorAllocate_pointer_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?AllocationSize@OSAllocator@AZ@@UEAA_KPEAX@Z"]
-            pub fn OSAllocator_AllocationSize(
-                this: *mut ::std::os::raw::c_void,
-                ptr: root::AZ::IAllocatorAllocate_pointer_type,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?NumAllocatedBytes@OSAllocator@AZ@@UEBA_KXZ"]
-            pub fn OSAllocator_NumAllocatedBytes(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?Capacity@OSAllocator@AZ@@UEBA_KXZ"]
-            pub fn OSAllocator_Capacity(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetMaxAllocationSize@OSAllocator@AZ@@UEBA_KXZ"]
-            pub fn OSAllocator_GetMaxAllocationSize(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetSubAllocator@OSAllocator@AZ@@UEAAPEAVIAllocatorAllocate@2@XZ"]
-            pub fn OSAllocator_GetSubAllocator(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *mut root::AZ::IAllocatorAllocate;
         }
         pub type OSStdAllocator = root::AZ::AZStdAlloc;
         pub type RTTI_EnumCallback = ::std::option::Option<
@@ -2574,10 +1939,6 @@ pub mod root {
         pub struct IRttiHelper {
             pub vtable_: *const IRttiHelper__bindgen_vtable,
         }
-        extern "C" {
-            #[link_name = "\u{1}??_DIRttiHelper@AZ@@QEAAXXZ"]
-            pub fn IRttiHelper_IRttiHelper_destructor(this: *mut root::AZ::IRttiHelper);
-        }
         #[repr(C)]
         #[derive(Debug)]
         pub struct EBusEnvironment {
@@ -2587,16 +1948,6 @@ pub mod root {
                 root::AZStd::pair<*mut root::AZ::Internal::ContextBase, bool>,
                 root::AZ::OSStdAllocator,
             >,
-        }
-        extern "C" {
-            #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_Allocate@EBusEnvironment@AZ@@SAPEAXXZ"]
-            pub fn EBusEnvironment_AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_DeAllocate@EBusEnvironment@AZ@@SAXPEAX@Z"]
-            pub fn EBusEnvironment_AZ_CLASS_ALLOCATOR_DeAllocate(
-                object: *mut ::std::os::raw::c_void,
-            );
         }
         extern "C" {
             #[link_name = "\u{1}?ActivateOnCurrentThread@EBusEnvironment@AZ@@QEAAXXZ"]
@@ -2640,14 +1991,6 @@ pub mod root {
         }
         impl EBusEnvironment {
             #[inline]
-            pub unsafe fn AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void {
-                EBusEnvironment_AZ_CLASS_ALLOCATOR_Allocate()
-            }
-            #[inline]
-            pub unsafe fn AZ_CLASS_ALLOCATOR_DeAllocate(object: *mut ::std::os::raw::c_void) {
-                EBusEnvironment_AZ_CLASS_ALLOCATOR_DeAllocate(object)
-            }
-            #[inline]
             pub unsafe fn ActivateOnCurrentThread(&mut self) {
                 EBusEnvironment_ActivateOnCurrentThread(self)
             }
@@ -2681,9 +2024,9 @@ pub mod root {
             }
             #[inline]
             pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                EBusEnvironment_EBusEnvironment(&mut __bindgen_tmp);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                EBusEnvironment_EBusEnvironment(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
             }
             #[inline]
             pub unsafe fn destruct(&mut self) {
@@ -2795,44 +2138,8 @@ pub mod root {
             65536;
         pub const SystemAllocator_Descriptor_Heap_m_maxNumFixedBlocks: ::std::os::raw::c_int = 3;
         extern "C" {
-            #[link_name = "\u{1}??0Heap@Descriptor@SystemAllocator@AZ@@QEAA@XZ"]
-            pub fn SystemAllocator_Descriptor_Heap_Heap(
-                this: *mut root::AZ::SystemAllocator_Descriptor_Heap,
-            );
-        }
-        impl SystemAllocator_Descriptor_Heap {
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                SystemAllocator_Descriptor_Heap_Heap(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0Descriptor@SystemAllocator@AZ@@QEAA@XZ"]
-            pub fn SystemAllocator_Descriptor_Descriptor(
-                this: *mut root::AZ::SystemAllocator_Descriptor,
-            );
-        }
-        impl SystemAllocator_Descriptor {
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                SystemAllocator_Descriptor_Descriptor(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-        }
-        extern "C" {
             #[link_name = "\u{1}?TYPEINFO_Enable@SystemAllocator@AZ@@QEAAXXZ"]
             pub fn SystemAllocator_TYPEINFO_Enable(this: *mut root::AZ::SystemAllocator);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Name@SystemAllocator@AZ@@SAPEBDXZ"]
-            pub fn SystemAllocator_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Uuid@SystemAllocator@AZ@@SAAEBUUuid@2@XZ"]
-            pub fn SystemAllocator_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
         }
         extern "C" {
             #[link_name = "\u{1}?Create@SystemAllocator@AZ@@QEAA_NAEBUDescriptor@12@@Z"]
@@ -2862,14 +2169,6 @@ pub mod root {
                 SystemAllocator_TYPEINFO_Enable(self)
             }
             #[inline]
-            pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                SystemAllocator_TYPEINFO_Name()
-            }
-            #[inline]
-            pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                SystemAllocator_TYPEINFO_Uuid()
-            }
-            #[inline]
             pub unsafe fn Create(
                 &mut self,
                 desc: *const root::AZ::SystemAllocator_Descriptor,
@@ -2882,32 +2181,20 @@ pub mod root {
             }
             #[inline]
             pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                SystemAllocator_SystemAllocator(&mut __bindgen_tmp);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                SystemAllocator_SystemAllocator(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
             }
             #[inline]
             pub unsafe fn new1(arg1: *const root::AZ::SystemAllocator) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                SystemAllocator_SystemAllocator1(&mut __bindgen_tmp, arg1);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                SystemAllocator_SystemAllocator1(__bindgen_tmp.as_mut_ptr(), arg1);
+                __bindgen_tmp.assume_init()
             }
         }
         extern "C" {
             #[link_name = "\u{1}??_DSystemAllocator@AZ@@QEAAXXZ"]
             pub fn SystemAllocator_SystemAllocator_destructor(this: *mut root::AZ::SystemAllocator);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetName@SystemAllocator@AZ@@UEBAPEBDXZ"]
-            pub fn SystemAllocator_GetName(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetDescription@SystemAllocator@AZ@@UEBAPEBDXZ"]
-            pub fn SystemAllocator_GetDescription(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *const ::std::os::raw::c_char;
         }
         extern "C" {
             #[link_name = "\u{1}?Allocate@SystemAllocator@AZ@@UEAAPEAX_K0HPEBD1HI@Z"]
@@ -2955,101 +2242,15 @@ pub mod root {
                 ptr: root::AZ::IAllocatorAllocate_pointer_type,
             ) -> root::AZ::IAllocatorAllocate_size_type;
         }
-        extern "C" {
-            #[link_name = "\u{1}?GarbageCollect@SystemAllocator@AZ@@UEAAXXZ"]
-            pub fn SystemAllocator_GarbageCollect(this: *mut ::std::os::raw::c_void);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?NumAllocatedBytes@SystemAllocator@AZ@@UEBA_KXZ"]
-            pub fn SystemAllocator_NumAllocatedBytes(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?Capacity@SystemAllocator@AZ@@UEBA_KXZ"]
-            pub fn SystemAllocator_Capacity(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetMaxAllocationSize@SystemAllocator@AZ@@UEBA_KXZ"]
-            pub fn SystemAllocator_GetMaxAllocationSize(
-                this: *mut ::std::os::raw::c_void,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetUnAllocatedMemory@SystemAllocator@AZ@@UEBA_K_N@Z"]
-            pub fn SystemAllocator_GetUnAllocatedMemory(
-                this: *mut ::std::os::raw::c_void,
-                isPrint: bool,
-            ) -> root::AZ::IAllocatorAllocate_size_type;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?GetSubAllocator@SystemAllocator@AZ@@UEAAPEAVIAllocatorAllocate@2@XZ"]
-            pub fn SystemAllocator_GetSubAllocator(
-                this: *mut ::std::os::raw::c_void,
-            ) -> *mut root::AZ::IAllocatorAllocate;
-        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct NullMutex {
             pub _address: u8,
         }
-        extern "C" {
-            #[link_name = "\u{1}?lock@NullMutex@AZ@@QEAAXXZ"]
-            pub fn NullMutex_lock(this: *mut root::AZ::NullMutex);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?try_lock@NullMutex@AZ@@QEAA_NXZ"]
-            pub fn NullMutex_try_lock(this: *mut root::AZ::NullMutex) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?unlock@NullMutex@AZ@@QEAAXXZ"]
-            pub fn NullMutex_unlock(this: *mut root::AZ::NullMutex);
-        }
-        impl NullMutex {
-            #[inline]
-            pub unsafe fn lock(&mut self) {
-                NullMutex_lock(self)
-            }
-            #[inline]
-            pub unsafe fn try_lock(&mut self) -> bool {
-                NullMutex_try_lock(self)
-            }
-            #[inline]
-            pub unsafe fn unlock(&mut self) {
-                NullMutex_unlock(self)
-            }
-        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct NullBusId {
             pub _address: u8,
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0NullBusId@AZ@@QEAA@XZ"]
-            pub fn NullBusId_NullBusId(this: *mut root::AZ::NullBusId);
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0NullBusId@AZ@@QEAA@H@Z"]
-            pub fn NullBusId_NullBusId1(
-                this: *mut root::AZ::NullBusId,
-                arg1: ::std::os::raw::c_int,
-            );
-        }
-        impl NullBusId {
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                NullBusId_NullBusId(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(arg1: ::std::os::raw::c_int) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                NullBusId_NullBusId1(&mut __bindgen_tmp, arg1);
-                __bindgen_tmp
-            }
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -3171,16 +2372,6 @@ pub mod root {
         pub const EBusTraits_EventQueueingActiveByDefault: bool = true;
         pub const EBusTraits_EnableQueuedReferences: bool = false;
         pub const EBusTraits_LocklessDispatch: bool = false;
-        extern "C" {
-            #[link_name = "\u{1}??_DEBusTraits@AZ@@IEAAXXZ"]
-            pub fn EBusTraits_EBusTraits_destructor(this: *mut root::AZ::EBusTraits);
-        }
-        impl EBusTraits {
-            #[inline]
-            pub unsafe fn destruct(&mut self) {
-                EBusTraits_EBusTraits_destructor(self)
-            }
-        }
         #[repr(C)]
         pub struct EBus {
             pub _address: u8,
@@ -3236,6 +2427,207 @@ pub mod root {
         }
         pub type EBus_RouterCallstackEntry_Iterator = root::AZ::EBus_RouterPolicy;
         #[repr(C)]
+        pub struct EntityId {
+            pub m_id: root::AZ::u64,
+        }
+        pub const EntityId_InvalidEntityId: root::AZ::u64 = 4294967295;
+        extern "C" {
+            #[link_name = "\u{1}?TYPEINFO_Enable@EntityId@AZ@@QEAAXXZ"]
+            pub fn EntityId_TYPEINFO_Enable(this: *mut root::AZ::EntityId);
+        }
+        impl EntityId {
+            #[inline]
+            pub unsafe fn TYPEINFO_Enable(&mut self) {
+                EntityId_TYPEINFO_Enable(self)
+            }
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ReflectContext {
+            _unused: [u8; 0],
+        }
+        pub type ComponentId = root::AZ::u64;
+        #[repr(C)]
+        pub struct ComponentBus__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct ComponentBus {
+            pub vtable_: *const ComponentBus__bindgen_vtable,
+        }
+        pub type ComponentBus_BusIdType = root::AZ::EntityId;
+        extern "C" {
+            #[link_name = "\u{1}?AddressPolicy@ComponentBus@AZ@@2W4EBusAddressPolicy@2@B"]
+            pub static ComponentBus_AddressPolicy: root::AZ::EBusAddressPolicy;
+        }
+        #[repr(C)]
+        pub struct ComponentConfig__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct ComponentConfig {
+            pub vtable_: *const ComponentConfig__bindgen_vtable,
+        }
+        extern "C" {
+            #[link_name = "\u{1}?TYPEINFO_Enable@ComponentConfig@AZ@@QEAAXXZ"]
+            pub fn ComponentConfig_TYPEINFO_Enable(this: *mut root::AZ::ComponentConfig);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?RTTI_Enable@ComponentConfig@AZ@@QEAAXXZ"]
+            pub fn ComponentConfig_RTTI_Enable(this: *mut root::AZ::ComponentConfig);
+        }
+        impl ComponentConfig {
+            #[inline]
+            pub unsafe fn TYPEINFO_Enable(&mut self) {
+                ComponentConfig_TYPEINFO_Enable(self)
+            }
+            #[inline]
+            pub unsafe fn RTTI_Enable(&mut self) {
+                ComponentConfig_RTTI_Enable(self)
+            }
+        }
+        #[repr(C)]
+        pub struct EntityComponentIdPair__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        pub struct EntityComponentIdPair {
+            pub vtable_: *const EntityComponentIdPair__bindgen_vtable,
+            pub m_entityId: root::AZ::EntityId,
+            pub m_componentId: root::AZ::ComponentId,
+        }
+        extern "C" {
+            #[link_name = "\u{1}?TYPEINFO_Enable@EntityComponentIdPair@AZ@@QEAAXXZ"]
+            pub fn EntityComponentIdPair_TYPEINFO_Enable(
+                this: *mut root::AZ::EntityComponentIdPair,
+            );
+        }
+        extern "C" {
+            #[link_name = "\u{1}?RTTI_Enable@EntityComponentIdPair@AZ@@QEAAXXZ"]
+            pub fn EntityComponentIdPair_RTTI_Enable(this: *mut root::AZ::EntityComponentIdPair);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?Reflect@EntityComponentIdPair@AZ@@SAXPEAVReflectContext@2@@Z"]
+            pub fn EntityComponentIdPair_Reflect(context: *mut root::AZ::ReflectContext);
+        }
+        impl EntityComponentIdPair {
+            #[inline]
+            pub unsafe fn TYPEINFO_Enable(&mut self) {
+                EntityComponentIdPair_TYPEINFO_Enable(self)
+            }
+            #[inline]
+            pub unsafe fn RTTI_Enable(&mut self) {
+                EntityComponentIdPair_RTTI_Enable(self)
+            }
+            #[inline]
+            pub unsafe fn Reflect(context: *mut root::AZ::ReflectContext) {
+                EntityComponentIdPair_Reflect(context)
+            }
+        }
+        #[repr(C)]
+        pub struct EntityComponentBus__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct EntityComponentBus {
+            pub vtable_: *const EntityComponentBus__bindgen_vtable,
+        }
+        pub type EntityComponentBus_BusIdType = root::AZ::EntityComponentIdPair;
+        extern "C" {
+            #[link_name = "\u{1}?AddressPolicy@EntityComponentBus@AZ@@2W4EBusAddressPolicy@2@B"]
+            pub static EntityComponentBus_AddressPolicy: root::AZ::EBusAddressPolicy;
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ScriptTimePoint {
+            pub m_timePoint: root::AZStd::chrono::system_clock_time_point,
+        }
+        extern "C" {
+            #[link_name = "\u{1}?TYPEINFO_Enable@ScriptTimePoint@AZ@@QEAAXXZ"]
+            pub fn ScriptTimePoint_TYPEINFO_Enable(this: *mut root::AZ::ScriptTimePoint);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?Reflect@ScriptTimePoint@AZ@@SAXPEAVReflectContext@2@@Z"]
+            pub fn ScriptTimePoint_Reflect(reflection: *mut root::AZ::ReflectContext);
+        }
+        impl ScriptTimePoint {
+            #[inline]
+            pub unsafe fn TYPEINFO_Enable(&mut self) {
+                ScriptTimePoint_TYPEINFO_Enable(self)
+            }
+            #[inline]
+            pub unsafe fn Reflect(reflection: *mut root::AZ::ReflectContext) {
+                ScriptTimePoint_Reflect(reflection)
+            }
+        }
+        pub const ComponentTickBus_TICK_FIRST: root::AZ::ComponentTickBus = 0;
+        pub const ComponentTickBus_TICK_PLACEMENT: root::AZ::ComponentTickBus = 50;
+        pub const ComponentTickBus_TICK_INPUT: root::AZ::ComponentTickBus = 75;
+        pub const ComponentTickBus_TICK_GAME: root::AZ::ComponentTickBus = 80;
+        pub const ComponentTickBus_TICK_ANIMATION: root::AZ::ComponentTickBus = 100;
+        pub const ComponentTickBus_TICK_PHYSICS: root::AZ::ComponentTickBus = 200;
+        pub const ComponentTickBus_TICK_ATTACHMENT: root::AZ::ComponentTickBus = 500;
+        pub const ComponentTickBus_TICK_PRE_RENDER: root::AZ::ComponentTickBus = 750;
+        pub const ComponentTickBus_TICK_DEFAULT: root::AZ::ComponentTickBus = 1000;
+        pub const ComponentTickBus_TICK_UI: root::AZ::ComponentTickBus = 2000;
+        pub const ComponentTickBus_TICK_LAST: root::AZ::ComponentTickBus = 100000;
+        pub type ComponentTickBus = i32;
+        #[repr(C)]
+        pub struct TickEvents__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct TickEvents {
+            pub vtable_: *const TickEvents__bindgen_vtable,
+            pub m_tickOrder: ::std::os::raw::c_int,
+        }
+        pub type TickEvents_EventQueueMutexType = root::AZStd::recursive_mutex;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct TickEvents_BusHandlerOrderCompare {
+            pub _address: u8,
+        }
+        extern "C" {
+            #[link_name = "\u{1}?HandlerPolicy@TickEvents@AZ@@2W4EBusHandlerPolicy@2@B"]
+            pub static TickEvents_HandlerPolicy: root::AZ::EBusHandlerPolicy;
+        }
+        pub const TickEvents_EnableEventQueue: bool = true;
+        extern "C" {
+            #[link_name = "\u{1}?TYPEINFO_Enable@TickEvents@AZ@@QEAAXXZ"]
+            pub fn TickEvents_TYPEINFO_Enable(this: *mut root::AZ::TickEvents);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?RTTI_Enable@TickEvents@AZ@@QEAAXXZ"]
+            pub fn TickEvents_RTTI_Enable(this: *mut root::AZ::TickEvents);
+        }
+        impl TickEvents {
+            #[inline]
+            pub unsafe fn TYPEINFO_Enable(&mut self) {
+                TickEvents_TYPEINFO_Enable(self)
+            }
+            #[inline]
+            pub unsafe fn RTTI_Enable(&mut self) {
+                TickEvents_RTTI_Enable(self)
+            }
+        }
+        pub type TickBus = root::AZ::EBus;
+        #[repr(C)]
+        pub struct TickRequests__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct TickRequests {
+            pub vtable_: *const TickRequests__bindgen_vtable,
+        }
+        pub type TickRequestBus = root::AZ::EBus;
+        #[repr(C)]
+        pub struct SystemTickEvents__bindgen_vtable(::std::os::raw::c_void);
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct SystemTickEvents {
+            pub vtable_: *const SystemTickEvents__bindgen_vtable,
+        }
+        pub type SystemTickEvents_EventQueueMutexType = root::AZStd::mutex;
+        extern "C" {
+            #[link_name = "\u{1}?HandlerPolicy@SystemTickEvents@AZ@@2W4EBusHandlerPolicy@2@B"]
+            pub static SystemTickEvents_HandlerPolicy: root::AZ::EBusHandlerPolicy;
+        }
+        pub const SystemTickEvents_EnableEventQueue: bool = true;
+        pub type SystemTickBus = root::AZ::EBus;
+        #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct AssetSerializer {
             _unused: [u8; 0],
@@ -3262,6 +2654,56 @@ pub mod root {
             pub mod AssetInternal {
                 #[allow(unused_imports)]
                 use self::super::super::super::super::root;
+                extern "C" {
+                    #[link_name = "\u{1}?IsValidAssetType@AssetInternal@Data@AZ@@YA_NAEBUUuid@3@PEAVSerializeContext@3@@Z"]
+                    pub fn IsValidAssetType(
+                        type_: *const root::AZ::Data::AssetType,
+                        serializeContext: *mut root::AZ::SerializeContext,
+                    ) -> bool;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?QueueAssetLoad@AssetInternal@Data@AZ@@YA?AV?$Asset@VAssetData@Data@AZ@@@23@PEAVAssetData@23@AEBV?$function@$$A6A_NAEBV?$Asset@VAssetData@Data@AZ@@@Data@AZ@@@Z@AZStd@@@Z"]
+                    pub fn QueueAssetLoad(
+                        assetData: *mut root::AZ::Data::AssetData,
+                        assetLoadFilterCB: *const root::AZ::Data::AssetFilterCB,
+                    ) -> root::AZ::Data::Asset;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?GetAsset@AssetInternal@Data@AZ@@YA?AV?$Asset@VAssetData@Data@AZ@@@23@AEBUAssetId@23@AEBUUuid@3@_N2@Z"]
+                    pub fn GetAsset(
+                        id: *const root::AZ::Data::AssetId,
+                        type_: *const root::AZ::Data::AssetType,
+                        queueLoad: bool,
+                        isCreate: bool,
+                    ) -> root::AZ::Data::Asset;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?UpdateAssetInfo@AssetInternal@Data@AZ@@YAXAEAUAssetId@23@AEAV?$basic_string@DU?$char_traits@D@AZStd@@Vallocator@2@@AZStd@@@Z"]
+                    pub fn UpdateAssetInfo(
+                        id: *mut root::AZ::Data::AssetId,
+                        assetHint: *mut root::AZStd::string,
+                    );
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?ReloadAsset@AssetInternal@Data@AZ@@YA_NPEAVAssetData@23@@Z"]
+                    pub fn ReloadAsset(assetData: *mut root::AZ::Data::AssetData) -> bool;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?SaveAsset@AssetInternal@Data@AZ@@YA_NPEAVAssetData@23@@Z"]
+                    pub fn SaveAsset(assetData: *mut root::AZ::Data::AssetData) -> bool;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?GetAssetData@AssetInternal@Data@AZ@@YA?AV?$Asset@VAssetData@Data@AZ@@@23@AEBUAssetId@23@@Z"]
+                    pub fn GetAssetData(
+                        id: *const root::AZ::Data::AssetId,
+                    ) -> root::AZ::Data::Asset;
+                }
+                extern "C" {
+                    #[link_name = "\u{1}?ResolveAssetId@AssetInternal@Data@AZ@@YA?AUAssetId@23@AEBU423@@Z"]
+                    pub fn ResolveAssetId(
+                        id: *const root::AZ::Data::AssetId,
+                    ) -> root::AZ::Data::AssetId;
+                }
             }
             pub type AssetPtr = *mut root::AZ::Data::AssetData;
             #[repr(C)]
@@ -3274,14 +2716,6 @@ pub mod root {
             extern "C" {
                 #[link_name = "\u{1}?TYPEINFO_Enable@AssetId@Data@AZ@@QEAAXXZ"]
                 pub fn AssetId_TYPEINFO_Enable(this: *mut root::AZ::Data::AssetId);
-            }
-            extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Name@AssetId@Data@AZ@@SAPEBDXZ"]
-                pub fn AssetId_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Uuid@AssetId@Data@AZ@@SAAEBUUuid@3@XZ"]
-                pub fn AssetId_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
             }
             extern "C" {
                 #[link_name = "\u{1}?IsValid@AssetId@Data@AZ@@QEBA_NXZ"]
@@ -3315,14 +2749,6 @@ pub mod root {
                     AssetId_TYPEINFO_Enable(self)
                 }
                 #[inline]
-                pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                    AssetId_TYPEINFO_Name()
-                }
-                #[inline]
-                pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                    AssetId_TYPEINFO_Uuid()
-                }
-                #[inline]
                 pub unsafe fn IsValid(&self) -> bool {
                     AssetId_IsValid(self)
                 }
@@ -3338,15 +2764,15 @@ pub mod root {
                 }
                 #[inline]
                 pub unsafe fn new() -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    AssetId_AssetId(&mut __bindgen_tmp);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    AssetId_AssetId(__bindgen_tmp.as_mut_ptr());
+                    __bindgen_tmp.assume_init()
                 }
                 #[inline]
                 pub unsafe fn new1(guid: *const root::AZ::Uuid, sudId: root::AZ::u32) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    AssetId_AssetId1(&mut __bindgen_tmp, guid, sudId);
-                    __bindgen_tmp
+                    let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                    AssetId_AssetId1(__bindgen_tmp.as_mut_ptr(), guid, sudId);
+                    __bindgen_tmp.assume_init()
                 }
             }
             #[repr(C)]
@@ -3371,47 +2797,12 @@ pub mod root {
             pub const AssetData_AssetStatus_Error: root::AZ::Data::AssetData_AssetStatus = 4;
             pub type AssetData_AssetStatus = i32;
             extern "C" {
-                #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_Allocate@AssetData@Data@AZ@@SAPEAXXZ"]
-                pub fn AssetData_AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_DeAllocate@AssetData@Data@AZ@@SAXPEAX@Z"]
-                pub fn AssetData_AZ_CLASS_ALLOCATOR_DeAllocate(object: *mut ::std::os::raw::c_void);
-            }
-            extern "C" {
                 #[link_name = "\u{1}?TYPEINFO_Enable@AssetData@Data@AZ@@QEAAXXZ"]
                 pub fn AssetData_TYPEINFO_Enable(this: *mut root::AZ::Data::AssetData);
             }
             extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Name@AssetData@Data@AZ@@SAPEBDXZ"]
-                pub fn AssetData_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Uuid@AssetData@Data@AZ@@SAAEBUUuid@3@XZ"]
-                pub fn AssetData_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
-            }
-            extern "C" {
                 #[link_name = "\u{1}?RTTI_Enable@AssetData@Data@AZ@@QEAAXXZ"]
                 pub fn AssetData_RTTI_Enable(this: *mut root::AZ::Data::AssetData);
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_Type@AssetData@Data@AZ@@SAAEBUUuid@3@XZ"]
-                pub fn AssetData_RTTI_Type() -> *const root::AZ::TypeId;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_TypeName@AssetData@Data@AZ@@SAPEBDXZ"]
-                pub fn AssetData_RTTI_TypeName() -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_IsContainType@AssetData@Data@AZ@@SA_NAEBUUuid@3@@Z"]
-                pub fn AssetData_RTTI_IsContainType(id: *const root::AZ::TypeId) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_EnumHierarchy@AssetData@Data@AZ@@SAXP6AXAEBUUuid@3@PEAX@Z1@Z"]
-                pub fn AssetData_RTTI_EnumHierarchy(
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                );
             }
             extern "C" {
                 #[link_name = "\u{1}?Acquire@AssetData@Data@AZ@@QEAAXXZ"]
@@ -3421,100 +2812,14 @@ pub mod root {
                 #[link_name = "\u{1}?Release@AssetData@Data@AZ@@QEAAXXZ"]
                 pub fn AssetData_Release(this: *mut root::AZ::Data::AssetData);
             }
-            extern "C" {
-                #[link_name = "\u{1}?IsReady@AssetData@Data@AZ@@QEBA_NXZ"]
-                pub fn AssetData_IsReady(this: *const root::AZ::Data::AssetData) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?IsError@AssetData@Data@AZ@@QEBA_NXZ"]
-                pub fn AssetData_IsError(this: *const root::AZ::Data::AssetData) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?IsLoading@AssetData@Data@AZ@@QEBA_NXZ"]
-                pub fn AssetData_IsLoading(this: *const root::AZ::Data::AssetData) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetStatus@AssetData@Data@AZ@@QEBA?AW4AssetStatus@123@XZ"]
-                pub fn AssetData_GetStatus(
-                    this: *const root::AZ::Data::AssetData,
-                ) -> root::AZ::Data::AssetData_AssetStatus;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetId@AssetData@Data@AZ@@QEBAAEBUAssetId@23@XZ"]
-                pub fn AssetData_GetId(
-                    this: *const root::AZ::Data::AssetData,
-                ) -> *const root::AZ::Data::AssetId;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetType@AssetData@Data@AZ@@QEBAAEBUUuid@3@XZ"]
-                pub fn AssetData_GetType(
-                    this: *const root::AZ::Data::AssetData,
-                ) -> *const root::AZ::Data::AssetType;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?GetUseCount@AssetData@Data@AZ@@QEBAHXZ"]
-                pub fn AssetData_GetUseCount(
-                    this: *const root::AZ::Data::AssetData,
-                ) -> ::std::os::raw::c_int;
-            }
-            extern "C" {
-                #[link_name = "\u{1}??0AssetData@Data@AZ@@QEAA@AEBUAssetId@12@W4AssetStatus@012@@Z"]
-                pub fn AssetData_AssetData(
-                    this: *mut root::AZ::Data::AssetData,
-                    assetId: *const root::AZ::Data::AssetId,
-                    status: root::AZ::Data::AssetData_AssetStatus,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}??0AssetData@Data@AZ@@IEAA@AEBV012@@Z"]
-                pub fn AssetData_AssetData1(
-                    this: *mut root::AZ::Data::AssetData,
-                    arg1: *const root::AZ::Data::AssetData,
-                );
-            }
             impl AssetData {
-                #[inline]
-                pub unsafe fn AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void {
-                    AssetData_AZ_CLASS_ALLOCATOR_Allocate()
-                }
-                #[inline]
-                pub unsafe fn AZ_CLASS_ALLOCATOR_DeAllocate(object: *mut ::std::os::raw::c_void) {
-                    AssetData_AZ_CLASS_ALLOCATOR_DeAllocate(object)
-                }
                 #[inline]
                 pub unsafe fn TYPEINFO_Enable(&mut self) {
                     AssetData_TYPEINFO_Enable(self)
                 }
                 #[inline]
-                pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                    AssetData_TYPEINFO_Name()
-                }
-                #[inline]
-                pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                    AssetData_TYPEINFO_Uuid()
-                }
-                #[inline]
                 pub unsafe fn RTTI_Enable(&mut self) {
                     AssetData_RTTI_Enable(self)
-                }
-                #[inline]
-                pub unsafe fn RTTI_Type() -> *const root::AZ::TypeId {
-                    AssetData_RTTI_Type()
-                }
-                #[inline]
-                pub unsafe fn RTTI_TypeName() -> *const ::std::os::raw::c_char {
-                    AssetData_RTTI_TypeName()
-                }
-                #[inline]
-                pub unsafe fn RTTI_IsContainType(id: *const root::AZ::TypeId) -> bool {
-                    AssetData_RTTI_IsContainType(id)
-                }
-                #[inline]
-                pub unsafe fn RTTI_EnumHierarchy(
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                ) {
-                    AssetData_RTTI_EnumHierarchy(cb, userData)
                 }
                 #[inline]
                 pub unsafe fn Acquire(&mut self) {
@@ -3524,100 +2829,6 @@ pub mod root {
                 pub unsafe fn Release(&mut self) {
                     AssetData_Release(self)
                 }
-                #[inline]
-                pub unsafe fn IsReady(&self) -> bool {
-                    AssetData_IsReady(self)
-                }
-                #[inline]
-                pub unsafe fn IsError(&self) -> bool {
-                    AssetData_IsError(self)
-                }
-                #[inline]
-                pub unsafe fn IsLoading(&self) -> bool {
-                    AssetData_IsLoading(self)
-                }
-                #[inline]
-                pub unsafe fn GetStatus(&self) -> root::AZ::Data::AssetData_AssetStatus {
-                    AssetData_GetStatus(self)
-                }
-                #[inline]
-                pub unsafe fn GetId(&self) -> *const root::AZ::Data::AssetId {
-                    AssetData_GetId(self)
-                }
-                #[inline]
-                pub unsafe fn GetType(&self) -> *const root::AZ::Data::AssetType {
-                    AssetData_GetType(self)
-                }
-                #[inline]
-                pub unsafe fn GetUseCount(&self) -> ::std::os::raw::c_int {
-                    AssetData_GetUseCount(self)
-                }
-                #[inline]
-                pub unsafe fn new(
-                    assetId: *const root::AZ::Data::AssetId,
-                    status: root::AZ::Data::AssetData_AssetStatus,
-                ) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    AssetData_AssetData(&mut __bindgen_tmp, assetId, status);
-                    __bindgen_tmp
-                }
-                #[inline]
-                pub unsafe fn new1(arg1: *const root::AZ::Data::AssetData) -> Self {
-                    let mut __bindgen_tmp = ::std::mem::uninitialized();
-                    AssetData_AssetData1(&mut __bindgen_tmp, arg1);
-                    __bindgen_tmp
-                }
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_GetType@AssetData@Data@AZ@@UEBAAEBUUuid@3@XZ"]
-                pub fn AssetData_RTTI_GetType(
-                    this: *mut ::std::os::raw::c_void,
-                ) -> *const root::AZ::TypeId;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_GetTypeName@AssetData@Data@AZ@@UEBAPEBDXZ"]
-                pub fn AssetData_RTTI_GetTypeName(
-                    this: *mut ::std::os::raw::c_void,
-                ) -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_IsTypeOf@AssetData@Data@AZ@@UEBA_NAEBUUuid@3@@Z"]
-                pub fn AssetData_RTTI_IsTypeOf(
-                    this: *mut ::std::os::raw::c_void,
-                    typeId: *const root::AZ::TypeId,
-                ) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_EnumTypes@AssetData@Data@AZ@@UEAAXP6AXAEBUUuid@3@PEAX@Z1@Z"]
-                pub fn AssetData_RTTI_EnumTypes(
-                    this: *mut ::std::os::raw::c_void,
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_AddressOf@AssetData@Data@AZ@@UEBAPEBXAEBUUuid@3@@Z"]
-                pub fn AssetData_RTTI_AddressOf(
-                    this: *mut ::std::os::raw::c_void,
-                    id: *const root::AZ::TypeId,
-                ) -> *const ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_AddressOf@AssetData@Data@AZ@@UEAAPEAXAEBUUuid@3@@Z"]
-                pub fn AssetData_RTTI_AddressOf1(
-                    this: *mut ::std::os::raw::c_void,
-                    id: *const root::AZ::TypeId,
-                ) -> *mut ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}??_DAssetData@Data@AZ@@QEAAXXZ"]
-                pub fn AssetData_AssetData_destructor(this: *mut root::AZ::Data::AssetData);
-            }
-            extern "C" {
-                #[link_name = "\u{1}?IsRegisterReadonlyAndShareable@AssetData@Data@AZ@@MEAA_NXZ"]
-                pub fn AssetData_IsRegisterReadonlyAndShareable(
-                    this: *mut ::std::os::raw::c_void,
-                ) -> bool;
             }
             pub const AssetLoadBehavior_Default: root::AZ::Data::AssetLoadBehavior = 0;
             pub const AssetLoadBehavior_PreLoad: root::AZ::Data::AssetLoadBehavior = 0;
@@ -3661,35 +2872,8 @@ pub mod root {
                 pub fn AssetEvents_TYPEINFO_Enable(this: *mut root::AZ::Data::AssetEvents);
             }
             extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Name@AssetEvents@Data@AZ@@SAPEBDXZ"]
-                pub fn AssetEvents_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?TYPEINFO_Uuid@AssetEvents@Data@AZ@@SAAEBUUuid@3@XZ"]
-                pub fn AssetEvents_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
-            }
-            extern "C" {
                 #[link_name = "\u{1}?RTTI_Enable@AssetEvents@Data@AZ@@QEAAXXZ"]
                 pub fn AssetEvents_RTTI_Enable(this: *mut root::AZ::Data::AssetEvents);
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_Type@AssetEvents@Data@AZ@@SAAEBUUuid@3@XZ"]
-                pub fn AssetEvents_RTTI_Type() -> *const root::AZ::TypeId;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_TypeName@AssetEvents@Data@AZ@@SAPEBDXZ"]
-                pub fn AssetEvents_RTTI_TypeName() -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_IsContainType@AssetEvents@Data@AZ@@SA_NAEBUUuid@3@@Z"]
-                pub fn AssetEvents_RTTI_IsContainType(id: *const root::AZ::TypeId) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_EnumHierarchy@AssetEvents@Data@AZ@@SAXP6AXAEBUUuid@3@PEAX@Z1@Z"]
-                pub fn AssetEvents_RTTI_EnumHierarchy(
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                );
             }
             impl AssetEvents {
                 #[inline]
@@ -3697,140 +2881,9 @@ pub mod root {
                     AssetEvents_TYPEINFO_Enable(self)
                 }
                 #[inline]
-                pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                    AssetEvents_TYPEINFO_Name()
-                }
-                #[inline]
-                pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                    AssetEvents_TYPEINFO_Uuid()
-                }
-                #[inline]
                 pub unsafe fn RTTI_Enable(&mut self) {
                     AssetEvents_RTTI_Enable(self)
                 }
-                #[inline]
-                pub unsafe fn RTTI_Type() -> *const root::AZ::TypeId {
-                    AssetEvents_RTTI_Type()
-                }
-                #[inline]
-                pub unsafe fn RTTI_TypeName() -> *const ::std::os::raw::c_char {
-                    AssetEvents_RTTI_TypeName()
-                }
-                #[inline]
-                pub unsafe fn RTTI_IsContainType(id: *const root::AZ::TypeId) -> bool {
-                    AssetEvents_RTTI_IsContainType(id)
-                }
-                #[inline]
-                pub unsafe fn RTTI_EnumHierarchy(
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                ) {
-                    AssetEvents_RTTI_EnumHierarchy(cb, userData)
-                }
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_GetType@AssetEvents@Data@AZ@@UEBAAEBUUuid@3@XZ"]
-                pub fn AssetEvents_RTTI_GetType(
-                    this: *mut ::std::os::raw::c_void,
-                ) -> *const root::AZ::TypeId;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_GetTypeName@AssetEvents@Data@AZ@@UEBAPEBDXZ"]
-                pub fn AssetEvents_RTTI_GetTypeName(
-                    this: *mut ::std::os::raw::c_void,
-                ) -> *const ::std::os::raw::c_char;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_IsTypeOf@AssetEvents@Data@AZ@@UEBA_NAEBUUuid@3@@Z"]
-                pub fn AssetEvents_RTTI_IsTypeOf(
-                    this: *mut ::std::os::raw::c_void,
-                    typeId: *const root::AZ::TypeId,
-                ) -> bool;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_EnumTypes@AssetEvents@Data@AZ@@UEAAXP6AXAEBUUuid@3@PEAX@Z1@Z"]
-                pub fn AssetEvents_RTTI_EnumTypes(
-                    this: *mut ::std::os::raw::c_void,
-                    cb: root::AZ::RTTI_EnumCallback,
-                    userData: *mut ::std::os::raw::c_void,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_AddressOf@AssetEvents@Data@AZ@@UEBAPEBXAEBUUuid@3@@Z"]
-                pub fn AssetEvents_RTTI_AddressOf(
-                    this: *mut ::std::os::raw::c_void,
-                    id: *const root::AZ::TypeId,
-                ) -> *const ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?RTTI_AddressOf@AssetEvents@Data@AZ@@UEAAPEAXAEBUUuid@3@@Z"]
-                pub fn AssetEvents_RTTI_AddressOf1(
-                    this: *mut ::std::os::raw::c_void,
-                    id: *const root::AZ::TypeId,
-                ) -> *mut ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}??_DAssetEvents@Data@AZ@@QEAAXXZ"]
-                pub fn AssetEvents_AssetEvents_destructor(this: *mut root::AZ::Data::AssetEvents);
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetReady@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@@Z"]
-                pub fn AssetEvents_OnAssetReady(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetMoved@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@PEAX@Z"]
-                pub fn AssetEvents_OnAssetMoved(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                    oldDataPointer: *mut ::std::os::raw::c_void,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetPreReload@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@@Z"]
-                pub fn AssetEvents_OnAssetPreReload(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetReloaded@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@@Z"]
-                pub fn AssetEvents_OnAssetReloaded(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetReloadError@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@@Z"]
-                pub fn AssetEvents_OnAssetReloadError(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetSaved@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@_N@Z"]
-                pub fn AssetEvents_OnAssetSaved(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                    isSuccessful: bool,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetUnloaded@AssetEvents@Data@AZ@@UEAAXUAssetId@23@UUuid@3@@Z"]
-                pub fn AssetEvents_OnAssetUnloaded(
-                    this: *mut ::std::os::raw::c_void,
-                    assetId: root::AZ::Data::AssetId,
-                    assetType: root::AZ::Data::AssetType,
-                );
-            }
-            extern "C" {
-                #[link_name = "\u{1}?OnAssetError@AssetEvents@Data@AZ@@UEAAXV?$Asset@VAssetData@Data@AZ@@@23@@Z"]
-                pub fn AssetEvents_OnAssetError(
-                    this: *mut ::std::os::raw::c_void,
-                    asset: root::AZ::Data::Asset,
-                );
             }
             pub type AssetBus = root::AZ::EBus;
             #[repr(C)]
@@ -3853,16 +2906,6 @@ pub mod root {
             pub type AssetBusCallbacks_AssetSavedCB = [u64; 5usize];
             pub type AssetBusCallbacks_AssetUnloadedCB = [u64; 5usize];
             pub type AssetBusCallbacks_AssetErrorCB = [u64; 5usize];
-            extern "C" {
-                #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_Allocate@AssetBusCallbacks@Data@AZ@@SAPEAXXZ"]
-                pub fn AssetBusCallbacks_AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void;
-            }
-            extern "C" {
-                #[link_name = "\u{1}?AZ_CLASS_ALLOCATOR_DeAllocate@AssetBusCallbacks@Data@AZ@@SAXPEAX@Z"]
-                pub fn AssetBusCallbacks_AZ_CLASS_ALLOCATOR_DeAllocate(
-                    object: *mut ::std::os::raw::c_void,
-                );
-            }
             extern "C" {
                 #[link_name = "\u{1}?SetCallbacks@AssetBusCallbacks@Data@AZ@@QEAAXAEBV?$function@$$A6AXV?$Asset@VAssetData@Data@AZ@@@Data@AZ@@AEAVAssetBusCallbacks@23@@Z@AZStd@@AEBV?$function@$$A6AXV?$Asset@VAssetData@Data@AZ@@@Data@AZ@@PEAXAEAVAssetBusCallbacks@23@@Z@5@0AEBV?$function@$$A6AXV?$Asset@VAssetData@Data@AZ@@@Data@AZ@@_NAEAVAssetBusCallbacks@23@@Z@5@AEBV?$function@$$A6AXAEBUAssetId@Data@AZ@@AEBUUuid@3@AEAVAssetBusCallbacks@23@@Z@5@0@Z"]
                 pub fn AssetBusCallbacks_SetCallbacks(
@@ -3924,14 +2967,6 @@ pub mod root {
                 );
             }
             impl AssetBusCallbacks {
-                #[inline]
-                pub unsafe fn AZ_CLASS_ALLOCATOR_Allocate() -> *mut ::std::os::raw::c_void {
-                    AssetBusCallbacks_AZ_CLASS_ALLOCATOR_Allocate()
-                }
-                #[inline]
-                pub unsafe fn AZ_CLASS_ALLOCATOR_DeAllocate(object: *mut ::std::os::raw::c_void) {
-                    AssetBusCallbacks_AZ_CLASS_ALLOCATOR_DeAllocate(object)
-                }
                 #[inline]
                 pub unsafe fn SetCallbacks(
                     &mut self,
@@ -4038,6 +3073,10 @@ pub mod root {
                     asset: root::AZ::Data::Asset,
                 );
             }
+            extern "C" {
+                #[link_name = "\u{1}?AssetFilterNoAssetLoading@Data@AZ@@YA_NAEBV?$Asset@VAssetData@Data@AZ@@@12@@Z"]
+                pub fn AssetFilterNoAssetLoading(arg1: *const root::AZ::Data::Asset) -> bool;
+            }
         }
     }
     pub mod std {
@@ -4052,20 +3091,55 @@ pub mod root {
         pub type conditional_t = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct remove_const {
+            pub _address: u8,
+        }
+        pub type remove_const_type<_Ty> = _Ty;
+        pub type remove_const_t = root::std::remove_const;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct remove_cv {
             pub _address: u8,
         }
         pub type remove_cv_type<_Ty> = _Ty;
+        pub type remove_cv_t = root::std::remove_cv;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct remove_reference {
             pub _address: u8,
         }
         pub type remove_reference_type<_Ty> = _Ty;
+        pub type remove_reference_t = root::std::remove_reference;
         pub mod tr1 {
             #[allow(unused_imports)]
             use self::super::super::super::root;
         }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct _Add_reference {
+            pub _address: u8,
+        }
+        pub type _Add_reference__Lvalue<_Ty> = _Ty;
+        pub type _Add_reference__Rvalue<_Ty> = _Ty;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct add_lvalue_reference {
+            pub _address: u8,
+        }
+        pub type add_lvalue_reference_type = root::std::_Add_reference;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct add_rvalue_reference {
+            pub _address: u8,
+        }
+        pub type add_rvalue_reference_type = root::std::_Add_reference;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct remove_pointer {
+            pub _address: u8,
+        }
+        pub type remove_pointer_type<_Ty> = _Ty;
+        pub type remove_pointer_t = root::std::remove_pointer;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct is_empty {
@@ -4084,6 +3158,35 @@ pub mod root {
             pub _address: u8,
         }
         pub type make_unsigned_type = root::std::_Change_sign;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct underlying_type {
+            pub _address: u8,
+        }
+        pub type underlying_type_type<_Ty> = _Ty;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct decay {
+            pub _address: u8,
+        }
+        pub type decay__Ty1 = root::std::remove_reference_t;
+        pub type decay_type = root::std::conditional_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct tuple {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct tuple_size {
+            pub _address: u8,
+        }
+        pub type _Compressed_pair__Mybase<_Ty1> = _Ty1;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct _Ignore {
+            pub _address: u8,
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct _Get_first_parameter {
@@ -4122,68 +3225,30 @@ pub mod root {
         pub type pointer_traits_difference_type = root::std::_Get_ptr_difference_type;
         pub type pointer_traits_rebind = root::std::_Get_rebind_alias;
         pub type pointer_traits__Reftype = root::std::conditional_t;
-        pub const memory_order_memory_order_relaxed: root::std::memory_order = 0;
-        pub const memory_order_memory_order_consume: root::std::memory_order = 1;
-        pub const memory_order_memory_order_acquire: root::std::memory_order = 2;
-        pub const memory_order_memory_order_release: root::std::memory_order = 3;
-        pub const memory_order_memory_order_acq_rel: root::std::memory_order = 4;
-        pub const memory_order_memory_order_seq_cst: root::std::memory_order = 5;
-        pub type memory_order = i32;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct _Get_deleter_pointer_type {
+            pub _address: u8,
+        }
+        pub type _Get_deleter_pointer_type_type<_Ty> = *mut _Ty;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct _Unique_ptr_base {
+            pub _Mypair: u8,
+        }
+        pub type _Unique_ptr_base__Dx_noref = root::std::remove_reference_t;
+        pub type _Unique_ptr_base_pointer = root::std::_Get_deleter_pointer_type;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct unique_ptr {
+            pub _base: root::std::_Unique_ptr_base,
+        }
+        pub type unique_ptr__Mybase = root::std::_Unique_ptr_base;
+        pub type unique_ptr_pointer = root::std::unique_ptr__Mybase;
+        pub type unique_ptr_element_type<_Ty> = _Ty;
+        pub type unique_ptr_deleter_type<_Dx> = _Dx;
         pub type _Uint1_t = ::std::os::raw::c_uchar;
         pub type _Atomic_impl__My_int = root::std::_Uint1_t;
-        extern "C" {
-            #[link_name = "\u{1}_Is_lock_free"]
-            pub fn _Atomic_impl__Is_lock_free(this: *const u8) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_Store"]
-            pub fn _Atomic_impl__Store(
-                this: *mut u8,
-                _Tgt: *mut ::std::os::raw::c_void,
-                _Src: *const ::std::os::raw::c_void,
-                _Order: root::std::memory_order,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_Load"]
-            pub fn _Atomic_impl__Load(
-                this: *const u8,
-                _Tgt: *mut ::std::os::raw::c_void,
-                _Src: *const ::std::os::raw::c_void,
-                _Order: root::std::memory_order,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_Exchange"]
-            pub fn _Atomic_impl__Exchange(
-                this: *mut u8,
-                _Left: *mut ::std::os::raw::c_void,
-                _Right: *mut ::std::os::raw::c_void,
-                _Order: root::std::memory_order,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}_Compare_exchange_weak"]
-            pub fn _Atomic_impl__Compare_exchange_weak(
-                this: *mut u8,
-                _Tgt: *mut ::std::os::raw::c_void,
-                _Exp: *mut ::std::os::raw::c_void,
-                _Value: *const ::std::os::raw::c_void,
-                _Order1: root::std::memory_order,
-                _Order2: root::std::memory_order,
-            ) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}_Compare_exchange_strong"]
-            pub fn _Atomic_impl__Compare_exchange_strong(
-                this: *mut u8,
-                _Tgt: *mut ::std::os::raw::c_void,
-                _Exp: *mut ::std::os::raw::c_void,
-                _Value: *const ::std::os::raw::c_void,
-                _Order1: root::std::memory_order,
-                _Order2: root::std::memory_order,
-            ) -> bool;
-        }
         pub type _Atomic_base__Mybase = u8;
         pub type _Atomic_base__My_int = root::std::_Atomic_base__Mybase;
         #[repr(C)]
@@ -4198,20 +3263,862 @@ pub mod root {
         #[allow(unused_imports)]
         use self::super::super::root;
         pub type sys_time_t = root::AZ::s64;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unary_function {
+            pub _address: u8,
+        }
+        pub type unary_function_argument_type<Arg> = Arg;
+        pub type unary_function_result_type<Result> = Result;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct binary_function {
+            pub _address: u8,
+        }
+        pub type binary_function_first_argument_type<Arg1> = Arg1;
+        pub type binary_function_second_argument_type<Arg2> = Arg2;
+        pub type binary_function_result_type<Result> = Result;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct plus {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct minus {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct multiplies {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct divides {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct modulus {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct negate {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct equal_to {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct not_equal_to {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct greater {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct less {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct greater_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct less_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct logical_and {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct logical_or {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct logical_not {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unary_negate<Functor> {
+            pub m_functor: Functor,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Functor>>,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct binary_negate<Functor> {
+            pub m_functor: Functor,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Functor>>,
+        }
+        pub type bool_constant = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_void {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_integral {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_floating_point {
+            pub _base: u8,
+        }
+        pub mod type_traits {
+            #[allow(unused_imports)]
+            use self::super::super::super::root;
+            pub const ice_or_value: bool = true;
+            pub const ice_and_value: bool = false;
+            pub const ice_not_value: bool = true;
+            pub type yes_type = ::std::os::raw::c_char;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct no_type {
+                pub padding: [::std::os::raw::c_char; 8usize],
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static ice_eq_value: bool;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static ice_ne_value: bool;
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct wrap {
+                pub _address: u8,
+            }
+        }
         pub mod Internal {
             #[allow(unused_imports)]
             use self::super::super::super::root;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_arithmetic_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_member_pointer_helper {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_scalar_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_pod_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct alignment_of_hack {
+                pub _address: u8,
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static alignment_logic_value: usize;
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct alignment_of_impl {
+                pub _address: u8,
+            }
             #[repr(C)]
             #[repr(align(8))]
             #[derive(Copy, Clone)]
             pub union aligned_storage__bindgen_ty_1 {
                 pub _bindgen_opaque_blob: u64,
             }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_abstract_imp {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_convertible_basic_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_convertible_impl {
+                pub _address: u8,
+            }
+            pub type is_convertible_impl_ref_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_convertible_impl_select_rebind {
+                pub _address: u8,
+            }
+            pub type is_convertible_impl_select_rebind_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_convertible_impl_dispatch_base {
+                pub _address: u8,
+            }
+            pub type is_convertible_impl_dispatch_base_selector = u8;
+            pub type is_convertible_impl_dispatch_base_isc_binder = u8;
+            pub type is_convertible_impl_dispatch_base_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_convertible_impl_dispatch {
+                pub _address: u8,
+            }
+            extern "C" {
+                #[link_name = "\u{1}?is_lvalue_reference_helper1@Internal@AZStd@@YADZZ"]
+                pub fn is_lvalue_reference_helper1() -> ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?is_lvalue_reference_helper2@Internal@AZStd@@YADZZ"]
+                pub fn is_lvalue_reference_helper2() -> root::AZStd::type_traits::yes_type;
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_lvalue_reference_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct are_pair_args_comparable {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct addr_impl_ref {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct addressof_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_in_place_index {
+                pub _address: u8,
+            }
+            pub type is_in_place_index_t = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_base_and_derived_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_class_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_function_pointer_tester {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_member_function_pointer_tester {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[repr(align(1))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct nat {
+                pub _bindgen_opaque_blob: u8,
+            }
+            #[repr(C)]
+            #[repr(align(1))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct param_any {
+                pub _bindgen_opaque_blob: u8,
+            }
+            extern "C" {
+                #[link_name = "\u{1}??0param_any@Internal@AZStd@@QEAA@ZZ"]
+                pub fn param_any_param_any(this: *mut root::AZStd::Internal::param_any, ...);
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct check_complete_type {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct member_pointer_class_type {
+                pub _address: u8,
+            }
+            pub type member_pointer_class_type_t = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct invocable_r {
+                pub _address: u8,
+            }
+            pub type invocable_r_result_type = u8;
+            pub type invocable_r_type = u8;
+            pub type invocable = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct has_trivial_dtor_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct has_trivial_ctor_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct has_trivial_assign_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct has_trivial_copy_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct destroy {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct construct {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_fast_copy_helper {
+                pub _address: u8,
+            }
+            pub type is_fast_copy_helper_value_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_fast_copy {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_fast_fill_helper {
+                pub _address: u8,
+            }
+            pub type is_fast_fill_helper_value_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct is_fast_fill {
+                pub _address: u8,
+            }
+            pub mod function_util {
+                #[allow(unused_imports)]
+                use self::super::super::super::super::root;
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct X {
+                    _unused: [u8; 0],
+                }
+                #[repr(C)]
+                #[repr(align(8))]
+                #[derive(Copy, Clone)]
+                pub union function_buffer {
+                    pub _bindgen_opaque_blob: [u64; 4usize],
+                }
+                #[repr(C)]
+                #[repr(align(8))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_buffer_type_t {
+                    pub _bindgen_opaque_blob: [u64; 2usize],
+                }
+                #[repr(C)]
+                #[repr(align(8))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_buffer_bound_memfunc_ptr_t {
+                    pub _bindgen_opaque_blob: [u64; 4usize],
+                }
+                #[repr(C)]
+                #[repr(align(8))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_buffer_obj_ref_t {
+                    pub _bindgen_opaque_blob: [u64; 2usize],
+                }
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct unusable {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_return_type {
+                    pub _address: u8,
+                }
+                pub type function_return_type_type = u8;
+                pub const functor_manager_operation_type_clone_functor_tag:
+                    root::AZStd::Internal::function_util::functor_manager_operation_type = 0;
+                pub const functor_manager_operation_type_move_functor_tag:
+                    root::AZStd::Internal::function_util::functor_manager_operation_type = 1;
+                pub const functor_manager_operation_type_destroy_functor_tag:
+                    root::AZStd::Internal::function_util::functor_manager_operation_type = 2;
+                pub const functor_manager_operation_type_check_functor_type_tag:
+                    root::AZStd::Internal::function_util::functor_manager_operation_type = 3;
+                pub const functor_manager_operation_type_get_functor_type_tag:
+                    root::AZStd::Internal::function_util::functor_manager_operation_type = 4;
+                pub type functor_manager_operation_type = i32;
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_ptr_tag {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_obj_tag {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct member_ptr_tag {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_obj_ref_tag {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct get_function_tag {
+                    pub _address: u8,
+                }
+                pub type get_function_tag_ptr_or_obj_tag = u8;
+                pub type get_function_tag_ptr_or_obj_or_mem_tag = u8;
+                pub type get_function_tag_or_ref_tag = u8;
+                pub type get_function_tag_type = u8;
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct reference_manager {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct function_allows_small_object_optimization {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct functor_wrapper {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct functor_manager_common {
+                    pub _address: u8,
+                }
+                pub type functor_manager_common_functor_type = u8;
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct functor_manager {
+                    pub _address: u8,
+                }
+                pub type functor_manager_functor_type = u8;
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct functor_manager_a {
+                    pub _address: u8,
+                }
+                pub type functor_manager_a_functor_type = u8;
+                #[repr(C)]
+                #[repr(align(1))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct useless_clear_type {
+                    pub _bindgen_opaque_blob: u8,
+                }
+                #[repr(C)]
+                #[repr(align(8))]
+                #[derive(Debug, Copy, Clone)]
+                pub struct vtable_base {
+                    pub _bindgen_opaque_blob: u64,
+                }
+                pub type vtable_base_type = [u32; 0usize];
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct invoke_void_return_wrapper {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct get_invoker {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct basic_vtable {
+                    pub _address: u8,
+                }
+                pub type basic_vtable_invoker_type = u8;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static static_gcd_value: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static static_lcm_value: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static static_abs_value: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static static_sign_value: root::AZ::s64;
+            }
+            pub const ll_mul_nan: root::AZ::s64 = -9223372036854775808;
+            extern "C" {
+                #[link_name = "\u{1}min"]
+                pub static ll_mul_min: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}max"]
+                pub static ll_mul_max: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}a_x"]
+                pub static ll_mul_a_x: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}a_y"]
+                pub static ll_mul_a_y: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test1"]
+                pub static mut ll_mul_test1: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test2"]
+                pub static mut ll_mul_test2: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test"]
+                pub static mut ll_mul_test: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static ll_mul_value: root::AZ::s64;
+            }
+            pub const ll_div_nan: root::AZ::s64 = -9223372036854775808;
+            extern "C" {
+                #[link_name = "\u{1}min"]
+                pub static ll_div_min: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}max"]
+                pub static ll_div_max: root::AZ::s64;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test1"]
+                pub static mut ll_div_test1: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test2"]
+                pub static mut ll_div_test2: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}test3"]
+                pub static mut ll_div_test3: *mut ::std::os::raw::c_char;
+            }
+            extern "C" {
+                #[link_name = "\u{1}value"]
+                pub static ll_div_value: root::AZ::s64;
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct ratio_gcd {
+                pub _address: u8,
+            }
+            pub type ratio_gcd_type = u8;
+            pub type common_ternary_t = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct common_type_2_default {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct common_type_2_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct common_type_multi_impl {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct thread_move_t {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[repr(align(8))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct thread_info {
+                pub _bindgen_opaque_blob: [u64; 2usize],
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct thread_info_impl {}
+            extern "C" {
+                #[link_name = "\u{1}?create_thread@Internal@AZStd@@YAPEAXPEBUthread_desc@2@PEAVthread_info@12@PEAI@Z"]
+                pub fn create_thread(
+                    desc: *const root::AZStd::thread_desc,
+                    ti: *mut root::AZStd::Internal::thread_info,
+                    id: *mut ::std::os::raw::c_uint,
+                ) -> root::HANDLE;
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct sp_convertible {
+                pub _address: u8,
+            }
+            pub type sp_convertible_yes = u8;
+            pub type sp_convertible_no = [u8; 2usize];
+            pub const sp_convertible__vt_value: root::AZStd::Internal::sp_convertible__vt = 0;
+            pub type sp_convertible__vt = i32;
+            #[repr(C)]
+            #[repr(align(1))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct sp_empty {
+                pub _bindgen_opaque_blob: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct sp_enable_if_convertible {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[repr(align(1))]
+            #[derive(Copy, Clone)]
+            pub union OptionalDestructBase__bindgen_ty_1 {
+                pub _bindgen_opaque_blob: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct OptionalImplBase {
+                pub _address: u8,
+            }
+            pub type OptionalImplBase_base = u8;
+            pub type OptionalCopyBase_base = u8;
+            pub type OptionalMoveBase_base = u8;
+            pub type OptionalCopyAssignBase_base = u8;
             pub type OptionalMoveAssignBase_base = u8;
             pub type OptionalSFINAECtorBase_t = u8;
             pub type OptionalSFINAEAssignBase_t = u8;
+            #[repr(C)]
+            #[repr(align(8))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct list_node_base {
+                pub _bindgen_opaque_blob: [u64; 2usize],
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct list_node {
+                pub _address: u8,
+            }
+            pub type hash_table_storage_this_type = u8;
+            pub type hash_table_storage_allocator_type = u8;
+            pub type hash_table_storage_list_type = u8;
+            pub type hash_table_storage_size_type = u8;
+            pub type hash_table_storage_vector_value_type = u8;
+            pub type hash_table_storage_vector_type = u8;
+            #[repr(C)]
+            #[repr(align(8))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct rbtree_node_base {
+                pub _bindgen_opaque_blob: [u64; 3usize],
+            }
+            pub type rbtree_node_base_color_type = u32;
+            pub type rbtree_node_base_BaseNodePtr = u64;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct rbtree_node {
+                pub _address: u8,
+            }
+            pub type UnorderedMapTableTraits_key_type = u8;
+            pub type UnorderedMapTableTraits_key_eq = u8;
+            pub type UnorderedMapTableTraits_hasher = u8;
+            pub type UnorderedMapTableTraits_value_type = u8;
+            pub type UnorderedMapTableTraits_allocator_type = u8;
+            pub const UnorderedMapTableTraits_max_load_factor:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedMapTableTraits_min_buckets:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedMapTableTraits_has_multi_elements:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedMapTableTraits_is_dynamic:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedMapTableTraits_fixed_num_buckets:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedMapTableTraits_fixed_num_elements:
+                root::AZStd::Internal::UnorderedMapTableTraits__bindgen_ty_1 = 0;
+            pub type UnorderedMapTableTraits__bindgen_ty_1 = i32;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct ConvertKeyType {
+                pub _address: u8,
+            }
+            pub type ConvertKeyType_key_type = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct pack_traits_arg_sequence {
+                pub _address: u8,
+            }
+            pub type pack_traits_get_arg_t = u8;
+            pub const qualifier_flags_default_: root::AZStd::Internal::qualifier_flags = 0;
+            pub const qualifier_flags_const_: root::AZStd::Internal::qualifier_flags = 1;
+            pub const qualifier_flags_volatile_: root::AZStd::Internal::qualifier_flags = 2;
+            pub const qualifier_flags_lvalue_ref: root::AZStd::Internal::qualifier_flags = 4;
+            pub const qualifier_flags_rvalue_ref: root::AZStd::Internal::qualifier_flags = 8;
+            pub const qualifier_flags_const_volatile: root::AZStd::Internal::qualifier_flags = 3;
+            pub const qualifier_flags_const_lvalue_ref: root::AZStd::Internal::qualifier_flags = 5;
+            pub const qualifier_flags_const_rvalue_ref: root::AZStd::Internal::qualifier_flags = 9;
+            pub const qualifier_flags_volatile_lvalue_ref: root::AZStd::Internal::qualifier_flags =
+                6;
+            pub const qualifier_flags_volatile_rvalue_ref: root::AZStd::Internal::qualifier_flags =
+                10;
+            pub const qualifier_flags_const_volatile_lvalue_ref:
+                root::AZStd::Internal::qualifier_flags = 7;
+            pub const qualifier_flags_const_volatile_rvalue_ref:
+                root::AZStd::Internal::qualifier_flags = 11;
+            pub type qualifier_flags = u32;
+            #[repr(C)]
+            #[repr(align(1))]
+            #[derive(Debug, Copy, Clone)]
+            pub struct error_type {
+                pub _bindgen_opaque_blob: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct has_call_operator {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct default_traits {
+                pub _address: u8,
+            }
+            pub type default_traits_type = u8;
+            pub type default_traits_class_type = u8;
+            pub type default_traits_invoke_type = u8;
+            pub type default_traits_return_type = u8;
+            pub type default_traits_arg_types = u8;
+            pub type default_traits_non_invoke_arg_types = u8;
+            pub type default_traits_function_object_signature = u8;
+            pub type default_traits_function_type = u8;
+            pub type default_traits_expand_args = u8;
+            pub type default_traits_class_fp_type = u8;
+            pub type default_traits_raw_fp_type = u8;
+            pub type default_traits_result_type = u8;
+            pub type default_traits_get_arg_t = u8;
+            pub type default_traits_arg_sequence = u8;
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct pointer_to_member_function {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct pointer_to_member_data {
+                pub _address: u8,
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct raw_function {
+                pub _address: u8,
+            }
+            pub type callable_traits = u8;
+            pub type UnorderedSetTableTraits_key_type = u8;
+            pub type UnorderedSetTableTraits_key_eq = u8;
+            pub type UnorderedSetTableTraits_hasher = u8;
+            pub type UnorderedSetTableTraits_value_type = u8;
+            pub type UnorderedSetTableTraits_allocator_type = u8;
+            pub const UnorderedSetTableTraits_max_load_factor:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedSetTableTraits_min_buckets:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedSetTableTraits_has_multi_elements:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedSetTableTraits_is_dynamic:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedSetTableTraits_fixed_num_buckets:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub const UnorderedSetTableTraits_fixed_num_elements:
+                root::AZStd::Internal::UnorderedSetTableTraits__bindgen_ty_1 = 0;
+            pub type UnorderedSetTableTraits__bindgen_ty_1 = i32;
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_arithmetic {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_same {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_reference {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_enum {
+            pub _address: u8,
+        }
+        pub type remove_cv_t = root::std::remove_cv_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_member_pointer {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_scalar {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_pod {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct alignment_of {
+            pub _address: u8,
         }
         pub type aligned_storage_type = u8;
+        pub type aligned_storage_t = u8;
+        pub type aligned_storage_for_t = root::AZStd::aligned_storage_t;
         pub mod Utils {
             #[allow(unused_imports)]
             use self::super::super::super::root;
@@ -4219,6 +4126,63 @@ pub mod root {
         }
         pub type conditional_type<T2> = T2;
         pub type conditional_t = u8;
+        pub type enable_if_t = u8;
+        pub type remove_reference_t = root::std::remove_reference;
+        pub type remove_const_t = root::std::remove_const_t;
+        pub type add_lvalue_reference_t = root::std::add_lvalue_reference;
+        pub type add_rvalue_reference_t = root::std::add_rvalue_reference;
+        pub type decay_t = root::std::decay;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_reference_wrapper {
+            pub _base: root::std::false_type,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unwrap_reference {
+            pub _address: u8,
+        }
+        pub type unwrap_reference_type = root::std::decay;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_array {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_abstract {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_convertible {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_lvalue_reference {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct default_delete {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct no_delete {
+            pub _address: u8,
+        }
+        extern "C" {
+            #[link_name = "\u{1}size"]
+            pub static index_sequence_size: usize;
+        }
+        pub type make_index_sequence = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct piecewise_construct_t {
+            pub _address: u8,
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct pair<T1, T2> {
@@ -4232,42 +4196,188 @@ pub mod root {
         pub type pair_second_type<T2> = T2;
         pub type pair_TT1 = root::std::remove_reference;
         pub type pair_TT2 = root::std::remove_reference;
+        pub type RemoveEnum_type = root::std::underlying_type;
+        pub type RemoveEnumT = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct HandleLambdaPointer {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct RemoveFunctionConst {
+            pub _address: u8,
+        }
+        pub type RemoveFunctionConst_type = root::AZStd::HandleLambdaPointer;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct sequence_and {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct sequence_or {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct in_place_t {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct in_place_type_t {
+            pub _address: u8,
+        }
         pub type native_mutex_data_type = [u64; 5usize];
+        pub type native_mutex_handle_type = *mut root::CRITICAL_SECTION;
         pub type native_recursive_mutex_data_type = root::AZStd::native_mutex_data_type;
         pub type native_recursive_mutex_handle_type = *mut root::CRITICAL_SECTION;
+        pub type native_cond_var_data_type = u8;
+        pub type native_cond_var_handle_type = *mut root::CONDITION_VARIABLE;
+        pub type native_semaphore_data_type = root::HANDLE;
+        pub type native_semaphore_handle_type = root::HANDLE;
         pub type native_thread_id_type = ::std::os::raw::c_uint;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct native_thread_data_type {
+            pub m_handle: root::HANDLE,
+            pub m_id: root::AZStd::native_thread_id_type,
+        }
+        pub type native_thread_handle_type = root::HANDLE;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct thread_id {
             pub m_id: root::AZStd::native_thread_id_type,
         }
-        extern "C" {
-            #[link_name = "\u{1}??0thread_id@AZStd@@QEAA@XZ"]
-            pub fn thread_id_thread_id(this: *mut root::AZStd::thread_id);
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0thread_id@AZStd@@QEAA@I@Z"]
-            pub fn thread_id_thread_id1(
-                this: *mut root::AZStd::thread_id,
-                threadId: root::AZStd::native_thread_id_type,
-            );
-        }
-        impl thread_id {
-            #[inline]
-            pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                thread_id_thread_id(&mut __bindgen_tmp);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(threadId: root::AZStd::native_thread_id_type) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                thread_id_thread_id1(&mut __bindgen_tmp, threadId);
-                __bindgen_tmp
-            }
-        }
+        pub type atomic_char = root::std::atomic;
+        pub type atomic_uchar = root::std::atomic;
+        pub type atomic_wchar_t = root::std::atomic;
+        pub type atomic_short = root::std::atomic;
+        pub type atomic_ushort = root::std::atomic;
         pub type atomic_int = root::std::atomic;
         pub type atomic_uint = root::std::atomic;
+        pub type atomic_long = root::std::atomic;
+        pub type atomic_ulong = root::std::atomic;
+        pub type atomic_llong = root::std::atomic;
+        pub type atomic_ullong = root::std::atomic;
+        pub type atomic_size_t = root::std::atomic;
+        pub type atomic_ptrdiff_t = root::std::atomic;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct default_destruct {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct no_destruct {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct static_storage {
+            pub m_storage: u8,
+            pub m_object: root::std::atomic,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_base_and_derived {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_base_of {
+            pub _address: u8,
+        }
+        pub type remove_pointer_t = root::std::remove_pointer_t;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_class {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_member_function_pointer {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_member_object_pointer {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_invocable {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_invocable_r {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct invoke_result {
+            pub _address: u8,
+        }
+        pub type invoke_result_t = root::AZStd::invoke_result;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct hash {
+            pub _address: u8,
+        }
+        pub type hash_argument_type<T> = T;
+        pub type hash_result_type = usize;
+        pub type DefaultHashResultType_type = root::std::true_type;
+        pub type HasDefaultHash_Yes = ::std::os::raw::c_char;
+        pub type HasDefaultHash_No = ::std::os::raw::c_long;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct HasDefaultHash_Helper {
+            pub _address: u8,
+        }
+        pub type HasDefaultHash_Helper_mfp = ::std::option::Option<unsafe extern "C" fn() -> bool>;
+        pub type HasDefaultHash_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct HasSpecializedHasher {
+            pub _address: u8,
+        }
+        pub type HasSpecializedHasher_type = u8;
+        extern "C" {
+            #[link_name = "\u{1}?hash_next_bucket_size@AZStd@@YA_K_K@Z"]
+            pub fn hash_next_bucket_size(n: usize) -> usize;
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct input_iterator_tag {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct output_iterator_tag {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct forward_iterator_tag {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct bidirectional_iterator_tag {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct random_access_iterator_tag {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct continuous_random_access_iterator_tag {
+            pub _address: u8,
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct iterator {
@@ -4301,6 +4411,55 @@ pub mod root {
         pub type reverse_iterator_difference_type = root::AZStd::iterator_traits;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct move_iterator<Iterator> {
+            pub m_current: root::AZStd::move_iterator_iterator_type<Iterator>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Iterator>>,
+        }
+        pub type move_iterator_iterator_base = root::AZStd::iterator;
+        pub type move_iterator_reference = root::AZStd::move_iterator_iterator_base;
+        pub type move_iterator_pointer = root::AZStd::move_iterator_iterator_base;
+        pub type move_iterator_difference_type = root::AZStd::move_iterator_iterator_base;
+        pub type move_iterator_this_type<Iterator> = root::AZStd::move_iterator<Iterator>;
+        pub type move_iterator_iterator_type<Iterator> = Iterator;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct back_insert_iterator<Container> {
+            pub m_container: *mut Container,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Container>>,
+        }
+        pub type back_insert_iterator_this_type<Container> =
+            root::AZStd::back_insert_iterator<Container>;
+        pub type back_insert_iterator_container_type<Container> = Container;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct front_insert_iterator<Container> {
+            pub m_container: *mut Container,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Container>>,
+        }
+        pub type front_insert_iterator_this_type<Container> =
+            root::AZStd::front_insert_iterator<Container>;
+        pub type front_insert_iterator_container_type<Container> = Container;
+        #[repr(C)]
+        pub struct insert_iterator<Container> {
+            pub m_container: *mut Container,
+            pub m_iterator: root::AZStd::insert_iterator_container_iterator_type,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Container>>,
+        }
+        pub type insert_iterator_this_type<Container> = root::AZStd::insert_iterator<Container>;
+        pub type insert_iterator_container_type<Container> = Container;
+        pub type insert_iterator_container_iterator_type = [u8; 0usize];
+        pub const iterator_status_flag_isf_none: root::AZStd::iterator_status_flag = 0;
+        pub const iterator_status_flag_isf_valid: root::AZStd::iterator_status_flag = 1;
+        pub const iterator_status_flag_isf_can_dereference: root::AZStd::iterator_status_flag = 2;
+        pub const iterator_status_flag_isf_current: root::AZStd::iterator_status_flag = 4;
+        pub type iterator_status_flag = i32;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct is_continuous_random_access_iterator_cat {
+            pub _base: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct char_traits {
             pub _address: u8,
         }
@@ -4332,6 +4491,30 @@ pub mod root {
         pub type basic_string_view_const_reverse_iterator<Element> =
             root::AZStd::reverse_iterator<root::AZStd::basic_string_view_const_iterator<Element>>;
         pub type string_view = root::AZStd::basic_string_view<::std::os::raw::c_char>;
+        pub type wstring_view = root::AZStd::basic_string_view<u16>;
+        pub type basic_const_string<Element> = root::AZStd::basic_string_view<Element>;
+        pub type const_string = root::AZStd::string_view;
+        pub type const_wstring = root::AZStd::wstring_view;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct forward_list {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct map {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct set {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct shared_ptr {
+            pub _address: u8,
+        }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct function {
@@ -4341,6 +4524,11 @@ pub mod root {
         #[derive(Debug, Copy, Clone)]
         pub struct monostate {
             _unused: [u8; 0],
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct variant {
+            pub _address: u8,
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -4354,27 +4542,6 @@ pub mod root {
         extern "C" {
             #[link_name = "\u{1}?TYPEINFO_Enable@allocator@AZStd@@QEAAXXZ"]
             pub fn allocator_TYPEINFO_Enable(this: *mut root::AZStd::allocator);
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Name@allocator@AZStd@@SAPEBDXZ"]
-            pub fn allocator_TYPEINFO_Name() -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?TYPEINFO_Uuid@allocator@AZStd@@SAAEBUUuid@AZ@@XZ"]
-            pub fn allocator_TYPEINFO_Uuid() -> *const root::AZ::TypeId;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?get_name@allocator@AZStd@@QEBAPEBDXZ"]
-            pub fn allocator_get_name(
-                this: *const root::AZStd::allocator,
-            ) -> *const ::std::os::raw::c_char;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?set_name@allocator@AZStd@@QEAAXPEBD@Z"]
-            pub fn allocator_set_name(
-                this: *mut root::AZStd::allocator,
-                name: *const ::std::os::raw::c_char,
-            );
         }
         extern "C" {
             #[link_name = "\u{1}?allocate@allocator@AZStd@@QEAAPEAX_K0H@Z"]
@@ -4414,60 +4581,10 @@ pub mod root {
                 this: *const root::AZStd::allocator,
             ) -> root::AZStd::allocator_size_type;
         }
-        extern "C" {
-            #[link_name = "\u{1}?is_lock_free@allocator@AZStd@@QEAA_NXZ"]
-            pub fn allocator_is_lock_free(this: *mut root::AZStd::allocator) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?is_stale_read_allowed@allocator@AZStd@@QEAA_NXZ"]
-            pub fn allocator_is_stale_read_allowed(this: *mut root::AZStd::allocator) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}?is_delayed_recycling@allocator@AZStd@@QEAA_NXZ"]
-            pub fn allocator_is_delayed_recycling(this: *mut root::AZStd::allocator) -> bool;
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0allocator@AZStd@@QEAA@PEBD@Z"]
-            pub fn allocator_allocator(
-                this: *mut root::AZStd::allocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0allocator@AZStd@@QEAA@AEBV01@@Z"]
-            pub fn allocator_allocator1(
-                this: *mut root::AZStd::allocator,
-                rhs: *const root::AZStd::allocator,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0allocator@AZStd@@QEAA@AEBV01@PEBD@Z"]
-            pub fn allocator_allocator2(
-                this: *mut root::AZStd::allocator,
-                rhs: *const root::AZStd::allocator,
-                name: *const ::std::os::raw::c_char,
-            );
-        }
         impl allocator {
             #[inline]
             pub unsafe fn TYPEINFO_Enable(&mut self) {
                 allocator_TYPEINFO_Enable(self)
-            }
-            #[inline]
-            pub unsafe fn TYPEINFO_Name() -> *const ::std::os::raw::c_char {
-                allocator_TYPEINFO_Name()
-            }
-            #[inline]
-            pub unsafe fn TYPEINFO_Uuid() -> *const root::AZ::TypeId {
-                allocator_TYPEINFO_Uuid()
-            }
-            #[inline]
-            pub unsafe fn get_name(&self) -> *const ::std::os::raw::c_char {
-                allocator_get_name(self)
-            }
-            #[inline]
-            pub unsafe fn set_name(&mut self, name: *const ::std::os::raw::c_char) {
-                allocator_set_name(self, name)
             }
             #[inline]
             pub unsafe fn allocate(
@@ -4503,41 +4620,89 @@ pub mod root {
             pub unsafe fn get_allocated_size(&self) -> root::AZStd::allocator_size_type {
                 allocator_get_allocated_size(self)
             }
-            #[inline]
-            pub unsafe fn is_lock_free(&mut self) -> bool {
-                allocator_is_lock_free(self)
-            }
-            #[inline]
-            pub unsafe fn is_stale_read_allowed(&mut self) -> bool {
-                allocator_is_stale_read_allowed(self)
-            }
-            #[inline]
-            pub unsafe fn is_delayed_recycling(&mut self) -> bool {
-                allocator_is_delayed_recycling(self)
-            }
-            #[inline]
-            pub unsafe fn new(name: *const ::std::os::raw::c_char) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                allocator_allocator(&mut __bindgen_tmp, name);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new1(rhs: *const root::AZStd::allocator) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                allocator_allocator1(&mut __bindgen_tmp, rhs);
-                __bindgen_tmp
-            }
-            #[inline]
-            pub unsafe fn new2(
-                rhs: *const root::AZStd::allocator,
-                name: *const ::std::os::raw::c_char,
-            ) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                allocator_allocator2(&mut __bindgen_tmp, rhs, name);
-                __bindgen_tmp
-            }
         }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct no_default_allocator {
+            pub _address: u8,
+        }
+        pub type no_default_allocator_pointer_type = *mut ::std::os::raw::c_void;
+        pub type no_default_allocator_size_type = usize;
+        pub type no_default_allocator_difference_type = isize;
+        pub type no_default_allocator_allow_memory_leaks = root::std::false_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct bad_function_call {
+            _unused: [u8; 0],
+        }
+        pub type type_id = *mut ::std::os::raw::c_void;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct type_id_holder {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct remove_cvref {
+            pub _address: u8,
+        }
+        pub type remove_cvref_type = root::AZStd::remove_cv_t;
+        pub type remove_cvref_t = root::AZStd::remove_cvref;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_trivial_destructor {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_trivial_constructor {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_trivial_default_constructor {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_trivial_assign {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_trivial_copy {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct function_base {
+            pub vtable: *mut root::AZStd::Internal::function_util::vtable_base,
+            pub functor: root::AZStd::Internal::function_util::function_buffer,
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct function_intermediate {
+            pub _base: root::AZStd::function_base,
+        }
+        pub type function_intermediate_result_type<R> = R;
+        pub type function_intermediate_vtable_type = u8;
+        pub type function_intermediate_self_type = root::AZStd::function_intermediate;
+        pub type atto = u8;
+        pub type femto = u8;
+        pub type pico = u8;
+        pub type nano = u8;
         pub type micro = u8;
+        pub type milli = u8;
+        pub type centi = u8;
+        pub type deci = u8;
+        pub type deca = u8;
+        pub type hecto = u8;
+        pub type kilo = u8;
+        pub type mega = u8;
+        pub type giga = u8;
+        pub type tera = u8;
+        pub type peta = u8;
+        pub type exa = u8;
         extern "C" {
             #[link_name = "\u{1}test1"]
             pub static mut ratio_test1: *mut ::std::os::raw::c_char;
@@ -4570,9 +4735,105 @@ pub mod root {
             #[link_name = "\u{1}den"]
             pub static ratio_den: root::AZ::s64;
         }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_add {
+            pub _address: u8,
+        }
+        pub type ratio_add_type = root::AZStd::ratio_multiply;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_subtract {
+            pub _address: u8,
+        }
+        pub type ratio_subtract_type = root::AZStd::ratio_multiply;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_multiply {
+            pub _address: u8,
+        }
+        pub type ratio_multiply_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_divide {
+            pub _address: u8,
+        }
+        pub type ratio_divide_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_not_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_less {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_less_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_greater {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct ratio_greater_equal {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct make_void {
+            pub _address: u8,
+        }
+        pub type make_void_type = ::std::os::raw::c_void;
+        pub type void_t = root::AZStd::make_void;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct common_type {
+            pub _address: u8,
+        }
+        pub type common_type_t = root::AZStd::common_type;
         pub mod chrono {
             #[allow(unused_imports)]
             use self::super::super::super::root;
+            pub mod Internal {
+                #[allow(unused_imports)]
+                use self::super::super::super::super::root;
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct duration_value {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct is_duration {
+                    pub _base: root::std::false_type,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct duration_eq {
+                    pub _address: u8,
+                }
+                #[repr(C)]
+                #[derive(Debug, Copy, Clone)]
+                pub struct duration_lt {
+                    pub _address: u8,
+                }
+            }
+            #[repr(C)]
+            #[derive(Debug, Copy, Clone)]
+            pub struct treat_as_floating_point {
+                pub _base: root::AZStd::is_floating_point,
+            }
             #[repr(C)]
             #[derive(Debug, Copy, Clone)]
             pub struct duration<Rep> {
@@ -4581,7 +4842,12 @@ pub mod root {
             }
             pub type duration_rep<Rep> = Rep;
             pub type duration_period<Period> = Period;
+            pub type nanoseconds = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
             pub type microseconds = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
+            pub type milliseconds = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
+            pub type seconds = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
+            pub type minutes = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
+            pub type hours = root::AZStd::chrono::duration<root::AZStd::sys_time_t>;
             #[repr(C)]
             #[derive(Debug, Copy, Clone)]
             pub struct time_point<Duration> {
@@ -4604,15 +4870,119 @@ pub mod root {
                 root::AZStd::chrono::duration<::std::os::raw::c_longlong>,
             >;
             pub const system_clock_is_monotonic: bool = true;
-            extern "C" {
-                #[link_name = "\u{1}?now@system_clock@chrono@AZStd@@SA?AV?$time_point@Vsystem_clock@chrono@AZStd@@V?$duration@_JV?$ratio@$00$0PECEA@@AZStd@@@23@@23@XZ"]
-                pub fn system_clock_now() -> root::AZStd::chrono::system_clock_time_point;
+            pub type monotonic_clock = root::AZStd::chrono::system_clock;
+            pub type high_resolution_clock = root::AZStd::chrono::monotonic_clock;
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct thread_desc {
+            pub m_stack: *mut ::std::os::raw::c_void,
+            pub m_stackSize: ::std::os::raw::c_int,
+            pub m_priority: ::std::os::raw::c_int,
+            pub m_cpuId: ::std::os::raw::c_int,
+            pub m_isJoinable: bool,
+            pub m_name: *const ::std::os::raw::c_char,
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct thread {
+            pub m_thread: root::AZStd::native_thread_data_type,
+        }
+        pub type thread_native_handle_type = root::AZStd::native_thread_handle_type;
+        extern "C" {
+            #[link_name = "\u{1}?joinable@thread@AZStd@@QEBA_NXZ"]
+            pub fn thread_joinable(this: *const root::AZStd::thread) -> bool;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?join@thread@AZStd@@QEAAXXZ"]
+            pub fn thread_join(this: *mut root::AZStd::thread);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?detach@thread@AZStd@@QEAAXXZ"]
+            pub fn thread_detach(this: *mut root::AZStd::thread);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?get_id@thread@AZStd@@QEBA?AUthread_id@2@XZ"]
+            pub fn thread_get_id(this: *const root::AZStd::thread) -> root::AZStd::thread_id;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?native_handle@thread@AZStd@@QEAAPEAXXZ"]
+            pub fn thread_native_handle(
+                this: *mut root::AZStd::thread,
+            ) -> root::AZStd::thread_native_handle_type;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?hardware_concurrency@thread@AZStd@@SAIXZ"]
+            pub fn thread_hardware_concurrency() -> ::std::os::raw::c_uint;
+        }
+        extern "C" {
+            #[link_name = "\u{1}??0thread@AZStd@@QEAA@XZ"]
+            pub fn thread_thread(this: *mut root::AZStd::thread);
+        }
+        extern "C" {
+            #[link_name = "\u{1}??0thread@AZStd@@QEAA@U?$thread_move_t@Vthread@AZStd@@@Internal@1@@Z"]
+            pub fn thread_thread1(this: *mut root::AZStd::thread, rhs: u64);
+        }
+        extern "C" {
+            #[link_name = "\u{1}??_Dthread@AZStd@@QEAAXXZ"]
+            pub fn thread_thread_destructor(this: *mut root::AZStd::thread);
+        }
+        impl thread {
+            #[inline]
+            pub unsafe fn joinable(&self) -> bool {
+                thread_joinable(self)
             }
-            impl system_clock {
-                #[inline]
-                pub unsafe fn now() -> root::AZStd::chrono::system_clock_time_point {
-                    system_clock_now()
-                }
+            #[inline]
+            pub unsafe fn join(&mut self) {
+                thread_join(self)
+            }
+            #[inline]
+            pub unsafe fn detach(&mut self) {
+                thread_detach(self)
+            }
+            #[inline]
+            pub unsafe fn get_id(&self) -> root::AZStd::thread_id {
+                thread_get_id(self)
+            }
+            #[inline]
+            pub unsafe fn native_handle(&mut self) -> root::AZStd::thread_native_handle_type {
+                thread_native_handle(self)
+            }
+            #[inline]
+            pub unsafe fn hardware_concurrency() -> ::std::os::raw::c_uint {
+                thread_hardware_concurrency()
+            }
+            #[inline]
+            pub unsafe fn new() -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                thread_thread(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
+            }
+            #[inline]
+            pub unsafe fn new1(rhs: u64) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                thread_thread1(__bindgen_tmp.as_mut_ptr(), rhs);
+                __bindgen_tmp.assume_init()
+            }
+            #[inline]
+            pub unsafe fn destruct(&mut self) {
+                thread_thread_destructor(self)
+            }
+        }
+        pub mod this_thread {
+            #[allow(unused_imports)]
+            use self::super::super::super::root;
+            extern "C" {
+                #[link_name = "\u{1}?get_id@this_thread@AZStd@@YA?AUthread_id@2@XZ"]
+                pub fn get_id() -> root::AZStd::thread_id;
+            }
+            extern "C" {
+                #[link_name = "\u{1}?yield@this_thread@AZStd@@YAXXZ"]
+                pub fn yield_();
+            }
+            extern "C" {
+                #[link_name = "\u{1}?pause@this_thread@AZStd@@YAXH@Z"]
+                pub fn pause(numLoops: ::std::os::raw::c_int);
             }
         }
         #[repr(C)]
@@ -4631,6 +5001,101 @@ pub mod root {
         pub type intrusive_ptr_element_type<T> = T;
         pub type intrusive_ptr_value_type<T> = T;
         pub type intrusive_ptr_unspecified_bool_type<T> = *mut *mut T;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct upgrade_lock {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct defer_lock_t {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct try_to_lock_t {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct adopt_lock_t {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct lock_guard<Mutex> {
+            pub m_mutex: *mut root::AZStd::lock_guard_mutex_type<Mutex>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Mutex>>,
+        }
+        pub type lock_guard_mutex_type<Mutex> = Mutex;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct unique_lock<Mutex> {
+            pub m_mutex: *mut root::AZStd::unique_lock_mutex_type<Mutex>,
+            pub m_owns: bool,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Mutex>>,
+        }
+        pub type unique_lock_mutex_type<Mutex> = Mutex;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct shared_lock<Mutex> {
+            pub m_mutex: *mut root::AZStd::shared_lock_mutex_type<Mutex>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Mutex>>,
+        }
+        pub type shared_lock_mutex_type<Mutex> = Mutex;
+        pub const deque_block_num_elements: root::AZStd::deque_block__bindgen_ty_1 = 0;
+        pub type deque_block__bindgen_ty_1 = i32;
+        pub const deque_CONTAINER_VERSION: root::AZStd::deque__bindgen_ty_1 = 0;
+        pub type deque__bindgen_ty_1 = i32;
+        pub type deque_this_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct deque_block_node {
+            pub m_data: u8,
+        }
+        pub type deque_pointer<T> = *mut T;
+        pub type deque_const_pointer<T> = *const T;
+        pub type deque_reference<T> = *mut T;
+        pub type deque_const_reference<T> = *const T;
+        pub type deque_difference_type = [u8; 0usize];
+        pub type deque_size_type = [u8; 0usize];
+        pub type deque_allocator_type<Allocator> = Allocator;
+        pub type deque_value_type<T> = T;
+        pub type deque_block_node_type = root::AZStd::deque_block_node;
+        pub type deque_map_node_type<T> = root::AZStd::deque_pointer<T>;
+        pub type deque_map_node_ptr_type<T> = *mut root::AZStd::deque_map_node_type<T>;
+        #[repr(C)]
+        pub struct deque_const_iterator_impl {
+            pub m_offset: root::AZStd::deque_size_type,
+            pub m_container: *const root::AZStd::deque_const_iterator_impl_container_type,
+        }
+        pub const deque_const_iterator_impl_ITERATOR_VERSION:
+            root::AZStd::deque_const_iterator_impl__bindgen_ty_1 = 0;
+        pub type deque_const_iterator_impl__bindgen_ty_1 = i32;
+        pub type deque_const_iterator_impl_this_type = root::AZStd::deque_const_iterator_impl;
+        pub type deque_const_iterator_impl_container_type = u8;
+        pub type deque_const_iterator_impl_value_type<T> = T;
+        pub type deque_const_iterator_impl_difference_type = isize;
+        pub type deque_const_iterator_impl_pointer<T> = *const T;
+        pub type deque_const_iterator_impl_reference<T> = *const T;
+        pub type deque_const_iterator_impl_iterator_category =
+            root::AZStd::random_access_iterator_tag;
+        #[repr(C)]
+        pub struct deque_iterator_impl {
+            pub _base: root::AZStd::deque_const_iterator_impl,
+        }
+        pub type deque_iterator_impl_this_type = root::AZStd::deque_iterator_impl;
+        pub type deque_iterator_impl_base_type = root::AZStd::deque_const_iterator_impl;
+        pub type deque_iterator_impl_container_type = u8;
+        pub type deque_iterator_impl_pointer<T> = *mut T;
+        pub type deque_iterator_impl_reference<T> = *mut T;
+        pub type deque_iterator_impl_difference_type = isize;
+        pub type deque_iterator = root::AZStd::deque_iterator_impl;
+        pub type deque_const_iterator = root::AZStd::deque_const_iterator_impl;
+        pub type deque_reverse_iterator =
+            root::AZStd::reverse_iterator<root::AZStd::deque_iterator>;
+        pub type deque_const_reverse_iterator =
+            root::AZStd::reverse_iterator<root::AZStd::deque_const_iterator>;
         #[repr(C)]
         #[derive(Debug)]
         pub struct vector<T, Allocator> {
@@ -4663,6 +5128,37 @@ pub mod root {
         pub type vector_node_type<T> = root::AZStd::vector_value_type<T>;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct queue<Container> {
+            pub m_container: Container,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Container>>,
+        }
+        pub const queue_CONTAINER_VERSION: root::AZStd::queue__bindgen_ty_1 = 0;
+        pub type queue__bindgen_ty_1 = i32;
+        pub type queue_this_type<Container> = root::AZStd::queue<Container>;
+        pub type queue_container_type<Container> = Container;
+        pub type queue_value_type = [u8; 0usize];
+        pub type queue_size_type = [u8; 0usize];
+        pub type queue_reference = [u8; 0usize];
+        pub type queue_const_reference = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct priority_queue<Container, Predicate> {
+            pub m_container: Container,
+            pub m_comp: Predicate,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Container>>,
+            pub _phantom_1: ::std::marker::PhantomData<::std::cell::UnsafeCell<Predicate>>,
+        }
+        pub const priority_queue_CONTAINER_VERSION: root::AZStd::priority_queue__bindgen_ty_1 = 0;
+        pub type priority_queue__bindgen_ty_1 = i32;
+        pub type priority_queue_this_type<Container, Predicate> =
+            root::AZStd::priority_queue<Container, Predicate>;
+        pub type priority_queue_container_type<Container> = Container;
+        pub type priority_queue_value_type = [u8; 0usize];
+        pub type priority_queue_size_type = [u8; 0usize];
+        pub type priority_queue_reference = [u8; 0usize];
+        pub type priority_queue_const_reference = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct intrusive_multiset_node<T> {
             pub m_children: [*mut T; 2usize],
             pub m_neighbours: [*mut T; 2usize],
@@ -4680,6 +5176,184 @@ pub mod root {
         pub const intrusive_multiset_node_Bits_BIT_MASK: root::AZStd::intrusive_multiset_node_Bits =
             0;
         pub type intrusive_multiset_node_Bits = i32;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_multiset_base_hook {
+            pub _address: u8,
+        }
+        pub type intrusive_multiset_base_hook_pointer<T> = *mut T;
+        pub type intrusive_multiset_base_hook_const_pointer<T> = *const T;
+        pub type intrusive_multiset_base_hook_node_type<T> =
+            root::AZStd::intrusive_multiset_node<T>;
+        pub type intrusive_multiset_base_hook_node_ptr_type<T> =
+            *mut root::AZStd::intrusive_multiset_base_hook_node_type<T>;
+        pub type intrusive_multiset_base_hook_const_node_ptr_type<T> =
+            *const root::AZStd::intrusive_multiset_base_hook_node_type<T>;
+        pub type intrusive_multiset_member_hook_pointer<T> = *mut T;
+        pub type intrusive_multiset_member_hook_const_pointer<T> = *const T;
+        pub type intrusive_multiset_member_hook_node_type<T> =
+            root::AZStd::intrusive_multiset_node<T>;
+        pub type intrusive_multiset_member_hook_node_ptr_type<T> =
+            *mut root::AZStd::intrusive_multiset_member_hook_node_type<T>;
+        pub type intrusive_multiset_member_hook_const_node_ptr_type<T> =
+            *const root::AZStd::intrusive_multiset_member_hook_node_type<T>;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct intrusive_multiset<Compare> {
+            pub m_head: u8,
+            pub m_numElements: usize,
+            pub m_keyCompare: root::AZStd::intrusive_multiset_KeyCompare<Compare>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Compare>>,
+        }
+        pub const intrusive_multiset_CONTAINER_VERSION:
+            root::AZStd::intrusive_multiset__bindgen_ty_1 = 0;
+        pub type intrusive_multiset__bindgen_ty_1 = i32;
+        pub type intrusive_multiset_this_type<Compare> = root::AZStd::intrusive_multiset<Compare>;
+        pub type intrusive_multiset_SideType = ::std::os::raw::c_int;
+        pub type intrusive_multiset_pointer<T> = *mut T;
+        pub type intrusive_multiset_const_pointer<T> = *const T;
+        pub type intrusive_multiset_reference<T> = *mut T;
+        pub type intrusive_multiset_const_reference<T> = *const T;
+        pub type intrusive_multiset_difference_type = usize;
+        pub type intrusive_multiset_size_type = usize;
+        pub type intrusive_multiset_KeyType = [u8; 0usize];
+        pub type intrusive_multiset_KeyCompare<Compare> = Compare;
+        pub type intrusive_multiset_value_type<T> = T;
+        pub type intrusive_multiset_node_type<T> = T;
+        pub type intrusive_multiset_node_ptr_type<T> =
+            *mut root::AZStd::intrusive_multiset_node_type<T>;
+        pub type intrusive_multiset_const_node_ptr_type<T> =
+            *const root::AZStd::intrusive_multiset_node_type<T>;
+        pub type intrusive_multiset_hook_node_type<T> = root::AZStd::intrusive_multiset_node<T>;
+        pub type intrusive_multiset_hook_node_ptr_type<T> =
+            *mut root::AZStd::intrusive_multiset_hook_node_type<T>;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_multiset_const_iterator_impl<T> {
+            pub m_node: root::AZStd::intrusive_multiset_node_ptr_type<T>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
+        }
+        pub const intrusive_multiset_const_iterator_impl_ITERATOR_VERSION:
+            root::AZStd::intrusive_multiset_const_iterator_impl__bindgen_ty_1 = 0;
+        pub type intrusive_multiset_const_iterator_impl__bindgen_ty_1 = i32;
+        pub type intrusive_multiset_const_iterator_impl_this_type<T> =
+            root::AZStd::intrusive_multiset_const_iterator_impl<T>;
+        pub type intrusive_multiset_const_iterator_impl_tree_type<Compare> =
+            root::AZStd::intrusive_multiset<Compare>;
+        pub type intrusive_multiset_const_iterator_impl_value_type<T> = T;
+        pub type intrusive_multiset_const_iterator_impl_difference_type = isize;
+        pub type intrusive_multiset_const_iterator_impl_pointer<T> = *const T;
+        pub type intrusive_multiset_const_iterator_impl_reference<T> = *const T;
+        pub type intrusive_multiset_const_iterator_impl_iterator_category =
+            root::AZStd::bidirectional_iterator_tag;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_multiset_iterator_impl<T> {
+            pub _base: root::AZStd::intrusive_multiset_const_iterator_impl<T>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<T>>,
+        }
+        pub type intrusive_multiset_iterator_impl_this_type<T> =
+            root::AZStd::intrusive_multiset_iterator_impl<T>;
+        pub type intrusive_multiset_iterator_impl_base_type<T> =
+            root::AZStd::intrusive_multiset_const_iterator_impl<T>;
+        pub type intrusive_multiset_iterator_impl_value_type<T> = T;
+        pub type intrusive_multiset_iterator_impl_pointer<T> = *mut T;
+        pub type intrusive_multiset_iterator_impl_reference<T> = *mut T;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_multiset_reverse_iterator_impl {
+            pub m_node: root::AZStd::intrusive_multiset_reverse_iterator_impl_pointer,
+            pub m_headNode: *const root::AZStd::intrusive_multiset_reverse_iterator_impl_value_type,
+        }
+        pub type intrusive_multiset_reverse_iterator_impl_this_type =
+            root::AZStd::intrusive_multiset_reverse_iterator_impl;
+        pub type intrusive_multiset_reverse_iterator_impl_tree_type<Compare> =
+            root::AZStd::intrusive_multiset<Compare>;
+        pub type intrusive_multiset_reverse_iterator_impl_value_type = root::AZStd::iterator_traits;
+        pub type intrusive_multiset_reverse_iterator_impl_difference_type =
+            root::AZStd::iterator_traits;
+        pub type intrusive_multiset_reverse_iterator_impl_pointer = root::AZStd::iterator_traits;
+        pub type intrusive_multiset_reverse_iterator_impl_reference = root::AZStd::iterator_traits;
+        pub type intrusive_multiset_reverse_iterator_impl_iterator_category =
+            root::AZStd::iterator_traits;
+        pub type intrusive_multiset_reverse_iterator_impl_iterator_type<Iter> = Iter;
+        pub type intrusive_multiset_iterator<T> = root::AZStd::intrusive_multiset_iterator_impl<T>;
+        pub type intrusive_multiset_const_iterator<T> =
+            root::AZStd::intrusive_multiset_const_iterator_impl<T>;
+        pub type intrusive_multiset_reverse_iterator =
+            root::AZStd::intrusive_multiset_reverse_iterator_impl;
+        pub type intrusive_multiset_const_reverse_iterator =
+            root::AZStd::intrusive_multiset_reverse_iterator_impl;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct mutex {
+            pub m_mutex: root::AZStd::native_mutex_data_type,
+        }
+        pub type mutex_native_handle_type = root::AZStd::native_mutex_handle_type;
+        extern "C" {
+            #[link_name = "\u{1}?lock@mutex@AZStd@@QEAAXXZ"]
+            pub fn mutex_lock(this: *mut root::AZStd::mutex);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?try_lock@mutex@AZStd@@QEAA_NXZ"]
+            pub fn mutex_try_lock(this: *mut root::AZStd::mutex) -> bool;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?unlock@mutex@AZStd@@QEAAXXZ"]
+            pub fn mutex_unlock(this: *mut root::AZStd::mutex);
+        }
+        extern "C" {
+            #[link_name = "\u{1}?native_handle@mutex@AZStd@@QEAAPEAU_RTL_CRITICAL_SECTION@@XZ"]
+            pub fn mutex_native_handle(
+                this: *mut root::AZStd::mutex,
+            ) -> root::AZStd::mutex_native_handle_type;
+        }
+        extern "C" {
+            #[link_name = "\u{1}??0mutex@AZStd@@QEAA@XZ"]
+            pub fn mutex_mutex(this: *mut root::AZStd::mutex);
+        }
+        extern "C" {
+            #[link_name = "\u{1}??0mutex@AZStd@@QEAA@PEBD@Z"]
+            pub fn mutex_mutex1(this: *mut root::AZStd::mutex, name: *const ::std::os::raw::c_char);
+        }
+        extern "C" {
+            #[link_name = "\u{1}??_Dmutex@AZStd@@QEAAXXZ"]
+            pub fn mutex_mutex_destructor(this: *mut root::AZStd::mutex);
+        }
+        impl mutex {
+            #[inline]
+            pub unsafe fn lock(&mut self) {
+                mutex_lock(self)
+            }
+            #[inline]
+            pub unsafe fn try_lock(&mut self) -> bool {
+                mutex_try_lock(self)
+            }
+            #[inline]
+            pub unsafe fn unlock(&mut self) {
+                mutex_unlock(self)
+            }
+            #[inline]
+            pub unsafe fn native_handle(&mut self) -> root::AZStd::mutex_native_handle_type {
+                mutex_native_handle(self)
+            }
+            #[inline]
+            pub unsafe fn new() -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                mutex_mutex(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
+            }
+            #[inline]
+            pub unsafe fn new1(name: *const ::std::os::raw::c_char) -> Self {
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                mutex_mutex1(__bindgen_tmp.as_mut_ptr(), name);
+                __bindgen_tmp.assume_init()
+            }
+            #[inline]
+            pub unsafe fn destruct(&mut self) {
+                mutex_mutex_destructor(self)
+            }
+        }
         #[repr(C)]
         #[derive(Debug)]
         pub struct recursive_mutex {
@@ -4743,61 +5417,66 @@ pub mod root {
             }
             #[inline]
             pub unsafe fn new() -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                recursive_mutex_recursive_mutex(&mut __bindgen_tmp);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                recursive_mutex_recursive_mutex(__bindgen_tmp.as_mut_ptr());
+                __bindgen_tmp.assume_init()
             }
             #[inline]
             pub unsafe fn new1(name: *const ::std::os::raw::c_char) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                recursive_mutex_recursive_mutex1(&mut __bindgen_tmp, name);
-                __bindgen_tmp
+                let mut __bindgen_tmp = ::std::mem::MaybeUninit::uninit();
+                recursive_mutex_recursive_mutex1(__bindgen_tmp.as_mut_ptr(), name);
+                __bindgen_tmp.assume_init()
             }
             #[inline]
             pub unsafe fn destruct(&mut self) {
                 recursive_mutex_recursive_mutex_destructor(self)
             }
         }
+        extern "C" {
+            #[link_name = "\u{1}?GetTimeTicksPerSecond@AZStd@@YA_JXZ"]
+            pub fn GetTimeTicksPerSecond() -> root::AZStd::sys_time_t;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?GetTimeNowTicks@AZStd@@YA_JXZ"]
+            pub fn GetTimeNowTicks() -> root::AZStd::sys_time_t;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?GetTimeNowMicroSecond@AZStd@@YA_JXZ"]
+            pub fn GetTimeNowMicroSecond() -> root::AZStd::sys_time_t;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?GetTimeNowSecond@AZStd@@YA_JXZ"]
+            pub fn GetTimeNowSecond() -> root::AZStd::sys_time_t;
+        }
+        extern "C" {
+            #[link_name = "\u{1}?GetTimeUTCMilliSecond@AZStd@@YA_KXZ"]
+            pub fn GetTimeUTCMilliSecond() -> root::AZ::u64;
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct exponential_backoff {
+            pub m_count: ::std::os::raw::c_int,
+        }
+        pub const exponential_backoff_MAX_PAUSE_LOOPS: ::std::os::raw::c_int = 32;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct spin_mutex {
             pub m_flag: root::std::atomic,
         }
-        extern "C" {
-            #[link_name = "\u{1}?lock@spin_mutex@AZStd@@QEAAXXZ"]
-            pub fn spin_mutex_lock(this: *mut root::AZStd::spin_mutex);
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_virtual_destructor {
+            pub _address: u8,
         }
-        extern "C" {
-            #[link_name = "\u{1}?try_lock@spin_mutex@AZStd@@QEAA_NXZ"]
-            pub fn spin_mutex_try_lock(this: *mut root::AZStd::spin_mutex) -> bool;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct nullopt_t {
+            pub _address: u8,
         }
-        extern "C" {
-            #[link_name = "\u{1}?unlock@spin_mutex@AZStd@@QEAAXXZ"]
-            pub fn spin_mutex_unlock(this: *mut root::AZStd::spin_mutex);
-        }
-        extern "C" {
-            #[link_name = "\u{1}??0spin_mutex@AZStd@@QEAA@_N@Z"]
-            pub fn spin_mutex_spin_mutex(this: *mut root::AZStd::spin_mutex, isLocked: bool);
-        }
-        impl spin_mutex {
-            #[inline]
-            pub unsafe fn lock(&mut self) {
-                spin_mutex_lock(self)
-            }
-            #[inline]
-            pub unsafe fn try_lock(&mut self) -> bool {
-                spin_mutex_try_lock(self)
-            }
-            #[inline]
-            pub unsafe fn unlock(&mut self) {
-                spin_mutex_unlock(self)
-            }
-            #[inline]
-            pub unsafe fn new(isLocked: bool) -> Self {
-                let mut __bindgen_tmp = ::std::mem::uninitialized();
-                spin_mutex_spin_mutex(&mut __bindgen_tmp, isLocked);
-                __bindgen_tmp
-            }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct nullopt_t_UniqueTag {
+            pub _address: u8,
         }
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -4867,6 +5546,11 @@ pub mod root {
             pub _address: u8,
         }
         pub type get_is_always_equal_type_type = root::std::is_empty;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct has_rebind {
+            pub _base: root::std::false_type,
+        }
         pub type get_rebind_type_type<Allocator> = Allocator;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
@@ -4890,6 +5574,15 @@ pub mod root {
         pub type allocator_traits_is_always_equal = root::AZStd::get_is_always_equal_type;
         pub type allocator_traits_rebind_alloc = u8;
         pub type allocator_traits_rebind_traits = root::AZStd::allocator_traits;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct set_node_traits {
+            pub _address: u8,
+        }
+        pub type set_node_traits_value_type<ValueType> = ValueType;
+        pub type set_node_traits_allocator_type<AllocatorType> = AllocatorType;
+        pub type set_node_traits_node_type<NodeType> = NodeType;
+        pub type set_node_traits_node_deleter_type<NodeDeleterType> = NodeDeleterType;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct map_node_traits {
@@ -4919,7 +5612,140 @@ pub mod root {
         pub type node_handle_node_pointer_type = *mut [u8; 0usize];
         pub type node_handle_node_allocator_type = [u8; 0usize];
         pub type node_handle_node_deleter_type = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct set_node_base {
+            pub _address: u8,
+        }
+        pub type set_node_base_value_type = [u8; 0usize];
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct map_node_base {
+            pub _address: u8,
+        }
+        pub type map_node_base_key_type = [u8; 0usize];
+        pub type map_node_base_mapped_type = [u8; 0usize];
+        pub type set_node_handle = root::AZStd::node_handle;
         pub type map_node_handle = root::AZStd::node_handle;
+        pub const fixed_vector_CONTAINER_VERSION: root::AZStd::fixed_vector__bindgen_ty_1 = 0;
+        pub type fixed_vector__bindgen_ty_1 = i32;
+        pub type fixed_vector_this_type = u8;
+        pub type fixed_vector_pointer<T> = *mut T;
+        pub type fixed_vector_const_pointer<T> = *const T;
+        pub type fixed_vector_reference<T> = *mut T;
+        pub type fixed_vector_const_reference<T> = *const T;
+        pub type fixed_vector_difference_type = isize;
+        pub type fixed_vector_size_type = usize;
+        pub type fixed_vector_iterator<T> = root::AZStd::fixed_vector_pointer<T>;
+        pub type fixed_vector_const_iterator<T> = root::AZStd::fixed_vector_const_pointer<T>;
+        pub type fixed_vector_reverse_iterator<T> =
+            root::AZStd::reverse_iterator<root::AZStd::fixed_vector_iterator<T>>;
+        pub type fixed_vector_const_reverse_iterator<T> =
+            root::AZStd::reverse_iterator<root::AZStd::fixed_vector_const_iterator<T>>;
+        pub type fixed_vector_value_type<T> = T;
+        pub type fixed_vector_node_type<T> = root::AZStd::fixed_vector_value_type<T>;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct list_const_iterator {
+            pub m_node: root::AZStd::list_const_iterator_base_node_ptr_type,
+        }
+        pub const list_const_iterator_ITERATOR_VERSION:
+            root::AZStd::list_const_iterator__bindgen_ty_1 = 0;
+        pub type list_const_iterator__bindgen_ty_1 = i32;
+        pub type list_const_iterator_this_type = root::AZStd::list_const_iterator;
+        pub type list_const_iterator_value_type<T> = T;
+        pub type list_const_iterator_difference_type = isize;
+        pub type list_const_iterator_pointer<T> = *const T;
+        pub type list_const_iterator_reference<T> = *const T;
+        pub type list_const_iterator_iterator_category = root::AZStd::bidirectional_iterator_tag;
+        pub type list_const_iterator_node_type = u8;
+        pub type list_const_iterator_node_ptr_type =
+            *mut root::AZStd::list_const_iterator_node_type;
+        pub type list_const_iterator_base_node_type = root::AZStd::Internal::list_node_base;
+        pub type list_const_iterator_base_node_ptr_type =
+            *mut root::AZStd::list_const_iterator_base_node_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct list_iterator {
+            pub _base: root::AZStd::list_const_iterator,
+        }
+        pub type list_iterator_this_type = root::AZStd::list_iterator;
+        pub type list_iterator_base_type = root::AZStd::list_const_iterator;
+        pub type list_iterator_pointer<T> = *mut T;
+        pub type list_iterator_reference<T> = *mut T;
+        pub type list_iterator_node_type = root::AZStd::list_iterator_base_type;
+        pub type list_iterator_node_ptr_type = root::AZStd::list_iterator_base_type;
+        pub type list_iterator_base_node_type = root::AZStd::list_iterator_base_type;
+        pub type list_iterator_base_node_ptr_type = root::AZStd::list_iterator_base_type;
+        #[repr(C)]
+        pub struct list<Allocator> {
+            pub m_head: root::AZStd::list_base_node_type,
+            pub m_numElements: root::AZStd::list_size_type,
+            pub m_allocator: root::AZStd::list_allocator_type<Allocator>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Allocator>>,
+        }
+        pub const list_CONTAINER_VERSION: root::AZStd::list__bindgen_ty_1 = 0;
+        pub type list__bindgen_ty_1 = i32;
+        pub type list_this_type<Allocator> = root::AZStd::list<Allocator>;
+        pub type list_pointer<T> = *mut T;
+        pub type list_const_pointer<T> = *const T;
+        pub type list_reference<T> = *mut T;
+        pub type list_const_reference<T> = *const T;
+        pub type list_difference_type = [u8; 0usize];
+        pub type list_size_type = [u8; 0usize];
+        pub type list_allocator_type<Allocator> = Allocator;
+        pub type list_value_type<T> = T;
+        pub type list_node_type = u8;
+        pub type list_node_ptr_type = *mut root::AZStd::list_node_type;
+        pub type list_base_node_type = root::AZStd::Internal::list_node_base;
+        pub type list_base_node_ptr_type = *mut root::AZStd::list_base_node_type;
+        pub type list_const_iterator_impl = root::AZStd::list_const_iterator;
+        pub type list_iterator_impl = root::AZStd::list_iterator;
+        pub type list_reverse_iterator = root::AZStd::reverse_iterator<root::AZStd::list_iterator>;
+        pub type list_const_reverse_iterator =
+            root::AZStd::reverse_iterator<root::AZStd::list_const_iterator>;
+        pub type static_buffer_allocator_this_type = u8;
+        pub type static_buffer_allocator_pointer_type = *mut ::std::os::raw::c_void;
+        pub type static_buffer_allocator_size_type = usize;
+        pub type static_buffer_allocator_difference_type = isize;
+        pub type static_buffer_allocator_allow_memory_leaks = root::std::true_type;
+        pub type static_pool_allocator_this_type = u8;
+        pub type static_pool_allocator_index_type = i32;
+        #[repr(C)]
+        pub union static_pool_allocator_pool_node {
+            pub m_node: u8,
+            pub m_index: root::AZStd::static_pool_allocator_index_type,
+            _bindgen_union_align: u32,
+        }
+        pub type static_pool_allocator_pointer_type = *mut ::std::os::raw::c_void;
+        pub type static_pool_allocator_size_type = usize;
+        pub type static_pool_allocator_difference_type = isize;
+        pub type static_pool_allocator_allow_memory_leaks = root::std::false_type;
+        pub const fixed_list_CONTAINER_VERSION: root::AZStd::fixed_list__bindgen_ty_1 = 0;
+        pub type fixed_list__bindgen_ty_1 = i32;
+        pub type fixed_list_this_type = u8;
+        pub type fixed_list_base_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct allocator_ref<Allocator> {
+            pub m_name: *const ::std::os::raw::c_char,
+            pub m_allocator: root::AZStd::allocator_ref_allocator_pointer<Allocator>,
+            pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Allocator>>,
+        }
+        pub type allocator_ref_this_type<Allocator> = root::AZStd::allocator_ref<Allocator>;
+        pub type allocator_ref_pointer_type = [u8; 0usize];
+        pub type allocator_ref_size_type = [u8; 0usize];
+        pub type allocator_ref_difference_type = [u8; 0usize];
+        pub type allocator_ref_allow_memory_leaks = [u8; 0usize];
+        pub type allocator_ref_allocator_pointer<Allocator> = *mut Allocator;
+        pub type allocator_ref_allocator_reference<Allocator> = *mut Allocator;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct hash_node_destructor {
+            pub m_allocator: *mut root::AZStd::hash_node_destructor_allocator_type,
+        }
+        pub type hash_node_destructor_allocator_type = root::AZStd::allocator_traits;
+        pub type hash_node_destructor_allocator_traits = root::AZStd::allocator_traits;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
         pub struct hash_table {
@@ -4963,6 +5789,159 @@ pub mod root {
         pub type hash_table_ConvertFromValue_key_type = u8;
         #[repr(C)]
         #[derive(Debug, Copy, Clone)]
+        pub struct rbtree_const_iterator {
+            pub m_node: root::AZStd::rbtree_const_iterator_node_ptr_type,
+        }
+        pub const rbtree_const_iterator_ITERATOR_VERSION:
+            root::AZStd::rbtree_const_iterator__bindgen_ty_1 = 0;
+        pub type rbtree_const_iterator__bindgen_ty_1 = i32;
+        pub type rbtree_const_iterator_this_type = root::AZStd::rbtree_const_iterator;
+        pub type rbtree_const_iterator_iterator_category = root::AZStd::bidirectional_iterator_tag;
+        pub type rbtree_const_iterator_difference_type = isize;
+        pub type rbtree_const_iterator_value_type<T> = T;
+        pub type rbtree_const_iterator_pointer<T> = *const T;
+        pub type rbtree_const_iterator_reference<T> = *const T;
+        pub type rbtree_const_iterator_base_node_ptr_type =
+            *mut root::AZStd::Internal::rbtree_node_base;
+        pub type rbtree_const_iterator_const_base_node_ptr_type =
+            *const root::AZStd::Internal::rbtree_node_base;
+        pub type rbtree_const_iterator_node_type = u8;
+        pub type rbtree_const_iterator_node_ptr_type =
+            *mut root::AZStd::rbtree_const_iterator_node_type;
+        pub type rbtree_const_iterator_const_node_ptr_type =
+            *const root::AZStd::rbtree_const_iterator_node_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct rbtree_iterator {
+            pub _base: root::AZStd::rbtree_const_iterator,
+        }
+        pub type rbtree_iterator_this_type = root::AZStd::rbtree_iterator;
+        pub type rbtree_iterator_base_type = root::AZStd::rbtree_const_iterator;
+        pub type rbtree_iterator_pointer<T> = *mut T;
+        pub type rbtree_iterator_reference<T> = *mut T;
+        pub type rbtree_iterator_base_node_ptr_type = root::AZStd::rbtree_iterator_base_type;
+        pub type rbtree_iterator_node_ptr_type = root::AZStd::rbtree_iterator_base_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct rbtree_node_destructor {
+            pub m_allocator: *mut root::AZStd::rbtree_node_destructor_allocator_type,
+        }
+        pub type rbtree_node_destructor_allocator_type = root::AZStd::allocator_traits;
+        pub type rbtree_node_destructor_allocator_traits = root::AZStd::allocator_traits;
+        #[repr(C)]
+        pub struct rbtree {
+            pub m_head: root::AZStd::Internal::rbtree_node_base,
+            pub m_numElements: root::AZStd::rbtree_size_type,
+            pub m_keyEq: root::AZStd::rbtree_key_eq,
+            pub m_allocator: root::AZStd::rbtree_allocator_type,
+        }
+        pub type rbtree_this_type = root::AZStd::rbtree;
+        pub type rbtree_base_node_ptr_type = *mut root::AZStd::Internal::rbtree_node_base;
+        pub type rbtree_const_base_node_ptr_type = *const root::AZStd::Internal::rbtree_node_base;
+        pub type rbtree_traits_type<Traits> = Traits;
+        pub type rbtree_key_type = [u8; 0usize];
+        pub type rbtree_key_eq = [u8; 0usize];
+        pub type rbtree_allocator_type = [u8; 0usize];
+        pub type rbtree_size_type = [u8; 0usize];
+        pub type rbtree_difference_type = [u8; 0usize];
+        pub type rbtree_value_type = [u8; 0usize];
+        pub type rbtree_pointer = *mut root::AZStd::rbtree_value_type;
+        pub type rbtree_const_pointer = *const root::AZStd::rbtree_value_type;
+        pub type rbtree_reference = *mut root::AZStd::rbtree_value_type;
+        pub type rbtree_const_reference = *const root::AZStd::rbtree_value_type;
+        pub type rbtree_iterator_category = root::AZStd::bidirectional_iterator_tag;
+        pub type rbtree_node_type = u8;
+        pub type rbtree_node_ptr_type = *mut root::AZStd::rbtree_node_type;
+        pub type rbtree_const_node_ptr_type = *const root::AZStd::rbtree_node_type;
+        pub type rbtree_const_iterator_impl = root::AZStd::rbtree_const_iterator;
+        pub type rbtree_iterator_impl = root::AZStd::rbtree_iterator;
+        pub type rbtree_reverse_iterator =
+            root::AZStd::reverse_iterator<root::AZStd::rbtree_iterator>;
+        pub type rbtree_const_reverse_iterator =
+            root::AZStd::reverse_iterator<root::AZStd::rbtree_const_iterator>;
+        pub type rbtree_node_deleter = root::AZStd::rbtree_node_destructor;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_list_node {
+            pub _address: u8,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct list_base_hook {
+            pub _address: u8,
+        }
+        pub type list_base_hook_pointer<T> = *mut T;
+        pub type list_base_hook_const_pointer<T> = *const T;
+        pub type list_base_hook_node_type = u8;
+        pub type list_base_hook_node_ptr_type = *mut root::AZStd::list_base_hook_node_type;
+        pub type list_base_hook_const_node_ptr_type = *const root::AZStd::list_base_hook_node_type;
+        pub type list_member_hook_pointer<T> = *mut T;
+        pub type list_member_hook_const_pointer<T> = *const T;
+        pub type list_member_hook_node_type = u8;
+        pub type list_member_hook_node_ptr_type = *mut root::AZStd::list_member_hook_node_type;
+        pub type list_member_hook_const_node_ptr_type =
+            *const root::AZStd::list_member_hook_node_type;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_list {
+            pub _address: u8,
+        }
+        pub const intrusive_list_CONTAINER_VERSION: root::AZStd::intrusive_list__bindgen_ty_1 = 0;
+        pub type intrusive_list__bindgen_ty_1 = i32;
+        pub type intrusive_list_this_type = u8;
+        pub type intrusive_list_pointer = u8;
+        pub type intrusive_list_const_pointer = u8;
+        pub type intrusive_list_reference = u8;
+        pub type intrusive_list_const_reference = u8;
+        pub type intrusive_list_difference_type = u64;
+        pub type intrusive_list_size_type = u64;
+        pub type intrusive_list_value_type = u8;
+        pub type intrusive_list_node_type = u8;
+        pub type intrusive_list_node_ptr_type = u8;
+        pub type intrusive_list_const_node_ptr_type = u8;
+        pub type intrusive_list_hook_node_type = u8;
+        pub type intrusive_list_hook_node_ptr_type = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_list_const_iterator_impl {
+            pub _address: u8,
+        }
+        pub const intrusive_list_const_iterator_impl_ITERATOR_VERSION:
+            root::AZStd::intrusive_list_const_iterator_impl__bindgen_ty_1 = 0;
+        pub type intrusive_list_const_iterator_impl__bindgen_ty_1 = i32;
+        pub type intrusive_list_const_iterator_impl_this_type = u8;
+        pub type intrusive_list_const_iterator_impl_value_type = u8;
+        pub type intrusive_list_const_iterator_impl_difference_type = u64;
+        pub type intrusive_list_const_iterator_impl_pointer = u8;
+        pub type intrusive_list_const_iterator_impl_reference = u8;
+        pub type intrusive_list_const_iterator_impl_iterator_category = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_list_iterator_impl {
+            pub _address: u8,
+        }
+        pub type intrusive_list_iterator_impl_this_type = u8;
+        pub type intrusive_list_iterator_impl_base_type = u8;
+        pub type intrusive_list_iterator_impl_pointer = u8;
+        pub type intrusive_list_iterator_impl_reference = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct intrusive_list_reverse_iterator_impl {
+            pub _address: u8,
+        }
+        pub type intrusive_list_reverse_iterator_impl_this_type = u8;
+        pub type intrusive_list_reverse_iterator_impl_value_type = u8;
+        pub type intrusive_list_reverse_iterator_impl_difference_type = u8;
+        pub type intrusive_list_reverse_iterator_impl_pointer = u8;
+        pub type intrusive_list_reverse_iterator_impl_reference = u8;
+        pub type intrusive_list_reverse_iterator_impl_iterator_category = u8;
+        pub type intrusive_list_reverse_iterator_impl_iterator_type = u8;
+        pub type intrusive_list_iterator = u8;
+        pub type intrusive_list_const_iterator = u8;
+        pub type intrusive_list_reverse_iterator = u8;
+        pub type intrusive_list_const_reverse_iterator = u8;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
         pub struct unordered_map {
             pub _address: u8,
         }
@@ -4993,6 +5972,145 @@ pub mod root {
             root::AZStd::unordered_map_iterator,
             root::AZStd::unordered_map_node_type,
         >;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unordered_multimap {
+            pub _address: u8,
+        }
+        pub const unordered_multimap_CONTAINER_VERSION:
+            root::AZStd::unordered_multimap__bindgen_ty_1 = 0;
+        pub type unordered_multimap__bindgen_ty_1 = i32;
+        pub type unordered_multimap_this_type = root::AZStd::unordered_multimap;
+        pub type unordered_multimap_base_type = u8;
+        pub type unordered_multimap_traits_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_key_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_key_eq = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_hasher = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_mapped_type<MappedType> = MappedType;
+        pub type unordered_multimap_allocator_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_size_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_difference_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_pointer = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_const_pointer = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_reference = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_const_reference = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_iterator = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_const_iterator = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_value_type = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_local_iterator = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_const_local_iterator =
+            root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_pair_iter_bool = root::AZStd::unordered_multimap_base_type;
+        pub type unordered_multimap_node_type = root::AZStd::map_node_handle;
+        pub type array_this_type = u8;
+        pub type array_pointer<T> = *mut T;
+        pub type array_const_pointer<T> = *const T;
+        pub type array_reference<T> = *mut T;
+        pub type array_const_reference<T> = *const T;
+        pub type array_difference_type = isize;
+        pub type array_size_type = usize;
+        pub type array_iterator<T> = root::AZStd::array_pointer<T>;
+        pub type array_const_iterator<T> = root::AZStd::array_const_pointer<T>;
+        pub type array_reverse_iterator<T> =
+            root::AZStd::reverse_iterator<root::AZStd::array_iterator<T>>;
+        pub type array_const_reverse_iterator<T> =
+            root::AZStd::reverse_iterator<root::AZStd::array_const_iterator<T>>;
+        pub type array_value_type<T> = T;
+        pub type array_node_type<T> = root::AZStd::array_value_type<T>;
+        pub const array_array_size: root::AZStd::array__bindgen_ty_1 = 0;
+        pub type array__bindgen_ty_1 = i32;
+        pub type tuple = root::std::tuple;
+        pub type tuple_size = root::std::tuple_size;
+        pub type tuple_element = u8;
+        pub type tuple_element_t = u8;
+        pub type ignore_t = root::std::_Ignore;
+        #[repr(C)]
+        #[derive(Debug)]
+        pub struct scoped_lock {
+            pub m_mutexes: root::AZStd::tuple,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct disjunction {
+            pub _base: root::std::false_type,
+        }
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct function_traits {
+            pub _address: u8,
+        }
+        pub type function_traits_get_result_t = root::AZStd::function_traits;
+        pub type function_traits_get_arg_t = root::AZStd::function_traits;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct remove_extent {
+            pub _address: u8,
+        }
+        pub type remove_extent_type<T> = T;
+        pub type unique_ptr = root::std::unique_ptr;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unordered_set {
+            pub _address: u8,
+        }
+        pub const unordered_set_CONTAINER_VERSION: root::AZStd::unordered_set__bindgen_ty_1 = 0;
+        pub type unordered_set__bindgen_ty_1 = i32;
+        pub type unordered_set_this_type = root::AZStd::unordered_set;
+        pub type unordered_set_base_type = u8;
+        pub type unordered_set_traits_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_key_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_key_eq = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_hasher = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_allocator_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_size_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_difference_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_pointer = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_const_pointer = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_reference = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_const_reference = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_iterator = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_const_iterator = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_value_type = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_local_iterator = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_const_local_iterator = root::AZStd::unordered_set_base_type;
+        pub type unordered_set_node_type = root::AZStd::set_node_handle;
+        pub type unordered_set_insert_return_type = root::AZStd::insert_return_type<
+            root::AZStd::unordered_set_iterator,
+            root::AZStd::unordered_set_node_type,
+        >;
+        #[repr(C)]
+        #[derive(Debug, Copy, Clone)]
+        pub struct unordered_multiset {
+            pub _address: u8,
+        }
+        pub const unordered_multiset_CONTAINER_VERSION:
+            root::AZStd::unordered_multiset__bindgen_ty_1 = 0;
+        pub type unordered_multiset__bindgen_ty_1 = i32;
+        pub type unordered_multiset_this_type = root::AZStd::unordered_multiset;
+        pub type unordered_multiset_base_type = u8;
+        pub type unordered_multiset_traits_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_key_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_key_eq = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_hasher = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_allocator_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_size_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_difference_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_pointer = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_const_pointer = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_reference = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_const_reference = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_iterator = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_const_iterator = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_value_type = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_local_iterator = root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_const_local_iterator =
+            root::AZStd::unordered_multiset_base_type;
+        pub type unordered_multiset_node_type = root::AZStd::set_node_handle;
+        #[repr(C)]
+        pub struct shared_mutex {
+            pub m_value: root::std::atomic,
+        }
+        pub const shared_mutex_m_exclusiveLockBit: root::AZ::u32 = 2147483648;
         #[repr(C)]
         pub struct basic_string<Element, Allocator> {
             pub __bindgen_anon_1: root::AZStd::basic_string__bindgen_ty_3<Element>,
@@ -5036,7 +6154,10 @@ pub mod root {
             pub _phantom_0: ::std::marker::PhantomData<::std::cell::UnsafeCell<Element>>,
         }
         pub type string = root::AZStd::basic_string<::std::os::raw::c_char, root::AZStd::allocator>;
+        pub type wstring = root::AZStd::basic_string<u16, root::AZStd::allocator>;
+        pub type size_type = root::AZStd::allocator_size_type;
     }
+    pub type HANDLE = *mut ::std::os::raw::c_void;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
     pub struct _RTL_CRITICAL_SECTION {
@@ -5044,6 +6165,13 @@ pub mod root {
     }
     pub type RTL_CRITICAL_SECTION = root::_RTL_CRITICAL_SECTION;
     pub type CRITICAL_SECTION = root::RTL_CRITICAL_SECTION;
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _RTL_CONDITION_VARIABLE {
+        _unused: [u8; 0],
+    }
+    pub type RTL_CONDITION_VARIABLE = root::_RTL_CONDITION_VARIABLE;
+    pub type CONDITION_VARIABLE = root::RTL_CONDITION_VARIABLE;
     #[repr(C)]
     #[derive(Debug, Copy, Clone)]
     pub struct _GUID {
@@ -5064,34 +6192,6 @@ pub mod root {
             #[link_name = "\u{1}?HandlerPolicy@AssetCatalogEvents@AzFramework@@2W4EBusHandlerPolicy@AZ@@B"]
             pub static AssetCatalogEvents_HandlerPolicy: root::AZ::EBusHandlerPolicy;
         }
-        extern "C" {
-            #[link_name = "\u{1}?OnCatalogLoaded@AssetCatalogEvents@AzFramework@@UEAAXPEBD@Z"]
-            pub fn AssetCatalogEvents_OnCatalogLoaded(
-                this: *mut ::std::os::raw::c_void,
-                arg1: *const ::std::os::raw::c_char,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?OnCatalogAssetChanged@AssetCatalogEvents@AzFramework@@UEAAXAEBUAssetId@Data@AZ@@@Z"]
-            pub fn AssetCatalogEvents_OnCatalogAssetChanged(
-                this: *mut ::std::os::raw::c_void,
-                arg1: *const root::AZ::Data::AssetId,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?OnCatalogAssetAdded@AssetCatalogEvents@AzFramework@@UEAAXAEBUAssetId@Data@AZ@@@Z"]
-            pub fn AssetCatalogEvents_OnCatalogAssetAdded(
-                this: *mut ::std::os::raw::c_void,
-                arg1: *const root::AZ::Data::AssetId,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?OnCatalogAssetRemoved@AssetCatalogEvents@AzFramework@@UEAAXAEBUAssetId@Data@AZ@@@Z"]
-            pub fn AssetCatalogEvents_OnCatalogAssetRemoved(
-                this: *mut ::std::os::raw::c_void,
-                arg1: *const root::AZ::Data::AssetId,
-            );
-        }
         pub type AssetCatalogEventBus = root::AZ::EBus;
         #[repr(C)]
         pub struct LegacyAssetEvents__bindgen_vtable(::std::os::raw::c_void);
@@ -5110,21 +6210,17 @@ pub mod root {
             #[link_name = "\u{1}?AddressPolicy@LegacyAssetEvents@AzFramework@@2W4EBusAddressPolicy@AZ@@B"]
             pub static LegacyAssetEvents_AddressPolicy: root::AZ::EBusAddressPolicy;
         }
-        extern "C" {
-            #[link_name = "\u{1}?OnFileChanged@LegacyAssetEvents@AzFramework@@UEAAXV?$basic_string@DU?$char_traits@D@AZStd@@Vallocator@2@@AZStd@@@Z"]
-            pub fn LegacyAssetEvents_OnFileChanged(
-                this: *mut ::std::os::raw::c_void,
-                arg1: root::AZStd::string,
-            );
-        }
-        extern "C" {
-            #[link_name = "\u{1}?OnFileRemoved@LegacyAssetEvents@AzFramework@@UEAAXV?$basic_string@DU?$char_traits@D@AZStd@@Vallocator@2@@AZStd@@@Z"]
-            pub fn LegacyAssetEvents_OnFileRemoved(
-                this: *mut ::std::os::raw::c_void,
-                arg1: root::AZStd::string,
-            );
-        }
         pub type LegacyAssetEventBus = root::AZ::EBus;
+    }
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _bindgen_ty_20 {
+        pub _address: u8,
+    }
+    #[repr(C)]
+    #[derive(Debug, Copy, Clone)]
+    pub struct _bindgen_ty_21 {
+        pub _address: u8,
     }
     pub type rep = ::std::os::raw::c_longlong;
     #[repr(C)]
