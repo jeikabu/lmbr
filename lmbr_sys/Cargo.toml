@@ -17,7 +17,9 @@ bindgen = {version = "0.52", optional = true}
 lmbr_build = {version = "0.1", path = "../lmbr_build"}
 
 [features]
-default = [ "lmbr_editor", "lmbr_fw_azcore" ]
+#default = [ "lmbr_editor", "lmbr_asset_processor" ]
+default = [ "lmbr_fw_azcore", "lmbr_asset_processor" ]
 bindgen_generate = ["bindgen"]
+lmbr_asset_processor = []
 lmbr_editor = []
 lmbr_fw_azcore = []

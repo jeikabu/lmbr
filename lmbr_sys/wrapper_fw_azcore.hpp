@@ -10,3 +10,5 @@
 #include<AzCore/std/time.h>
 
 #include <AzFramework/Asset/AssetCatalogBus.h>
+
+#include <RustAz/RustAz.h>

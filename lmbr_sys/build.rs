@@ -1,23 +1,7 @@
 use std::{env, path::PathBuf};
 
 fn main() {
-    // Check output of `cargo build --verbose`, should see something like:
-    // -L native=/path/runng/target/debug/build/runng-sys-abc1234/out
-    // That contains output from cmake
-    // println!(
-    //     "cargo:rustc-link-search=native={}",
-    //     dst.join("lib").display()
-    // );
-    // println!(
-    //     "cargo:rustc-link-search=native={}",
-    //     dst.join("lib64").display()
-    // );
-
-    // Tell rustc to use nng static library
-    //println!("cargo:rustc-link-lib=static=nng");
-
-    bindgen_generate();
-    
+    bindgen_generate();    
 }
 
 #[cfg(feature = "bindgen_generate")]
@@ -27,6 +11,8 @@ fn bindgen_generate() {
     let ly_code = ly_root.join("dev/Code/");
     let az_core = ly_code.join("Framework/AzCore");
     let az_framework = ly_code.join("FrameWork/AzFramework");
+    let az_tools_framework = ly_code.join("FrameWork/AzToolsFramework");
+    let rust_az = ly_code.join("Framework/RustAz");
     let types = ["pub type f32 = crate::F32;", "pub type f64 = crate::F64;", "pub type u8 = crate::U8;", "pub type u16 = crate::U16;", "pub type u32 = crate::U32;", "pub type u64 = crate::U64;"];
     let mut builder = bindgen::Builder::default()
         //.with_codegen_config(bindgen::CodegenConfig::empty())
@@ -45,14 +31,16 @@ fn bindgen_generate() {
         .clang_arg(String::from("-I") + &az_core.to_string_lossy())
         .clang_arg(String::from("-I") + &az_core.join("Platform/Windows").to_string_lossy())
         .clang_arg(String::from("-I") + &az_framework.to_string_lossy())
+        .clang_arg(String::from("-I") + &rust_az.to_string_lossy())
         .clang_arg(String::from("-I") + &ly_root.join("3rdParty/boost/1.61.0-az.2/").to_string_lossy())
         .clang_arg(String::from("-I") + &ly_code.join("CryEngine/CryCommon/").to_string_lossy())
-        .raw_line("type F32 = f32;")
-        .raw_line("type F64 = f64;")
-        .raw_line("type U8 = u8;")
-        .raw_line("type U16 = u16;")
-        .raw_line("type U32 = u32;")
-        .raw_line("type U64 = u64;")
+        .raw_line("
+            type F32 = f32;
+            type F64 = f64;
+            type U8 = u8;
+            type U16 = u16;
+            type U32 = u32;
+            type U64 = u64;")
         .blacklist_type(r"AZ::u(8|16|32|64|128)") // e.g. u32 u128
         .blacklist_type(r"(f32|f64)")
         .module_raw_lines("root::AZ", types.iter().map(|s| *s))
@@ -82,7 +70,6 @@ fn bindgen_generate() {
     }
     if cfg!(feature = "lmbr_fw_azcore") {
         builder = builder.header("wrapper_fw_azcore.hpp")
-            //.whitelist_type("AZ::Debug::Trace")
             .whitelist_type("AZ::.*")
             .whitelist_type("AzFramework::.*")
             .whitelist_type("AZStd::.*")
@@ -96,6 +83,41 @@ fn bindgen_generate() {
             .opaque_type("AZStd::fixed_list.*")
             .opaque_type("AZStd::intrusive_list.*")
             ;
+    }
+    if cfg!(feature = "lmbr_asset_processor") {
+        builder = builder.header("wrapper_asset_processor.hpp")
+            .clang_arg(String::from("-I") + &az_tools_framework.to_string_lossy())
+            .clang_arg(String::from("-I") + &ly_code.join("Tools/AssetProcessor/AssetBuilderSDK/").to_string_lossy())
+            .whitelist_type("AssetBuilderSDK::.*")
+            .whitelist_function("AssetBuilderSDK::.*")
+            .blacklist_type("AZStd::.+regex_iterator")
+            .blacklist_type("AZStd::.+regex_token_iterator")
+            .opaque_type("AZStd::.*_string_type")
+            .opaque_type("AZStd::regex_iterator_value_type")
+            .opaque_type("AZ::Internal::AZByteStream_ContainerType")
+            .opaque_type("AZStd::TgtState")
+            .opaque_type("AZStd::regex_iterator")
+            /*
+            error[E0428]: the name `const_pointer` is defined multiple times
+                --> lmbr_sys\src\bindings.rs:15881:5
+                |
+            15875 |     pub type const_pointer = u64;
+                |     ----------------------------- previous definition of the type `const_pointer` here
+            ...
+            15881 |     pub type const_pointer = u64;
+                |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `const_pointer` redefined here
+                |
+                = note: `const_pointer` must be defined only once in the type namespace of this module
+            */
+            .blacklist_type("AZStd::size_type")
+            .module_raw_line("root::AZStd", "pub type size_type = root::AZStd::allocator_size_type;")
+            .blacklist_type("const_.*")
+            .module_raw_line("root", "
+                pub type const_iterator = root::const_iterator_impl;
+                pub type const_iterator_impl = root::const_pointer;
+                pub type const_pointer = u64;" // WARNING: assumes pointers are 64-bit
+            )
+        ;
     }
     // if cfg!(feature = "lmbr_editor") {
     //     //builder = builder.whitelist_type()
