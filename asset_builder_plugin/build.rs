@@ -6,6 +6,7 @@ fn main() {
     let bintemp = bintemp_dir();
     
     link::az_framework();
+    link::asset_builder();
     // println!("cargo:rustc-link-search=native={}",
     //     bintemp.join("Code/CryEngine/CryCommon").display()
     // );

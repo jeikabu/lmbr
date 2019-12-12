@@ -1,5 +1,5 @@
 [package]
-name = "editor_plugin"
+name = "asset_builder_plugin"
 version = "0.1.0"
 authors = ["jeikabu <jeikabu@users.noreply.github.com>"]
 edition = "2018"
@@ -13,13 +13,10 @@ license = "MIT"
 [lib]
 crate-type = ["cdylib"]
 
-[features]
-default = ["lmbr_sys"]
-
 [build-dependencies]
 lmbr_build = {version = "0.1", path = "../lmbr_build"}
 
 [dependencies]
 lmbr_logger = { version = "0.1", path = "../lmbr_logger" }
-lmbr_sys = { version = "0.1", optional = true, path = "../lmbr_sys" }
+lmbr_sys = { version = "0.1", path = "../lmbr_sys" }
 log = "0.4"

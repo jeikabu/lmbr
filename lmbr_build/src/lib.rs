@@ -1,4 +1,5 @@
 use std::{env, fmt};
+use std::{path::PathBuf};
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum BuildConfig {
@@ -23,9 +24,18 @@ pub fn build_config() -> BuildConfig {
     }
 }
 
-pub fn bintemp_dir() -> String {
+pub fn config_3rdparty() -> &'static str {
     let config = build_config();
-    format!("win_x64_vs2017_{}", config)
+    let config_3rdparty = if config == BuildConfig::Debug { "debug" } else { "release" };
+    config_3rdparty
+}
+
+pub fn bintemp_dir() -> PathBuf {
+    let config = build_config();
+    let bintemp_subdir = format!("win_x64_vs2017_{}", config);
+    let ly_root = PathBuf::from(lmbr_root().unwrap());
+    let bintemp = ly_root.join("dev/BinTemp").join(bintemp_subdir);
+    bintemp
 }
 
 pub fn bin_dir() -> &'static str {
@@ -43,4 +53,44 @@ pub fn lmbr_root() -> Result<String, std::env::VarError> {
                 Err(std::env::VarError::NotPresent)
             }
     })
+}
+
+pub fn lmbr_root_pathbuf() -> Option<PathBuf> {
+    lmbr_root().ok().map(PathBuf::from)
+}
+
+pub mod link {
+    use super::*;
+    pub fn az_framework() {
+        let bintemp = bintemp_dir();
+        let bintemp_fw = bintemp.join("Code/Framework");
+        let ly_root = lmbr_root_pathbuf().unwrap();
+        let config_3rdparty = config_3rdparty();
+        println!(
+            "cargo:rustc-link-search=native={}",
+            bintemp_fw.join("AzCore/AzCore").display()
+        );
+        println!(
+            "cargo:rustc-link-search=native={}",
+            bintemp_fw.join("AzFramework/AzFramework").display()
+        );
+        println!("cargo:rustc-link-search=native={}",
+            ly_root.join(r"3rdParty\Lua\5.1.1.8-az\build\win_x64\vc140").join(config_3rdparty).display()
+        );
+        println!("cargo:rustc-link-search=native={}",
+            ly_root.join(r"3rdParty\zlib\1.2.8-pkg.2\build\win_x64\vc140").join(config_3rdparty).display()
+        );
+        println!("cargo:rustc-link-lib=static=AzCore");
+        println!("cargo:rustc-link-lib=static=AzFramework");
+        println!("cargo:rustc-link-lib=static=lua");
+        println!("cargo:rustc-link-lib=static=zlib");
+    }
+    pub fn asset_builder() {
+        let bintemp = bintemp_dir();
+        println!(
+            "cargo:rustc-link-search=native={}",
+            bintemp.join("Code/Tools/AssetProcessor/AssetBuilderSDK").display()
+        );
+        println!("cargo:rustc-link-lib=static=AssetBuilderSDK");
+    }
 }

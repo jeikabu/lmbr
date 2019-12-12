@@ -4,7 +4,8 @@ members = [
     "lmbr_build",
     "lmbr_logger",
     "lmbr_sys",
-    "editor_plugin"
+    "editor_plugin",
+    "asset_builder_plugin",
 ]
 default-members = [
     "lmbr",
